@@ -6,10 +6,12 @@ export default class NavBar extends Component {
   render() {
 
     return (
+      <>
+      {this.props.user ?
       <nav className="nav-bar">
         <ul className="nav">
           <li className="nav-item">
-            <Link className="nav-link" to="/">Logout</Link>
+            <Link className="nav-link" to="/" onClick={this.props.clearUser}>Logout</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/setlist">Setlist</Link>
@@ -22,6 +24,8 @@ export default class NavBar extends Component {
           </li>
         </ul>
       </nav>
+       : null}
+       </>
     )
   }
 }
