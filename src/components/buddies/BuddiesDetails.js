@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 
-export default class Home extends Component {
+export default class BuddiesDetails extends Component {
 
   render () {
     return (
       <>
-      This is the home page.
+      This is the buddies details page.
       </>
     )
   }
