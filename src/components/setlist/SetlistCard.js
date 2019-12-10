@@ -6,6 +6,7 @@ export default class SetlistCard extends Component {
     return (
       <div className="card">
         <h2>{this.props.songTitle}</h2>
+        <button type="button" className="btn">Delete</button>
       </div>
     )
   }

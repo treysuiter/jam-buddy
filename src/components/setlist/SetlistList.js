@@ -26,6 +26,7 @@ render() {
   return (
     <>
       <section className="section-content">
+      <button type="button" className="btn">Add Song</button>
         <h1>Your Setlist</h1>
       </section>
       <div className="container-cards">
