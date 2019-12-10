@@ -12,7 +12,16 @@ export default class SetlistList extends Component {
 
   state = {
     setlist: [],
-    instruments: []
+    instruments: [],
+    artistName: "",
+    songTitle: "",
+    loadingStatus: true
+  }
+
+  handleFieldChange = evt => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
   }
 
   componentDidMount() {
@@ -20,40 +29,85 @@ export default class SetlistList extends Component {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
-          setlist: setlistArray
+          setlist: setlistArray,
+          loadingStatus: false
         })
       })
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
         this.setState({
-          instruments: instrumentArray
+          instruments: instrumentArray,
+          loadingStatus: false
         })
         defaultOption = this.state.instruments[0].instrumentName
       })
   }
 
 
-  render() {
 
-    return (
-      <>
-        There should be a dropdown here.
-      <Dropdown options={this.state.instruments.map(intName => intName.instrumentName)} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
-        <section className="section-content">
-          <button type="button" className="btn">Add Song</button>
-          <h1>Your Setlist</h1>
-        </section>
-        <div className="container-cards">
-          {this.state.setlist.map(songInSet =>
-            <SetlistCard
-              key={songInSet.id}
-              songTitle={songInSet.song.songTitle}
-              songInSet={songInSet}
-              {...this.props}
-            />
-          )}
-        </div>
-      </>
-    )
+  constructNewSong = evt => {
+    evt.preventDefault()
+    if (this.state.artistName === "" || this.state.songTitle === "") {
+      window.alert("Please input artist name and song title")
+    } else {
+      ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+        .then(response => {
+          if (response.length === 0) {
+            console.log("the song was NOT found")
+            this.setState({ loadingStatus: true })
+            const song = {
+              songTitle: this.state.songTitle,
+              artistName: this.state.artistName,
+              deezerId: ""
+            }
+            ApiManager.post("songs", song)
+              .then(() => this.props.history.push("/setist"))
+          } else {
+            console.log("the song was found")
+            this.props.history.push("/setist")
+          }
+        })
+    }
   }
-}
+
+
+    render() {
+
+      return (
+        <>
+          <section className="section-content">
+            <form>
+              <Dropdown options={this.state.instruments.map(intName => intName.instrumentName)} onChange={this._onSelect} value={defaultOption} placeholder="Select your instrument" />
+              <input type="text"
+                required
+                className="form-control"
+                onChange={this.handleFieldChange}
+                id="artistName"
+                placeholder="Artist Name"
+              />
+              <input type="text"
+                required
+                className="form-control"
+                onChange={this.handleFieldChange}
+                id="songTitle"
+                placeholder="Song Title"
+              />
+              <br />
+              <button type="button" className="btn" onClick={this.constructNewSong}>Add Song</button>
+              <h1>Your Setlist</h1>
+              <div className="container-cards">
+                {this.state.setlist.map(songInSet =>
+                  <SetlistCard
+                    key={songInSet.id}
+                    songTitle={songInSet.song.songTitle}
+                    songInSet={songInSet}
+                    {...this.props}
+                  />
+                )}
+              </div>
+            </form>
+          </section>
+        </>
+      )
+    }
+  }
