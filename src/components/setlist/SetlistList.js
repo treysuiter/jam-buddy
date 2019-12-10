@@ -61,10 +61,10 @@ export default class SetlistList extends Component {
               deezerId: ""
             }
             ApiManager.post("songs", song)
-              .then(() => this.props.history.push("/setist"))
+              .then(() => this.props.history.push("/setlist"))
           } else {
             console.log("the song was found")
-            this.props.history.push("/setist")
+            this.props.history.push("/setlist")
           }
         })
     }
