@@ -82,35 +82,32 @@ export default class SetlistList extends Component {
 
       this.checkForSongInDatabase()
         .then(bool => {
-          console.log(bool)
           if (!bool) {
             console.log("the song was NOT found")
             this.addNewSongToDatbase()
-            .then(this.getSongId)
-              .then(response2 => {
-                console.log("response if song was NOT found", response2[0])
+            this.getSongId()
+              .then(response => {
+                console.log("response if song was NOT found", response[0])
                 const newSetlistSong = {
-                  songId: response2[0].id,
+                  songId: response[0].id,
                   userId: loggedInUserId()
                 }
 
                 ApiManager.post("setlists", newSetlistSong)
               })
-              .then(() => this.props.history.push("/setlist"))
 
           } else {
 
             console.log("the song was found")
-            ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
-              .then(response3 => {
-                console.log("response if song was found", response3[0])
+            this.getSongId()
+              .then(response => {
+                console.log("response if song was found", response[0])
                 const newSetlistSong = {
-                  songId: response3[0].id,
+                  songId: response[0].id,
                   userId: loggedInUserId()
                 }
                 ApiManager.post("setlists", newSetlistSong)
               })
-              .then(() => this.props.history.push("/setlist"))
           }
         })
     }
