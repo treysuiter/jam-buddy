@@ -86,6 +86,20 @@ export default class SetlistList extends Component {
       })
   }
 
+  //Delete song from setlist
+
+  deleteSongFromSetlist = id => {
+    ApiManager.delete("setlists", id)
+      .then(ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
+        .then(setlistArray => {
+          this.setState({
+            setlist: setlistArray,
+            loadingStatus: false
+          })
+        }))
+
+  }
+
   // Handles action after Add Song button is clicked; checks for filled out song title and artist name fields; 
   // checks for songs already in database and adds song to database if not present; adds song to setlist
 
@@ -149,6 +163,7 @@ export default class SetlistList extends Component {
                   songTitle={songInSet.song.songTitle}
                   artistName={songInSet.song.artistName}
                   songInSet={songInSet}
+                  deleteSong={this.deleteSongFromSetlist}
                   {...this.props}
                 />
               )}

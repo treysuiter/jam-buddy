@@ -7,7 +7,7 @@ export default class SetlistCard extends Component {
       <div className="card">
         <h3>{this.props.songTitle}</h3>
         <h4>by: {this.props.artistName}</h4>
-        <button type="button" className="btn">Delete</button>
+        <button type="button" className="btn" onClick={() => this.props.deleteSong(this.props.songInSet.id)}>Delete</button>
       </div>
     )
   }
