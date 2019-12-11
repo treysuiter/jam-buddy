@@ -24,14 +24,6 @@ export default class SetlistList extends Component {
     this.setState(stateToChange)
   }
 
-  handleFieldChangeForDropdown = evt => {
-    console.log("this is the event passed", evt.target.value)
-    const stateToChange = {}
-    stateToChange[evt.target.id] = evt.target.value
-    this.setState(stateToChange)
-    return evt.target.value
-  }
-
   //Handlers updating instrument when dropdown changes
 
   updateInstrument() {
@@ -45,9 +37,11 @@ export default class SetlistList extends Component {
 
   }
 
+
   handleDropdownChange(evt) {
+    console.log("is this evt for handledropdown?", evt)
     this.handleFieldChange(evt)
-    .then(()=> this.updateInstrument())
+    this.updateInstrument()
   }
 
 
@@ -192,7 +186,7 @@ export default class SetlistList extends Component {
             <select 
             id="instrumentId" 
             name="instrumentId" 
-            onChange={e => { this.handleFieldChangeForDropdown(e); this.updateInstrument(e.target.value) }}>
+            onChange={this.handleDropdownChange}>
               {this.state.instruments.map(instrument => 
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
