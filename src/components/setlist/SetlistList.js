@@ -43,6 +43,8 @@ export default class SetlistList extends Component {
       })
   }
 
+  //Checks for existing song in database
+
   checkForSongInDatabase = () => {
     return ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
       .then(response => {
@@ -55,6 +57,8 @@ export default class SetlistList extends Component {
       )
   }
 
+  //Adds song to database
+
   addNewSongToDatbase() {
     const song = {
       songTitle: this.state.songTitle,
@@ -64,10 +68,21 @@ export default class SetlistList extends Component {
     ApiManager.post("songs", song)
   }
 
-  getSongId() {
-    return ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+  //Adds song to setlist
+
+  addSongToSetlist() {
+    ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+      .then(response => {
+        const newSetlistSong = {
+          songId: response[0].id,
+          userId: loggedInUserId()
+        }
+        ApiManager.post("setlists", newSetlistSong)
+      })
   }
 
+  // Handles action after Add Song button is clicked; checks for filled out song title and artist name fields; 
+  // checks for songs already in database and adds song to database if not present; adds song to setlist
 
   constructNewSong = evt => {
 
@@ -79,42 +94,20 @@ export default class SetlistList extends Component {
     } else {
 
       this.setState({ loadingStatus: true })
-
       this.checkForSongInDatabase()
         .then(bool => {
           if (!bool) {
-            console.log("the song was NOT found")
+            
             this.addNewSongToDatbase()
-            this.getSongId()
-              .then(response => {
-                console.log("response if song was NOT found", response[0])
-                const newSetlistSong = {
-                  songId: response[0].id,
-                  userId: loggedInUserId()
-                }
-
-                ApiManager.post("setlists", newSetlistSong)
-              })
+              .then(this.addSongToSetlist)
 
           } else {
 
-            console.log("the song was found")
-            this.getSongId()
-              .then(response => {
-                console.log("response if song was found", response[0])
-                const newSetlistSong = {
-                  songId: response[0].id,
-                  userId: loggedInUserId()
-                }
-                ApiManager.post("setlists", newSetlistSong)
-              })
+            this.addSongToSetlist()
           }
         })
     }
   }
-
-  //post, getAll, setState
-
 
   render() {
 
