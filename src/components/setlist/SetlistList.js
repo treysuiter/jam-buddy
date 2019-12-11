@@ -61,9 +61,16 @@ export default class SetlistList extends Component {
 
   //Adds song to database
 
-  addNewSongToDatbase(song) {
+  addNewSongToDatabase(song) {
 
     ApiManager.post("songs", song)
+      .then(response => {
+        const newSetlistSong = {
+          songId: response.id,
+          userId: loggedInUserId()
+        }
+        ApiManager.post("setlists", newSetlistSong)
+      })
   }
 
   //Adds song to setlist join table
@@ -100,8 +107,8 @@ export default class SetlistList extends Component {
               artistName: this.state.artistName,
               deezerId: ""
             }
-            this.addNewSongToDatbase(song)
-              .then(this.addSongToSetlist())
+            this.addNewSongToDatabase(song)
+            // this.addSongToSetlist()
 
           } else {
 
@@ -140,6 +147,7 @@ export default class SetlistList extends Component {
                 <SetlistCard
                   key={songInSet.id}
                   songTitle={songInSet.song.songTitle}
+                  artistName={songInSet.song.artistName}
                   songInSet={songInSet}
                   {...this.props}
                 />
