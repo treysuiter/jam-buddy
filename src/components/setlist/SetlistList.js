@@ -64,6 +64,10 @@ export default class SetlistList extends Component {
     ApiManager.post("songs", song)
   }
 
+  getSongId() {
+    return ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+  }
+
 
   constructNewSong = evt => {
 
@@ -82,7 +86,7 @@ export default class SetlistList extends Component {
           if (!bool) {
             console.log("the song was NOT found")
             this.addNewSongToDatbase()
-            .then(ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+            .then(this.getSongId)
               .then(response2 => {
                 console.log("response if song was NOT found", response2[0])
                 const newSetlistSong = {
@@ -92,7 +96,7 @@ export default class SetlistList extends Component {
 
                 ApiManager.post("setlists", newSetlistSong)
               })
-              .then(() => this.props.history.push("/setlist")))
+              .then(() => this.props.history.push("/setlist"))
 
           } else {
 
