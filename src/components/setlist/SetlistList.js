@@ -24,6 +24,14 @@ export default class SetlistList extends Component {
     this.setState(stateToChange)
   }
 
+  handleFieldChangeForDropdown = evt => {
+    console.log("this is the event passed", evt.target.value)
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+    return evt.target.value
+  }
+
   //Handlers updating instrument when dropdown changes
 
   updateInstrument() {
@@ -36,6 +44,12 @@ export default class SetlistList extends Component {
     ApiManager.update(`users/${loggedInUserId()}`, newInstrument)
 
   }
+
+  handleDropdownChange(evt) {
+    this.handleFieldChange(evt)
+    .then(()=> this.updateInstrument())
+  }
+
 
   componentDidMount() {
     //Get all songs in setlist, create and array, and set array to value of state
@@ -178,7 +192,7 @@ export default class SetlistList extends Component {
             <select 
             id="instrumentId" 
             name="instrumentId" 
-            onChange={e => { this.handleFieldChange(e); this.updateInstrument(e.target.value) }}>
+            onChange={e => { this.handleFieldChangeForDropdown(e); this.updateInstrument(e.target.value) }}>
               {this.state.instruments.map(instrument => 
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
