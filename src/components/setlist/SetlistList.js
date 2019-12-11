@@ -4,8 +4,10 @@ import SetlistCard from './SetlistCard'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
+//initializes default option variable for instrument dropdown
 let defaultOption = ""
 
+// defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
 export default class SetlistList extends Component {
@@ -59,16 +61,12 @@ export default class SetlistList extends Component {
 
   //Adds song to database
 
-  addNewSongToDatbase() {
-    const song = {
-      songTitle: this.state.songTitle,
-      artistName: this.state.artistName,
-      deezerId: ""
-    }
+  addNewSongToDatbase(song) {
+
     ApiManager.post("songs", song)
   }
 
-  //Adds song to setlist
+  //Adds song to setlist join table
 
   addSongToSetlist() {
     ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
@@ -97,9 +95,13 @@ export default class SetlistList extends Component {
       this.checkForSongInDatabase()
         .then(bool => {
           if (!bool) {
-            
-            this.addNewSongToDatbase()
-              .then(this.addSongToSetlist)
+            const song = {
+              songTitle: this.state.songTitle,
+              artistName: this.state.artistName,
+              deezerId: ""
+            }
+            this.addNewSongToDatbase(song)
+              .then(this.addSongToSetlist())
 
           } else {
 
