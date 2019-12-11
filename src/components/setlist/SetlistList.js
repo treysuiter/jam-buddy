@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
-import CustomApiManger from "../../modules/CustomApiManager"
 import SetlistCard from './SetlistCard'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
@@ -56,6 +55,15 @@ export default class SetlistList extends Component {
       )
   }
 
+  addNewSongToDatbase() {
+    const song = {
+      songTitle: this.state.songTitle,
+      artistName: this.state.artistName,
+      deezerId: ""
+    }
+    ApiManager.post("songs", song)
+  }
+
 
   constructNewSong = evt => {
 
@@ -73,8 +81,8 @@ export default class SetlistList extends Component {
           console.log(bool)
           if (!bool) {
             console.log("the song was NOT found")
-            CustomApiManger.addNewSongToDatbase()
-            ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+            this.addNewSongToDatbase()
+            .then(ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
               .then(response2 => {
                 console.log("response if song was NOT found", response2[0])
                 const newSetlistSong = {
@@ -84,7 +92,7 @@ export default class SetlistList extends Component {
 
                 ApiManager.post("setlists", newSetlistSong)
               })
-              .then(() => this.props.history.push("/setlist"))
+              .then(() => this.props.history.push("/setlist")))
 
           } else {
 
