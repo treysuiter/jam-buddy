@@ -27,7 +27,7 @@ export default class SetlistList extends Component {
   }
 
   componentDidMount() {
-
+    //Get all songs in setlist, create and array, and set array to value of state
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
@@ -35,6 +35,7 @@ export default class SetlistList extends Component {
           loadingStatus: false
         })
       })
+      //Get all instruments, create and array, and set array to value of state
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
         this.setState({
@@ -92,6 +93,7 @@ export default class SetlistList extends Component {
     ApiManager.delete("setlists", id)
       .then(ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
         .then(setlistArray => {
+          console.log(setlistArray)
           this.setState({
             setlist: setlistArray,
             loadingStatus: false
