@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import SetlistCard from './SetlistCard'
-import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
-
-//initializes default option variable for instrument dropdown
-let defaultOption = ""
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
@@ -15,15 +11,30 @@ export default class SetlistList extends Component {
   state = {
     setlist: [],
     instruments: [],
+    instrumentId: "",
     artistName: "",
     songTitle: "",
     loadingStatus: true
   }
 
   handleFieldChange = evt => {
+    console.log("this is the event passed", evt.target.value)
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
+  }
+
+  //Handlers updating instrument when dropdown changes
+
+  updateInstrument() {
+    this.setState({ loadingStatus: true })
+    const newInstrument = {
+
+      instrumentId: this.state.selectedInstrument
+    }
+    console.log("is this a new instrument id????", newInstrument)
+    ApiManager.update(`users/${loggedInUserId()}`, newInstrument)
+
   }
 
   componentDidMount() {
@@ -43,14 +54,21 @@ export default class SetlistList extends Component {
           instruments: instrumentArray,
           loadingStatus: false
         })
-        defaultOption = this.state.instruments[0].instrumentName
+
       })
+    //Gets user object and assigns instrument id to state
+    ApiManager.get("users", loggedInUserId())
+    .then(userObject => {
+      this.setState({
+        selectedInstrument: userObject.instrumentId
+      })
+    })
   }
+  //Handles rerendering after data is added or deleted
 
   setlistRerender = () => {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
-        console.log(setlistArray)
         this.setState({
           setlist: setlistArray
         })
@@ -145,7 +163,27 @@ export default class SetlistList extends Component {
       <>
         <section className="section-content">
           <form>
-            <Dropdown options={this.state.instruments.map(intName => intName.instrumentName)} onChange={this._onSelect} value={defaultOption} placeholder="Select your instrument" />
+          {/* <select
+                className="form-control"
+                id="locationId"
+                value={this.state.locationId}
+                onChange={this.handleFieldChange}
+              >
+                {this.state.allLocations.map(singleLocation =>
+                  <option key={singleLocation.id} value={singleLocation.id}>
+                    {singleLocation.name}
+                  </option>
+                )}
+              </select> */}
+            <select 
+            id="instrumentId" 
+            name="instrumentId" 
+            onChange={e => { this.handleFieldChange(e); this.updateInstrument(e.target.value) }}>
+              {this.state.instruments.map(instrument => 
+                <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
+                </option>
+                )}
+            </select><br />
             <input type="text"
               required
               className="form-control"
