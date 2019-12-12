@@ -22,6 +22,11 @@ export default class MatchesList extends Component {
   componentDidMount() {
 
     //Get all instruments, create and array, and set array to value of state
+    console.log(this.findMatches())
+
+    this.setState({
+      matches: this.findMatches()
+    })
 
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
@@ -34,15 +39,14 @@ export default class MatchesList extends Component {
 
   findMatches() {
 
-    const matches = []
+    const matchesArray = []
     let mySetlistArray = []
     let otherUsersSetlistArray = []
-
 
     //Get all users setlists
     ApiManager.getAll("users", "_embed=setlists")
       .then(response => {
-        response.map(usersWithSetlist => {
+        response.forEach(usersWithSetlist => {
 
           //Creates logged in user and others users setlist arrays
 
@@ -54,62 +58,39 @@ export default class MatchesList extends Component {
         })
       })
       .then(() => {
+
         let index = 0
         let matchObj = {
+          id: "",
           name: "",
           total: 0
         }
 
-        otherUsersSetlistArray.map(setlistByUser => {
+        otherUsersSetlistArray.forEach(setlistByUser => {
 
           matchObj = {
+            id: setlistByUser.id,
             name: setlistByUser.name,
             total: 0
           }
 
-          matches.push(matchObj)
+          matchesArray.push(matchObj)
           index++
-
-          // console.log(matches, "FIND THEEEEEEEEESEEEEEEE AMTCHESHEHSHESHES")
-
-          // console.log(index, "yo index")
-
-          // console.log(setlistByUser, "setlistByUser")
       
-          setlistByUser.setlists.map(individualSetlist => {
+          setlistByUser.setlists.forEach(individualSetlist => {
 
-            
-
-            console.log(individualSetlist, "individualSetlist")
-
-            // console.log(individualSetlist.songId, "individualSetlist.songId")
-
-            mySetlistArray[0].setlists.map(mySong => {
-
-              // console.log(mySong, "mySong")
-
-              // console.log(mySong.songId, "my song ids")
+            mySetlistArray[0].setlists.forEach(mySong => {
 
               if (individualSetlist.songId === mySong.songId) {
 
-                console.log("match found!")
-                
-                console.log(matches, "WHAT S THIS INDEX AHAHAHAHHAA")
+                matchesArray[index-1].total++
 
-                console.log("whT IA THI INDEX", index-1)
-                // matches[index-1].total = 
-                // matches[index-1].totals: ++
               }
-
             })
-
           })
-
-          // console.log("your setlists", setlist.setlists)
-          // console.log("matches", mySetlistArray[0].setlists.filter(value => setlist.setlists.includes(value)))
-
         })
       })
+      return matchesArray
   }
 
 
