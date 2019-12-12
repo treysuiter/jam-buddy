@@ -41,10 +41,11 @@ export default class MatchesList extends Component {
       name: "",
       total: 0
     }
-    //http://localhost:5002/users?_embed=setlists
+    //Get all users setlists
     ApiManager.getAll("users", "_embed=setlists")
       .then(response => {
         response.map(usersWithSetlist => {
+          //Creates logged in user and others users setlist arrays
           if (usersWithSetlist.id === loggedInUserId()) {
             mySetlistArray.push(usersWithSetlist)
           } else {
@@ -52,8 +53,32 @@ export default class MatchesList extends Component {
           }
         })
       })
-      console.log("this should be my setlist arry", mySetlistArray)
-      console.log("this should be others setlist arry", otherUsersSetlistArray)
+      .then(()=> {
+        // console.log("my setlist", mySetlistArray[0].setlists)
+        otherUsersSetlistArray.map(setlistByUser => {
+
+          setlistByUser.setlists.map(individualSetlist=> {
+
+            console.log(individualSetlist.songId, "users song ids")
+
+            mySetlistArray[0].setlists.map(mySong => {
+
+              console.log(mySong.songId, "my song ids")
+
+              if (individualSetlist.songId === mySong.songId) {
+
+                console.log("match found!")
+              }
+
+            })
+
+          })
+
+          // console.log("your setlists", setlist.setlists)
+          // console.log("matches", mySetlistArray[0].setlists.filter(value => setlist.setlists.includes(value)))
+          
+        })
+      })
   }
 
 
