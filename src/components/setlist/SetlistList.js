@@ -39,7 +39,6 @@ export default class SetlistList extends Component {
       )
       .then(() => ApiManager.get("users", loggedInUserId(), "_expand=instrument")
         .then(userObject => {
-          console.log(userObject)
           this.setState({
             instrumentName: userObject.instrument.instrumentName
           })

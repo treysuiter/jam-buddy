@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import MatchesCard from '../matches/MatchesCard'
 
+// defines function to get current logged in user from local storage
+function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
+
 export default class MatchesList extends Component {
 
   state = {
@@ -29,6 +32,31 @@ export default class MatchesList extends Component {
       })
   }
 
+  findMatches() {
+
+    const matches = []
+    let mySetlistArray = []
+    let otherUsersSetlistArray = []
+    let match = {
+      name: "",
+      total: 0
+    }
+    //http://localhost:5002/users?_embed=setlists
+    ApiManager.getAll("users", "_embed=setlists")
+      .then(response => {
+        response.map(usersWithSetlist => {
+          if (usersWithSetlist.id === loggedInUserId()) {
+            mySetlistArray.push(usersWithSetlist)
+          } else {
+            otherUsersSetlistArray.push(usersWithSetlist)
+          }
+        })
+      })
+      console.log("this should be my setlist arry", mySetlistArray)
+      console.log("this should be others setlist arry", otherUsersSetlistArray)
+  }
+
+
 
   render() {
 
@@ -52,7 +80,6 @@ export default class MatchesList extends Component {
                 key={match.id}
                 songMatchTotal={match.total}
                 matchName={match.name}
-                instrument={match.instrument}
                 seeDetails={this.addMatchToBuddiesList}
                 {...this.props}
               />)}
