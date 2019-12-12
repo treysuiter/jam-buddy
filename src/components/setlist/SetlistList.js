@@ -76,7 +76,6 @@ export default class SetlistList extends Component {
     //Get user's instrument name
     ApiManager.get("users", loggedInUserId(), "_expand=instrument")
       .then(userObject => {
-        console.log(userObject)
         this.setState({
           instrumentName: userObject.instrument.instrumentName
         })
@@ -111,17 +110,12 @@ export default class SetlistList extends Component {
 
   //Adds song to database
 
-  addNewSongToDatabase(song) {
+  // addNewSongToDatabase(song) {
 
-    ApiManager.post("songs", song)
-      .then(response => {
-        const newSetlistSong = {
-          songId: response.id,
-          userId: loggedInUserId()
-        }
-        ApiManager.post("setlists", newSetlistSong)
-      })
-  }
+  //   ApiManager.post("songs", song)
+  //   return song
+  
+  // }
 
   //Adds song to setlist join table
 
@@ -166,8 +160,15 @@ export default class SetlistList extends Component {
               artistName: this.state.artistName,
               deezerId: ""
             }
-            this.addNewSongToDatabase(song)
-            // this.addSongToSetlist()
+            ApiManager.post("songs", song)
+            .then(response => {
+              const newSetlistSong = {
+                songId: response.id,
+                userId: loggedInUserId()
+              }
+              ApiManager.post("setlists", newSetlistSong)
+                .then(() => this.setlistRerender())
+            })
 
           } else {
 
