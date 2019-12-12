@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import SetlistCard from './SetlistCard'
-import 'react-dropdown/style.css'
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
@@ -23,6 +22,8 @@ export default class SetlistList extends Component {
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
   }
+
+  //Handles when instrument is changed in dropdown
 
   handleDropdownChange = evt => {
     this.setState({ loadingStatus: true })
