@@ -22,11 +22,6 @@ export default class MatchesList extends Component {
   componentDidMount() {
 
     //Get all instruments, create and array, and set array to value of state
-    console.log(this.findMatches())
-
-    this.setState({
-      matches: this.findMatches()
-    })
 
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
@@ -34,6 +29,10 @@ export default class MatchesList extends Component {
           instruments: instrumentArray,
           loadingStatus: false
         })
+      })
+
+      this.setState({
+        matches: this.findMatches()
       })
   }
 
@@ -63,6 +62,7 @@ export default class MatchesList extends Component {
         let matchObj = {
           id: "",
           name: "",
+          instrumentId: "",
           total: 0
         }
 
@@ -71,6 +71,7 @@ export default class MatchesList extends Component {
           matchObj = {
             id: setlistByUser.id,
             name: setlistByUser.name,
+            instrumentId: setlistByUser.instrumentId,
             total: 0
           }
 
@@ -110,7 +111,7 @@ export default class MatchesList extends Component {
               </option>
             )}
           </select>
-          <button type="button" className="btn" onClick={this.findMatches}>Find Matches</button>
+          {/* <button type="button" className="btn" onClick={this.findMatches}>Find Matches</button> */}
           <div className="container-cards">
             {this.state.matches.map(match =>
               <MatchesCard
