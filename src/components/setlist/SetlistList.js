@@ -108,17 +108,6 @@ export default class SetlistList extends Component {
       )
   }
 
-  //Adds song to database
-
-  // addNewSongToDatabase(song) {
-
-  //   ApiManager.post("songs", song)
-  //   return song
-  
-  // }
-
-  //Adds song to setlist join table
-
   addSongToSetlist() {
     ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
       .then(response => {
