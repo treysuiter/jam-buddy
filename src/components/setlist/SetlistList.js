@@ -12,6 +12,7 @@ export default class SetlistList extends Component {
     setlist: [],
     instruments: [],
     instrumentId: "",
+    instrumentName: "",
     artistName: "",
     songTitle: "",
     loadingStatus: true
@@ -26,11 +27,10 @@ export default class SetlistList extends Component {
   handleDropdownChange = evt => {
     this.setState({ loadingStatus: true })
     const newInstrument = {
-      instrumentId: evt.target.value
+      instrumentId: parseInt(evt.target.value)
     }
     ApiManager.patch("users", `${loggedInUserId()}`, newInstrument)
       .then(response => {
-        console.log(response)
         this.setState({
           instrumentId: response.instrumentId
         })
@@ -63,10 +63,19 @@ export default class SetlistList extends Component {
     ApiManager.get("users", loggedInUserId())
       .then(userObject => {
         this.setState({
-          selectedInstrument: userObject.instrumentId
+          instrumentId: userObject.instrumentId
         })
       })
+    //Get user's instrument name
+    ApiManager.get("users", loggedInUserId(), "_expand=instrument")
+    .then(userObject => {
+      console.log(userObject)
+      this.setState({
+        instrumentName: userObject.instrument.instrumentName
+      })
+    })
   }
+
 
   //Handles rerendering after data is added or deleted
 
@@ -175,7 +184,9 @@ export default class SetlistList extends Component {
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
               )}
-            </select><br />
+            </select>
+            Current Instrument: {this.state.instrumentName}
+            <br />
             <input type="text"
               required
               className="form-control"
