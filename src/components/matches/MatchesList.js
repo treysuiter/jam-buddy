@@ -37,15 +37,15 @@ export default class MatchesList extends Component {
     const matches = []
     let mySetlistArray = []
     let otherUsersSetlistArray = []
-    let match = {
-      name: "",
-      total: 0
-    }
+
+
     //Get all users setlists
     ApiManager.getAll("users", "_embed=setlists")
       .then(response => {
         response.map(usersWithSetlist => {
+
           //Creates logged in user and others users setlist arrays
+
           if (usersWithSetlist.id === loggedInUserId()) {
             mySetlistArray.push(usersWithSetlist)
           } else {
@@ -53,21 +53,52 @@ export default class MatchesList extends Component {
           }
         })
       })
-      .then(()=> {
-        // console.log("my setlist", mySetlistArray[0].setlists)
+      .then(() => {
+        let index = 0
+        let matchObj = {
+          name: "",
+          total: 0
+        }
+
         otherUsersSetlistArray.map(setlistByUser => {
 
-          setlistByUser.setlists.map(individualSetlist=> {
+          matchObj = {
+            name: setlistByUser.name,
+            total: 0
+          }
 
-            console.log(individualSetlist.songId, "users song ids")
+          matches.push(matchObj)
+          index++
+
+          // console.log(matches, "FIND THEEEEEEEEESEEEEEEE AMTCHESHEHSHESHES")
+
+          // console.log(index, "yo index")
+
+          // console.log(setlistByUser, "setlistByUser")
+      
+          setlistByUser.setlists.map(individualSetlist => {
+
+            
+
+            console.log(individualSetlist, "individualSetlist")
+
+            // console.log(individualSetlist.songId, "individualSetlist.songId")
 
             mySetlistArray[0].setlists.map(mySong => {
 
-              console.log(mySong.songId, "my song ids")
+              // console.log(mySong, "mySong")
+
+              // console.log(mySong.songId, "my song ids")
 
               if (individualSetlist.songId === mySong.songId) {
 
                 console.log("match found!")
+                
+                console.log(matches, "WHAT S THIS INDEX AHAHAHAHHAA")
+
+                console.log("whT IA THI INDEX", index-1)
+                // matches[index-1].total = 
+                // matches[index-1].totals: ++
               }
 
             })
@@ -76,7 +107,7 @@ export default class MatchesList extends Component {
 
           // console.log("your setlists", setlist.setlists)
           // console.log("matches", mySetlistArray[0].setlists.filter(value => setlist.setlists.includes(value)))
-          
+
         })
       })
   }
