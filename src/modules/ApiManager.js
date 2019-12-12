@@ -35,5 +35,16 @@ export default {
       },
       body: JSON.stringify(editedObj)
     }).then(data => data.json());
+  },
+  //! MAke this more modular
+  patch(endpoint, userId, editedObj) {
+    // make sure to pass in the ID in the 'editedObj' so you can access it in the fetch call
+    return fetch(`${baseUrl}/${endpoint}/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedObj)
+    }).then(data => data.json());
   }
 };

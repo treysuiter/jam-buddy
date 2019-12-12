@@ -18,32 +18,27 @@ export default class SetlistList extends Component {
   }
 
   handleFieldChange = evt => {
-    console.log("this is the event passed", evt.target.value)
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
   }
 
-  //Handlers updating instrument when dropdown changes
-
-  updateInstrument() {
+  handleDropdownChange = evt => {
     this.setState({ loadingStatus: true })
     const newInstrument = {
-
-      instrumentId: this.state.selectedInstrument
+      instrumentId: evt.target.value
     }
-    console.log("is this a new instrument id????", newInstrument)
-    ApiManager.update(`users/${loggedInUserId()}`, newInstrument)
-
+    ApiManager.patch("users", `${loggedInUserId()}`, newInstrument)
+      .then(response => {
+        console.log(response)
+        this.setState({
+          instrumentId: response.instrumentId
+        })
+      }
+      )
   }
 
-
-  handleDropdownChange(evt) {
-    console.log("is this evt for handledropdown?", evt)
-    this.handleFieldChange(evt)
-    this.updateInstrument()
-  }
-
+  //Handles all that dang ole rascally, rootin tootin mountin
 
   componentDidMount() {
     //Get all songs in setlist, create and array, and set array to value of state
@@ -66,12 +61,13 @@ export default class SetlistList extends Component {
       })
     //Gets user object and assigns instrument id to state
     ApiManager.get("users", loggedInUserId())
-    .then(userObject => {
-      this.setState({
-        selectedInstrument: userObject.instrumentId
+      .then(userObject => {
+        this.setState({
+          selectedInstrument: userObject.instrumentId
+        })
       })
-    })
   }
+
   //Handles rerendering after data is added or deleted
 
   setlistRerender = () => {
@@ -171,26 +167,14 @@ export default class SetlistList extends Component {
       <>
         <section className="section-content">
           <form>
-          {/* <select
-                className="form-control"
-                id="locationId"
-                value={this.state.locationId}
-                onChange={this.handleFieldChange}
-              >
-                {this.state.allLocations.map(singleLocation =>
-                  <option key={singleLocation.id} value={singleLocation.id}>
-                    {singleLocation.name}
-                  </option>
-                )}
-              </select> */}
-            <select 
-            id="instrumentId" 
-            name="instrumentId" 
-            onChange={this.handleDropdownChange}>
-              {this.state.instruments.map(instrument => 
+            <select
+              id="instrumentId"
+              name="instrumentId"
+              onChange={this.handleDropdownChange}>
+              {this.state.instruments.map(instrument =>
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
-                )}
+              )}
             </select><br />
             <input type="text"
               required
