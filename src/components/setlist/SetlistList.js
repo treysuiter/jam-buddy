@@ -29,13 +29,20 @@ export default class SetlistList extends Component {
     const newInstrument = {
       instrumentId: parseInt(evt.target.value)
     }
-    ApiManager.patch("users", `${loggedInUserId()}`, newInstrument)
+    ApiManager.patch("users", loggedInUserId(), newInstrument)
       .then(response => {
         this.setState({
           instrumentId: response.instrumentId
         })
       }
       )
+      .then(() => ApiManager.get("users", loggedInUserId(), "_expand=instrument")
+        .then(userObject => {
+          console.log(userObject)
+          this.setState({
+            instrumentName: userObject.instrument.instrumentName
+          })
+        }))
   }
 
   //Handles all that dang ole rascally, rootin tootin mountin
@@ -68,12 +75,12 @@ export default class SetlistList extends Component {
       })
     //Get user's instrument name
     ApiManager.get("users", loggedInUserId(), "_expand=instrument")
-    .then(userObject => {
-      console.log(userObject)
-      this.setState({
-        instrumentName: userObject.instrument.instrumentName
+      .then(userObject => {
+        console.log(userObject)
+        this.setState({
+          instrumentName: userObject.instrument.instrumentName
+        })
       })
-    })
   }
 
 
@@ -176,6 +183,7 @@ export default class SetlistList extends Component {
       <>
         <section className="section-content">
           <form>
+            Current Instrument: <br />{this.state.instrumentName}<br />
             <select
               id="instrumentId"
               name="instrumentId"
@@ -185,7 +193,6 @@ export default class SetlistList extends Component {
                 </option>
               )}
             </select>
-            Current Instrument: {this.state.instrumentName}
             <br />
             <input type="text"
               required
@@ -193,7 +200,7 @@ export default class SetlistList extends Component {
               onChange={this.handleFieldChange}
               id="artistName"
               placeholder="Artist Name"
-            />
+            /><br />
             <input type="text"
               required
               className="form-control"
