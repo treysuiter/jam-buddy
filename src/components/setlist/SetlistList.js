@@ -183,10 +183,11 @@ export default class SetlistList extends Component {
       <>
         <section className="section-content">
           <form>
-            Current Instrument: <br />{this.state.instrumentName}<br />
+            Current Instrument: <br />
             <select
               id="instrumentId"
               name="instrumentId"
+              value={this.state.instrumentId}
               onChange={this.handleDropdownChange}>
               {this.state.instruments.map(instrument =>
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
@@ -194,6 +195,7 @@ export default class SetlistList extends Component {
               )}
             </select>
             <br />
+            Add a song you know how to play to your setlist.<br />
             <input type="text"
               required
               className="form-control"
