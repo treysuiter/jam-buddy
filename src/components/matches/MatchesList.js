@@ -10,6 +10,7 @@ export default class MatchesList extends Component {
   state = {
     songMatches: [],
     instruments: [],
+    instrumentId: 1,
     loadingStatus: true
   }
 
@@ -17,6 +18,12 @@ export default class MatchesList extends Component {
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
+  }
+
+  handleDropdownChange = evt => {
+    this.setState({
+      instrumentId: parseInt(evt.target.value),
+    })
   }
 
   componentDidMount() {
@@ -31,7 +38,7 @@ export default class MatchesList extends Component {
       })
   }
 
-  findMatches() {
+  findMatches(instrumentFilter) {
 
     //Creates an array of matches users with each entry containing an object that contains their name,
     //number of matches, all matching song ids and instrument name.
@@ -88,14 +95,17 @@ export default class MatchesList extends Component {
       })
       .then(() => {
         let orderedArray = matchesArray.filter(matchesArrayEntry => {
+          console.log(instrumentFilter, "is this the filter id?")
+          console.log(matchesArrayEntry.instrumentId, "matches arayryy entry instrumetn id")
+          console.log(matchesArrayEntry.total > 0 && matchesArrayEntry.instrumentId === instrumentFilter, "is this a bool?")
 
           let moreThanZeroMatches = false
-          if (matchesArrayEntry.total > 0) {
+          if (matchesArrayEntry.total > 0 && matchesArrayEntry.instrumentId === instrumentFilter) {
             moreThanZeroMatches = true
           }
           return moreThanZeroMatches
         })
-        orderedArray.sort((a,b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
+        orderedArray.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
         this.setState({
           songMatches: orderedArray
         })
@@ -123,7 +133,7 @@ export default class MatchesList extends Component {
             )}
           </select><br />
           Find your matches!<br />
-          <button type="button" className="btn" onClick={() => this.findMatches()}>Find Matches</button>
+          <button type="button" className="btn" onClick={() => this.findMatches(this.state.instrumentId)}>Find Matches</button>
           <div className="container-cards">
             {this.state.songMatches.map(match =>
               <MatchesCard
