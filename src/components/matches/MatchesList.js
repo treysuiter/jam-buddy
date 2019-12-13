@@ -87,14 +87,19 @@ export default class MatchesList extends Component {
         })
       })
       .then(() => {
-        console.log(matchesArray, "set state matches array")
+        const orderedArrary = matchesArray.filter(matchesArrayEntry => {
+
+          let moreThanZeroMatches = false
+          if (matchesArrayEntry.total > 0) {
+            moreThanZeroMatches = true
+          }
+          return moreThanZeroMatches
+        })
         this.setState({
-          songMatches: matchesArray
+          songMatches: orderedArrary
         })
       })
-    console.log("findMatches ran")
     //TODO sort the array by total and discard objects with 0 matches
-    // return matchesArray
   }
 
   render() {
@@ -115,8 +120,9 @@ export default class MatchesList extends Component {
               <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
               </option>
             )}
-          </select>
-          <button type="button" className="btn" onClick={() =>this.findMatches()}>Find Matches</button>
+          </select><br />
+          Find your matches!<br />
+          <button type="button" className="btn" onClick={() => this.findMatches()}>Find Matches</button>
           <div className="container-cards">
             {this.state.songMatches.map(match =>
               <MatchesCard

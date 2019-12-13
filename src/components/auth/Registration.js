@@ -41,7 +41,8 @@ export default class Registration extends Component {
               password: this.state.passwordA,
               name: this.state.name,
               zipcode: this.state.zipcode,
-              instrumentId: 0
+              instrumentId: 1,
+              image: ""
             }
             this.props.setUser({
               email: this.state.email,
