@@ -87,7 +87,7 @@ export default class MatchesList extends Component {
         })
       })
       .then(() => {
-        const orderedArrary = matchesArray.filter(matchesArrayEntry => {
+        let orderedArray = matchesArray.filter(matchesArrayEntry => {
 
           let moreThanZeroMatches = false
           if (matchesArrayEntry.total > 0) {
@@ -95,8 +95,9 @@ export default class MatchesList extends Component {
           }
           return moreThanZeroMatches
         })
+        orderedArray.sort((a,b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
         this.setState({
-          songMatches: orderedArrary
+          songMatches: orderedArray
         })
       })
     //TODO sort the array by total and discard objects with 0 matches
