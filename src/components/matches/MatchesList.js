@@ -10,7 +10,7 @@ export default class MatchesList extends Component {
   state = {
     songMatches: [],
     instruments: [],
-    instrumentId: 1,
+    instrumentId: "",
     loadingStatus: true
   }
 
@@ -70,10 +70,11 @@ export default class MatchesList extends Component {
             id: setlistByUser.id,
             name: setlistByUser.name,
             instrumentId: setlistByUser.instrumentId,
+            setlists: setlistByUser.setlists,
             matchIds: [],
             total: 0
           }
-
+        
           matchesArray.push(matchObj)
           index++
 
@@ -96,14 +97,9 @@ export default class MatchesList extends Component {
       .then(() => {
 
         //Filters array by removing objects with no matches songs, orders by descending matches, and 
-
         let orderedArray = matchesArray.filter(matchesArrayEntry => {
-          console.log(instrumentFilter, "is this the filter id?")
-          console.log(matchesArrayEntry.instrumentId, "matches arayryy entry instrumetn id")
-          console.log(matchesArrayEntry.total > 0 && matchesArrayEntry.instrumentId === instrumentFilter, "is this a bool?")
 
           let moreThanZeroMatches = false
-          // && instrumentFilter > 1 ? matchesArrayEntry.instrumentId === instrumentFilter : true
           if (matchesArrayEntry.total > 0 && (instrumentFilter > 1 ? matchesArrayEntry.instrumentId === instrumentFilter : true)) {
             moreThanZeroMatches = true
           }
@@ -114,7 +110,6 @@ export default class MatchesList extends Component {
           songMatches: orderedArray
         })
       })
-    //TODO sort the array by total and discard objects with 0 matches
   }
 
   render() {
@@ -139,12 +134,14 @@ export default class MatchesList extends Component {
           Find your matches!<br />
           <button type="button" className="btn" onClick={() => this.findMatches(this.state.instrumentId)}>Find Matches</button>
           <div className="container-cards">
-            {this.state.songMatches.map(match =>
+            {this.state.songMatches.map(matchObj =>
               <MatchesCard
-                key={match.id}
-                songMatchTotal={match.total}
-                matchName={match.name}
-                seeDetails={this.addMatchToBuddiesList}
+                key={matchObj.id}
+                matchObj={matchObj}
+                songMatchTotal={matchObj.total}
+                matchName={matchObj.name}
+                songMatchIds={matchObj.matchIds}
+                setlist={matchObj.setlists}
                 {...this.props}
               />)}
           </div>
