@@ -21,8 +21,13 @@ export default class MatchesList extends Component {
 
   componentDidMount() {
 
-    //Get all instruments, create and array, and set array to value of state
+    //Finds all matches and sets the returned array to the matches value of state
+    this.setState({
+      matches: this.findMatches(),
 
+    })
+
+    //Get all instruments, create and array, and sets the returned array to the instruments value of state
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
         this.setState({
@@ -30,25 +35,24 @@ export default class MatchesList extends Component {
           loadingStatus: false
         })
       })
-
-      this.setState({
-        matches: this.findMatches()
-      })
+    this.setState({
+      matches: this.findMatches()
+    })
   }
 
   findMatches() {
 
+    //Creates an array of matches users with each entry containing an object that contains their name,
+    //number of matches, all matching song ids and instrument name.
     const matchesArray = []
     let mySetlistArray = []
     let otherUsersSetlistArray = []
 
-    //Get all users setlists
     ApiManager.getAll("users", "_embed=setlists")
       .then(response => {
         response.forEach(usersWithSetlist => {
 
           //Creates logged in user and others users setlist arrays
-
           if (usersWithSetlist.id === loggedInUserId()) {
             mySetlistArray.push(usersWithSetlist)
           } else {
@@ -58,52 +62,56 @@ export default class MatchesList extends Component {
       })
       .then(() => {
 
+        //initialize array of match objects index
         let index = 0
-        let matchObj = {
-          id: "",
-          name: "",
-          instrumentId: "",
-          total: 0
-        }
 
+        //Loop thru users
         otherUsersSetlistArray.forEach(setlistByUser => {
 
-          matchObj = {
+          let matchObj = {
             id: setlistByUser.id,
             name: setlistByUser.name,
             instrumentId: setlistByUser.instrumentId,
+            matchIds: [],
             total: 0
           }
 
           matchesArray.push(matchObj)
           index++
-      
+
+          //Loop thru current user's songs in setlist
           setlistByUser.setlists.forEach(individualSetlist => {
 
+            //Loop thru logged in user's songs in setlist and update object if match is found
             mySetlistArray[0].setlists.forEach(mySong => {
 
               if (individualSetlist.songId === mySong.songId) {
 
-                matchesArray[index-1].total++
+                matchesArray[index - 1].total++
+                matchesArray[index - 1].matchIds.push(mySong.songId)
 
               }
             })
           })
         })
       })
-      return matchesArray
+    console.log("findMatches ran")
+    //TODO sort the array by total and discard objects with 0 matches
+    return matchesArray
   }
 
-
-
   render() {
+
+    console.log(this.state.matches)
 
     return (
       <>
         <section className="section-content">
+          Filter by instrument<br />
           <select
             id="instrumentId"
             name="instrumentId"
+            disabled={this.state.loadingStatus}
             value={this.state.instrumentId}
             onChange={this.handleDropdownChange}>
             {this.state.instruments.map(instrument =>
