@@ -10,7 +10,7 @@ export default class MatchesCard extends Component {
         <div className="card">
           <h3>{this.props.matchName}</h3>
           <h4>Setlist Matches: {this.props.songMatchTotal}</h4>
-          <Link to={`/userDetails/${this.props.matchObj.id}`}><button>Details</button></Link>
+          <Link to={`/userDetails/${this.props.matchObj.id}` }><button>Details</button></Link>
         </div>
       )
     )

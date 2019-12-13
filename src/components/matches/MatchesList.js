@@ -114,12 +114,14 @@ export default class MatchesList extends Component {
 
   render() {
 
+    console.log(this.state)
+
     // console.log(this.state.matches, "matches arrary ins state in render function")
 
     return (
       <>
         <section className="section-content">
-          Filter by instrument<br />
+          Filter matches by instrument<br />
           <select
             id="instrumentId"
             name="instrumentId"

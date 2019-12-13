@@ -14,8 +14,7 @@ export default class UsersDetail extends Component {
 
   componentDidMount() {
 
-    //http://localhost:5002/users/1?_embed=setlists&_expand=instruments
-    //get(id) from AnimalManager and hang on to the data; put it into state
+    //Ex. fetch http://localhost:5002/users/1?_embed=setlists&_expand=instruments
     ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument")
       .then((user) => {
         this.setState({
@@ -25,10 +24,9 @@ export default class UsersDetail extends Component {
           loadingStatus: false
         });
       });
-    //http://localhost:5002/setlists?userId=1&_expand=song
+    //Ex. fetch http://localhost:5002/setlists?userId=1&_expand=song
     ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`)
       .then((currentSetlist) => {
-        console.log(currentSetlist, "setlist in api fetch")
         this.setState({
           detailsSetlist: currentSetlist
         });
@@ -41,9 +39,9 @@ export default class UsersDetail extends Component {
   //     .then(() => this.props.history.push("/animals"))
   // }
 
-  render() {
+  //TODO Create add friend function
 
-    console.log(this.state.detailsSetlist, "is this stsate setist???")
+  render() {
 
     return (
       <div className="card">
@@ -63,6 +61,7 @@ export default class UsersDetail extends Component {
                 {...this.props}
               />)}
           </div>
+          <button type="button" disabled={this.state.loadingStatus}>Back</button>
           <button type="button" disabled={this.state.loadingStatus}>Add Buddy</button>
           <button type="button" disabled={this.state.loadingStatus}>Remove Buddy</button>
         </div>
