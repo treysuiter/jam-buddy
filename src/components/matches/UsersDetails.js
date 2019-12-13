@@ -8,7 +8,7 @@ export default class UsersDetail extends Component {
   state = {
     name: "",
     instrument: "",
-    setlist: [],
+    detailsSetlist: [],
     loadingStatus: true
   }
 
@@ -27,10 +27,11 @@ export default class UsersDetail extends Component {
       });
     //http://localhost:5002/setlists?userId=1&_expand=song
     ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`)
-      .then(response => {
+      .then((currentSetlist) => {
+        console.log(currentSetlist, "setlist in api fetch")
         this.setState({
-          setlist: response,
-        })
+          detailsSetlist: currentSetlist
+        });
       })
   }
   //   handleDelete = () => {
@@ -41,6 +42,9 @@ export default class UsersDetail extends Component {
   // }
 
   render() {
+
+    console.log(this.state.detailsSetlist, "is this stsate setist???")
+
     return (
       <div className="card">
         <div className="card-content">
@@ -49,8 +53,9 @@ export default class UsersDetail extends Component {
           </picture>
           <h3>Name: {this.state.name}</h3>
           <p>Instrument: {this.state.instrument}</p>
+          <h2>Setlist</h2>
           <div className="userSetlist">
-            {this.state.setlist.map(setlistSong =>
+            {this.state.detailsSetlist.map(setlistSong =>
               <SetlistCard
                 key={setlistSong.id}
                 setlistSong={setlistSong}

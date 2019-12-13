@@ -7,7 +7,7 @@ export default class SetlistCard extends Component {
     return (
       (
         <div className="card">
-          <h3>Song Name: {this.props.songName}</h3>
+          <h3>{this.props.songName}</h3>
         </div>
       )
     )
