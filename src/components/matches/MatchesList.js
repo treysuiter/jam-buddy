@@ -8,7 +8,7 @@ function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 export default class MatchesList extends Component {
 
   state = {
-    matches: [],
+    songMatches: [],
     instruments: [],
     loadingStatus: true
   }
@@ -22,12 +22,6 @@ export default class MatchesList extends Component {
   componentDidMount() {
 
     //Finds all matches and sets the returned array to the matches value of state
-    this.setState({
-      matches: this.findMatches(),
-
-    })
-
-    //Get all instruments, create and array, and sets the returned array to the instruments value of state
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
         this.setState({
@@ -35,9 +29,6 @@ export default class MatchesList extends Component {
           loadingStatus: false
         })
       })
-    this.setState({
-      matches: this.findMatches()
-    })
   }
 
   findMatches() {
@@ -95,14 +86,20 @@ export default class MatchesList extends Component {
           })
         })
       })
+      .then(() => {
+        console.log(matchesArray, "set state matches array")
+        this.setState({
+          songMatches: matchesArray
+        })
+      })
     console.log("findMatches ran")
     //TODO sort the array by total and discard objects with 0 matches
-    return matchesArray
+    // return matchesArray
   }
 
   render() {
 
-    console.log(this.state.matches)
+    // console.log(this.state.matches, "matches arrary ins state in render function")
 
     return (
       <>
@@ -119,9 +116,9 @@ export default class MatchesList extends Component {
               </option>
             )}
           </select>
-          {/* <button type="button" className="btn" onClick={this.findMatches}>Find Matches</button> */}
+          <button type="button" className="btn" onClick={() =>this.findMatches()}>Find Matches</button>
           <div className="container-cards">
-            {this.state.matches.map(match =>
+            {this.state.songMatches.map(match =>
               <MatchesCard
                 key={match.id}
                 songMatchTotal={match.total}
