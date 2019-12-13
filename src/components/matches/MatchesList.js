@@ -94,13 +94,17 @@ export default class MatchesList extends Component {
         })
       })
       .then(() => {
+
+        //Filters array by removing objects with no matches songs, orders by descending matches, and 
+
         let orderedArray = matchesArray.filter(matchesArrayEntry => {
           console.log(instrumentFilter, "is this the filter id?")
           console.log(matchesArrayEntry.instrumentId, "matches arayryy entry instrumetn id")
           console.log(matchesArrayEntry.total > 0 && matchesArrayEntry.instrumentId === instrumentFilter, "is this a bool?")
 
           let moreThanZeroMatches = false
-          if (matchesArrayEntry.total > 0 && matchesArrayEntry.instrumentId === instrumentFilter) {
+          // && instrumentFilter > 1 ? matchesArrayEntry.instrumentId === instrumentFilter : true
+          if (matchesArrayEntry.total > 0 && (instrumentFilter > 1 ? matchesArrayEntry.instrumentId === instrumentFilter : true)) {
             moreThanZeroMatches = true
           }
           return moreThanZeroMatches
