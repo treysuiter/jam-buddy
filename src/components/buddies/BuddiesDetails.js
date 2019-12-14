@@ -43,7 +43,15 @@ export default class BuddiesDetail extends Component {
           })
         }
       })
-  }
+      Promise.all([
+      ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
+      ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`)])
+      .then(([response1, response2]) => {
+        console.log(response1, "is this a reponse 1")
+        console.log(response2, "is this a response2")
+      }
+      )
+    }
 
   handleSave = () => {
     const newBuddy = {
