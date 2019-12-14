@@ -148,7 +148,7 @@ export default class SetlistList extends Component {
             ApiManager.deezer(this.state.artistName, this.state.songTitle)
               .then(deezerResponse  => {
                 console.log(deezerResponse, "deezerResponse")
-                if (deezerResponse.hasOwnProperty("data[0].title")) {
+                if (deezerResponse.data.length > 0) {
                 const song = {
                   songTitle: deezerResponse.data[0].title,
                   artistName: deezerResponse.data[0].artist.name,
