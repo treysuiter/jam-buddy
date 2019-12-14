@@ -72,9 +72,6 @@ export default class BuddiesDetail extends Component {
 
   render() {
 
-    console.log(this.state.name, 'buddies details name')
-    console.log(this.state.detailsSetlist, 'buddies details setlits')
-
     return (
       <div className="card">
         <div className="card-content">
