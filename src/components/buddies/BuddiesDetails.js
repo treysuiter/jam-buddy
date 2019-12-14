@@ -44,12 +44,6 @@ export default class BuddiesDetail extends Component {
         }
       })
   }
-  handleDelete = () => {
-    //invoke the delete function in AnimalManger and re-direct to the animal list.
-    this.setState({ loadingStatus: true })
-    ApiManager.delete("buddies", this.props.matchId)
-      .then(() => this.props.history.push("/buddies"))
-  }
 
   handleSave = () => {
     const newBuddy = {
@@ -77,6 +71,9 @@ export default class BuddiesDetail extends Component {
   //TODO Create add friend function
 
   render() {
+
+    console.log(this.state.name, 'buddies details name')
+    console.log(this.state.detailsSetlist, 'buddies details setlits')
 
     return (
       <div className="card">

@@ -24,8 +24,6 @@ export default class BuddiesList extends Component {
 
   render () {
 
-    console.log(this.state.buddies)
-
     return (
       <>
       <div className="container-cards">
