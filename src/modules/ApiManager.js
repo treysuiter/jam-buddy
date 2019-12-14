@@ -48,7 +48,7 @@ export default {
     }).then(data => data.json());
   },
   deezer(artist, song) {
-    return fetch(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?q=artist:"${artist}" track:"${song}"`)
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?limit=1&q=artist:"${artist}" track:"${song}"`)
       .then((result) => result.json());
   }
 };
