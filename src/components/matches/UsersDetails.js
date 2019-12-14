@@ -44,12 +44,6 @@ export default class UsersDetail extends Component {
         }
       })
   }
-  //   handleDelete = () => {
-  //     //invoke the delete function in AnimalManger and re-direct to the animal list.
-  //     this.setState({loadingStatus: true})
-  //     ApiManager.delete("buddies", this.props.matchId)
-  //     .then(() => this.props.history.push("/matches"))
-  // }
 
   handleSave = () => {
     const newBuddy = {
@@ -57,19 +51,21 @@ export default class UsersDetail extends Component {
       userId: this.props.matchId
     }
     ApiManager.post("buddies", newBuddy)
-    .then(() => this.setState({
-      isThisMyBuddy: true
-    }))
+      .then(() => this.setState({
+        isThisMyBuddy: true
+      }))
+      .then(() => this.props.history.push("/matches"))
   }
 
   handleDelete = () => {
     ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
-    .then(response => {
-      ApiManager.delete("buddies", `${response[0].id}`)
-    })
-    .then(() => this.setState({
-      isThisMyBuddy: false
-    }))
+      .then(response => {
+        ApiManager.delete("buddies", `${response[0].id}`)
+      })
+      .then(() => this.setState({
+        isThisMyBuddy: false
+      }))
+      .then(() => this.props.history.push("/matches"))
   }
 
   //TODO Create add friend function

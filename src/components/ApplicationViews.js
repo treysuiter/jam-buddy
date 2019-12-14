@@ -7,6 +7,7 @@ import SetlistList from "./setlist/SetlistList";
 import MatchesList from "./matches/MatchesList";
 import UsersDetails from "./matches/UsersDetails"
 import BuddiesList from "./buddies/BuddiesList"
+import BuddiesDetail from "./buddies/BuddiesDetails";
 // import BuddiesDetails from "./buddies/BuddiesDetails"
 
 export default class ApplicationViews extends Component {
@@ -48,10 +49,10 @@ export default class ApplicationViews extends Component {
           return <BuddiesList {...props} />
         }}
         />
-        {/* <Route exact path="/buddies/:userId(\d+)" render={props => {
-          return <BuddiesDetails userId={parseInt(props.match.params.userId)} {...props} />
+        <Route exact path="/buddiesDetails/:matchId(\d+)" render={props => {
+          return <BuddiesDetail matchId={parseInt(props.match.params.matchId)} {...props} />
         }}
-        /> */}
+        />
       </>
     )
   }
