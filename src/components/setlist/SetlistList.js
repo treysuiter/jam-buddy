@@ -138,6 +138,7 @@ export default class SetlistList extends Component {
       console.log(response)
       console.log(response.data[0].artist.name)
       console.log(response.data[0].title)
+      console.log(response.data[0].id)
     })
 
     evt.preventDefault()
