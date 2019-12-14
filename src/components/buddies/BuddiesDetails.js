@@ -15,7 +15,7 @@ export default class BuddiesDetail extends Component {
   }
 
   componentDidMount() {
-
+    //TODO Get this CDM under control
     //Ex. fetch http://localhost:5002/users/1?_embed=setlists&_expand=instruments
     ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument")
       .then((user) => {

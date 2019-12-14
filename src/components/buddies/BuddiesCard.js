@@ -7,7 +7,6 @@ export default class BuddiesCard extends Component
 
 render () {
 
-  console.log(this.props, "buddy card props")
   return (
     <>
     <div className="card">

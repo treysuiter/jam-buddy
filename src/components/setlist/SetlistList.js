@@ -48,6 +48,7 @@ export default class SetlistList extends Component {
   //Handles all that dang ole rascally, rootin tootin mountin
 
   componentDidMount() {
+    //TODO Get this CDM under control
     //Get all songs in setlist, create and array, and set array to value of state
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
