@@ -21,7 +21,7 @@ export default class NavBar extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.state.userNameInNavBar)
     return (
       <>
         {this.props.user ?
