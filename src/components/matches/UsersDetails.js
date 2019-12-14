@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import SetlistCard from './SetlistCard';
 
+function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
 export default class UsersDetail extends Component {
 
@@ -35,9 +36,17 @@ export default class UsersDetail extends Component {
   //   handleDelete = () => {
   //     //invoke the delete function in AnimalManger and re-direct to the animal list.
   //     this.setState({loadingStatus: true})
-  //     APIManager.delete("animals", this.props.animalId)
-  //     .then(() => this.props.history.push("/animals"))
+  //     ApiManager.delete("buddies", this.props.matchId)
+  //     .then(() => this.props.history.push("/matches"))
   // }
+
+  handleSave = () => {
+    const newBuddy = {
+      loggedInUser: loggedInUserId(),
+      userId: this.props.matchId
+    }
+    ApiManager.post("buddies", newBuddy)
+  }
 
   //TODO Create add friend function
 
@@ -62,7 +71,7 @@ export default class UsersDetail extends Component {
               />)}
           </div>
           <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.push("/matches")}>Back</button>
-          <button type="button" disabled={this.state.loadingStatus}>Add Buddy</button>
+          <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>
           <button type="button" disabled={this.state.loadingStatus}>Remove Buddy</button>
         </div>
       </div>

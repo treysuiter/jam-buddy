@@ -8,7 +8,7 @@ export default class NavBar extends Component {
   loggedInUserName() { return localStorage.getItem("userName") }
 
   render() {
-    // console.log(loggedInUserName(), "logged in user name")
+
     return (
       <>
         {this.props.user ?
