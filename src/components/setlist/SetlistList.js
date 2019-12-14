@@ -133,6 +133,13 @@ export default class SetlistList extends Component {
 
   constructNewSong = evt => {
 
+    ApiManager.deezer(this.state.artistName, this.state.songTitle)
+    .then(response => {
+      console.log(response)
+      console.log(response.data[0].artist.name)
+      console.log(response.data[0].title)
+    })
+
     evt.preventDefault()
 
     if (this.state.artistName === "" || this.state.songTitle === "") {

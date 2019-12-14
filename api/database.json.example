@@ -1,114 +1,113 @@
 {
   "users": [
-      {
-          "id": 1,
-          "name": "Jim Bob Guitar Fingers",
-          "email": "jim@email.com",
-          "password": "123",
-          "instrumentId": 1,
-          "zipcode": "37115",
-          "image": "jim-image-url"
-      },
-      {
-          "id": 2,
-          "name": "Fred Flippy Drummer",
-          "email": "fred@email.com",
-          "password": "123",
-          "instrumentId": 2,
-          "zipcode": "37216",
-          "image": "fred-image-url"
-      },
-      {
-          "id": 3,
-          "name": "Bob Bass DuPree",
-          "email": "bob@email.com",
-          "password": "123",
-          "instrumentId": 3,
-          "zipcode": "37218",
-          "image": "bob-image-url"
-      }
+    {
+      "id": 1,
+      "name": "Jimmy Jam Guitar Fingers",
+      "email": "jim@email.com",
+      "password": "123",
+      "instrumentId": 2,
+      "zipcode": "37115",
+      "image": "jim-image-url"
+    },
+    {
+      "id": 2,
+      "name": "Fred Flippy Drummer",
+      "email": "fred@email.com",
+      "password": "123",
+      "instrumentId": 2,
+      "zipcode": "37216",
+      "image": "fred-image-url"
+    },
+    {
+      "id": 3,
+      "name": "Bob Bass DuPree",
+      "email": "bob@email.com",
+      "password": "123",
+      "instrumentId": 3,
+      "zipcode": "37218",
+      "image": "bob-image-url"
+    }
   ],
   "songs": [
-      {
-          "id": 1,
-          "songTitle": "Freebird",
-          "artistName": "Lynyrd Skynyrd",
-          "deezerId": ""
-      },
-      {
-          "id": 2,
-          "songTitle": "Hotel California",
-          "artistName": "The Eagles",
-          "deezerId": ""
-      },
-      {
-          "id": 2,
-          "songTitle": "Stairway to Heaven",
-          "artistName": "Led Zeppelin",
-          "deezerId": ""
-      }
+    {
+      "id": 1,
+      "songTitle": "Freebird",
+      "artistName": "Lynyrd Skynyrd",
+      "deezerId": ""
+    },
+    {
+      "id": 2,
+      "songTitle": "Hotel California",
+      "artistName": "The Eagles",
+      "deezerId": ""
+    },
+    {
+      "id": 3,
+      "songTitle": "Stairway to Heaven",
+      "artistName": "Led Zeppelin",
+      "deezerId": ""
+    }
   ],
   "buddies": [
-      {
-          "id": 1,
-          "userId": 2,
-          "loggedInUser": 1
-      },
-      {
-          "id": 2,
-          "userId": 1,
-          "loggedInUser": 2
-      },
-      {
-          "id": 3,
-          "userId": 3,
-          "loggedInUser": 1
-      }
+    {
+      "id": 2,
+      "userId": 1,
+      "loggedInUser": 2
+    },
+    {
+      "loggedInUser": 1,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "loggedInUser": 1,
+      "userId": 3,
+      "id": 4
+    }
   ],
   "instruments": [
-      {
-          "id": 1,
-          "instrumentName": "Guitar"
-      },
-      {
-          "id": 2,
-          "instrumentName": "Drums"
-      },
-      {
-          "id": 3,
-          "instrumentName": "Bass"
-      }
+    {
+      "id": 1,
+      "instrumentName": "No Instrument Selected"
+    },
+    {
+      "id": 2,
+      "instrumentName": "Guitar"
+    },
+    {
+      "id": 3,
+      "instrumentName": "Bass"
+    },
+    {
+      "id": 4,
+      "instrumentName": "Drums"
+    }
   ],
   "setlists": [
-      {
-          "id": 1,
-          "songId": 1,
-          "userId": 1
-      },
-      {
-          "id": 2,
-          "songId": 2,
-          "userId": 1
-      },
-      {
-          "id": 3,
-          "songId": 2,
-          "userId": 2
-      },
-      {
-          "id": 4,
-          "songId": 3,
-          "userId": 2
-      },
-      {
-          "id": 5,
-          "songId": 1,
-          "userId": 3
-      },
-      {
-          "id": 6,
-          "songId": 3,
-          "userId": 3
-      }
+    {
+      "id": 4,
+      "songId": 3,
+      "userId": 2
+    },
+    {
+      "id": 5,
+      "songId": 1,
+      "userId": 3
+    },
+    {
+      "id": 6,
+      "songId": 3,
+      "userId": 3
+    },
+    {
+      "songId": 1,
+      "userId": 1,
+      "id": 7
+    },
+    {
+      "songId": 2,
+      "userId": 1,
+      "id": 8
+    }
   ]
 }
