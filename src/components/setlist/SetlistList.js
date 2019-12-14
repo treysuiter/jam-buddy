@@ -126,12 +126,12 @@ export default class SetlistList extends Component {
 
   constructNewSong = evt => {
 
-    ApiManager.deezer(this.state.artistName, this.state.songTitle)
-      .then(deezerResponse => {
-        console.log(deezerResponse.data[0].artist.name)
-        console.log(deezerResponse.data[0].title)
-        console.log(deezerResponse.data[0].id)
-      })
+    // ApiManager.deezer(this.state.artistName, this.state.songTitle)
+    //   .then(deezerResponse => {
+    //     console.log(deezerResponse.data[0].artist.name)
+    //     console.log(deezerResponse.data[0].title)
+    //     console.log(deezerResponse.data[0].id)
+    //   })
 
 
     evt.preventDefault()
@@ -146,8 +146,9 @@ export default class SetlistList extends Component {
         .then(bool => {
           if (!bool) {
             ApiManager.deezer(this.state.artistName, this.state.songTitle)
-              .then(deezerResponse => {
-                
+              .then(deezerResponse  => {
+                console.log(deezerResponse, "deezerResponse")
+                if (deezerResponse.hasOwnProperty("data[0].title")) {
                 const song = {
                   songTitle: deezerResponse.data[0].title,
                   artistName: deezerResponse.data[0].artist.name,
@@ -161,7 +162,10 @@ export default class SetlistList extends Component {
                   }
                   ApiManager.post("setlists", newSetlistSong)
                     .then(() => this.setlistRerender())
-                })
+                }) 
+              } else {
+                window.alert("Song not found. Please try search again.")
+              }
               })
 
           } else {
