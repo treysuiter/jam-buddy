@@ -61,7 +61,7 @@ export default class UsersDetail extends Component {
                 {...this.props}
               />)}
           </div>
-          <button type="button" disabled={this.state.loadingStatus}>Back</button>
+          <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.push("/matches")}>Back</button>
           <button type="button" disabled={this.state.loadingStatus}>Add Buddy</button>
           <button type="button" disabled={this.state.loadingStatus}>Remove Buddy</button>
         </div>

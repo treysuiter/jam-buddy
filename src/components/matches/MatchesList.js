@@ -114,7 +114,7 @@ export default class MatchesList extends Component {
 
   render() {
 
-    console.log(this.state)
+    // console.log(this.state)
 
     // console.log(this.state.matches, "matches arrary ins state in render function")
 
