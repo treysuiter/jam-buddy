@@ -73,13 +73,6 @@ export default class SetlistList extends Component {
           instrumentId: userObject.instrumentId
         })
       })
-    //Get user's instrument name
-    ApiManager.get("users", loggedInUserId(), "_expand=instrument")
-      .then(userObject => {
-        this.setState({
-          instrumentName: userObject.instrument.instrumentName
-        })
-      })
   }
 
 
@@ -134,12 +127,12 @@ export default class SetlistList extends Component {
   constructNewSong = evt => {
 
     ApiManager.deezer(this.state.artistName, this.state.songTitle)
-    .then(response => {
-      console.log(response)
-      console.log(response.data[0].artist.name)
-      console.log(response.data[0].title)
-      console.log(response.data[0].id)
-    })
+      .then(deezerResponse => {
+        console.log(deezerResponse.data[0].artist.name)
+        console.log(deezerResponse.data[0].title)
+        console.log(deezerResponse.data[0].id)
+      })
+
 
     evt.preventDefault()
 
@@ -152,20 +145,24 @@ export default class SetlistList extends Component {
       this.checkForSongInDatabase()
         .then(bool => {
           if (!bool) {
-            const song = {
-              songTitle: this.state.songTitle,
-              artistName: this.state.artistName,
-              deezerId: ""
-            }
-            ApiManager.post("songs", song)
-            .then(response => {
-              const newSetlistSong = {
-                songId: response.id,
-                userId: loggedInUserId()
-              }
-              ApiManager.post("setlists", newSetlistSong)
-                .then(() => this.setlistRerender())
-            })
+            ApiManager.deezer(this.state.artistName, this.state.songTitle)
+              .then(deezerResponse => {
+                
+                const song = {
+                  songTitle: deezerResponse.data[0].title,
+                  artistName: deezerResponse.data[0].artist.name,
+                  deezerId: deezerResponse.data[0].id
+                }
+                ApiManager.post("songs", song)
+                .then(response => {
+                  const newSetlistSong = {
+                    songId: response.id,
+                    userId: loggedInUserId()
+                  }
+                  ApiManager.post("setlists", newSetlistSong)
+                    .then(() => this.setlistRerender())
+                })
+              })
 
           } else {
 
