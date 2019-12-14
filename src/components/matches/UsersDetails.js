@@ -10,7 +10,8 @@ export default class UsersDetail extends Component {
     name: "",
     instrument: "",
     detailsSetlist: [],
-    loadingStatus: true
+    loadingStatus: true,
+    isThisMyBuddy: false
   }
 
   componentDidMount() {
@@ -32,6 +33,16 @@ export default class UsersDetail extends Component {
           detailsSetlist: currentSetlist
         });
       })
+
+    //ex fetch http://localhost:5002/buddies?userId=3&loggedInUser=1
+    ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
+      .then(response => {
+        if (response.length > 0) {
+          this.setState({
+            isThisMyBuddy: true
+          })
+        }
+      })
   }
   //   handleDelete = () => {
   //     //invoke the delete function in AnimalManger and re-direct to the animal list.
@@ -46,6 +57,19 @@ export default class UsersDetail extends Component {
       userId: this.props.matchId
     }
     ApiManager.post("buddies", newBuddy)
+    .then(() => this.setState({
+      isThisMyBuddy: true
+    }))
+  }
+
+  handleDelete = () => {
+    ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
+    .then(response => {
+      ApiManager.delete("buddies", `${response[0].id}`)
+    })
+    .then(() => this.setState({
+      isThisMyBuddy: false
+    }))
   }
 
   //TODO Create add friend function
@@ -71,8 +95,8 @@ export default class UsersDetail extends Component {
               />)}
           </div>
           <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.push("/matches")}>Back</button>
-          <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>
-          <button type="button" disabled={this.state.loadingStatus}>Remove Buddy</button>
+          {this.state.isThisMyBuddy ? null : <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>}
+          {this.state.isThisMyBuddy ? <button type="button" disabled={this.state.loadingStatus} onClick={this.handleDelete}>Remove Buddy</button> : null}
         </div>
       </div>
     );
