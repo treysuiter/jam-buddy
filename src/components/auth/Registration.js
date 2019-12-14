@@ -54,7 +54,9 @@ export default class Registration extends Component {
                   .then((user) => {
                     // console.log('user registration', user)
                     const userId = user[0].id
+                    const userName = user[0].name
                     localStorage.setItem("userId", parseInt(userId))
+                    localStorage.setItem("userName", userName)
                   })
               })
               .then(() => {

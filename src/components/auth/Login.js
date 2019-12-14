@@ -26,8 +26,10 @@ export default class Login extends Component {
 					password: password,
 					userId: user[0].id
 				});
-				const userId = user[0].id
-				localStorage.setItem("userId", parseInt(userId))
+        const userId = user[0].id
+        const userName = user[0].name
+        localStorage.setItem("userId", parseInt(userId))
+        localStorage.setItem("userName", userName)
 				this.props.history.push('/setlist');
 			} else {
 				window.alert("Email and/or password not valid. Please try again")
