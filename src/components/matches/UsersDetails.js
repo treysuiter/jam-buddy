@@ -8,7 +8,7 @@ export default class UsersDetail extends Component {
 
   state = {
     name: "",
-    instrument: "",
+    detailsInstrument: "",
     detailsSetlist: [],
     loadingStatus: true,
     isThisMyBuddy: false
@@ -16,33 +16,21 @@ export default class UsersDetail extends Component {
 
   componentDidMount() {
 
-    //Ex. fetch http://localhost:5002/users/1?_embed=setlists&_expand=instruments
-    ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument")
-      .then((user) => {
-        this.setState({
-          name: user.name,
-          instrument: user.instrument.instrumentName,
-          setlist: user.setlist,
-          loadingStatus: false
-        });
-      });
-    //Ex. fetch http://localhost:5002/setlists?userId=1&_expand=song
-    ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`)
-      .then((currentSetlist) => {
-        this.setState({
-          detailsSetlist: currentSetlist
-        });
-      })
-
-    //ex fetch http://localhost:5002/buddies?userId=3&loggedInUser=1
-    ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
-      .then(response => {
-        if (response.length > 0) {
+    Promise.all([
+      ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
+      ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`),
+      ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)])
+        .then(([detailsUser, currentSetlist, response]) => {
+          console.log(response)
           this.setState({
-            isThisMyBuddy: true
+            name: detailsUser.name,
+            detailsInstrument: detailsUser.instrument.instrumentName,
+            setlist: detailsUser.setlist,
+            loadingStatus: false,
+            detailsSetlist: currentSetlist,
+            isThisMyBuddy: response.length > 0 ? true : false
           })
-        }
-      })
+        })
   }
 
   handleSave = () => {
