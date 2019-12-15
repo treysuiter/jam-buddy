@@ -28,8 +28,6 @@ export default class MatchesList extends Component {
 
   componentDidMount() {
 
-    console.log(this.state)
-
     //Finds all matches and sets the returned array to the matches value of state
     ApiManager.getAll("instruments")
       .then(instrumentArray => {
