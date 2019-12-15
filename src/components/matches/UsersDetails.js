@@ -21,7 +21,6 @@ export default class UsersDetail extends Component {
       ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`),
       ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)])
         .then(([detailsUser, currentSetlist, response]) => {
-          console.log(response)
           this.setState({
             name: detailsUser.name,
             detailsInstrument: detailsUser.instrument.instrumentName,

@@ -95,6 +95,7 @@ export default class SetlistList extends Component {
   addSongToSetlist() {
     ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
       .then(response => {
+        console.log(response, "add song to set response")
         const newSetlistSong = {
           songId: response[0].id,
           userId: loggedInUserId()
@@ -117,14 +118,6 @@ export default class SetlistList extends Component {
 
   constructNewSong = evt => {
 
-    // ApiManager.deezer(this.state.artistName, this.state.songTitle)
-    //   .then(deezerResponse => {
-    //     console.log(deezerResponse.data[0].artist.name)
-    //     console.log(deezerResponse.data[0].title)
-    //     console.log(deezerResponse.data[0].id)
-    //   })
-
-
     evt.preventDefault()
 
     if (this.state.artistName === "" || this.state.songTitle === "") {
@@ -138,7 +131,6 @@ export default class SetlistList extends Component {
           if (!bool) {
             ApiManager.deezer(this.state.artistName, this.state.songTitle)
               .then(deezerResponse => {
-                console.log(deezerResponse, "deezerResponse")
                 if (deezerResponse.data.length > 0) {
                   const song = {
                     songTitle: deezerResponse.data[0].title,
