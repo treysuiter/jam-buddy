@@ -49,10 +49,12 @@ class JamBuddy extends Component {
   render() {
     const { user, userName } = this.state
     return (
-      <React.Fragment>
+      <>
+        { user ?
         <NavBar user={user} userName={userName} clearUser={this.clearUser} />
+      : null}
         <ApplicationViews user={user} setUser={this.setUser} />
-      </React.Fragment>
+      </>
     );
   }
 }

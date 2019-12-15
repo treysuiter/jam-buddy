@@ -9,7 +9,6 @@ export default class NavBar extends Component {
 
     return (
       <>
-        {this.props.user ?
           <nav className="nav-bar">
             <ul className="nav">
               <li className="nav-item">
@@ -29,7 +28,6 @@ export default class NavBar extends Component {
               </li>
             </ul>
           </nav>
-          : null}
       </>
     )
   }
