@@ -92,19 +92,39 @@ export default class SetlistList extends Component {
       )
   }
 
+  checkForSongInSetlist = (songObj) => {
+    console.log(songObj, "this is the song object in check for song in setlist")
+    //ex fetch ttp://localhost:5002/setlists/?songId=1&userId=1
+    return ApiManager.getAll("setlists", `songId=${songObj[0].id}&userId=${loggedInUserId()}`)
+      .then(response => {
+        if (response.length > 0) {
+          return true
+        } else {
+          return false
+        }
+      }
+      )
+  }
+
   addSongToSetlist() {
     ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
       .then(response => {
-        console.log(response, "add song to set response")
-        const newSetlistSong = {
-          songId: response[0].id,
-          userId: loggedInUserId()
-        }
-        ApiManager.post("setlists", newSetlistSong)
-          .then(() => this.setlistRerender())
+        this.checkForSongInSetlist(response)
+          .then(bool => {
+            if (!bool) {
+              console.log(response, "add song to set response")
+              const newSetlistSong = {
+                songId: response[0].id,
+                userId: loggedInUserId()
+              }
+              ApiManager.post("setlists", newSetlistSong)
+                .then(() => this.setlistRerender())
+            } else {
+              window.alert("This song is already in your setlist")
+            }
+          })
       })
   }
-
   //Delete song from setlist
 
   deleteSongFromSetlist = id => {
