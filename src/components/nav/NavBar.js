@@ -5,6 +5,16 @@ import { Link } from "react-router-dom"
 
 export default class NavBar extends Component {
 
+  state = {
+    userName: ""
+  }
+
+  componentDidMount() {
+    this.setState({
+      userName: this.props.userName
+    })
+  }
+
   render() {
 
     return (
@@ -12,7 +22,7 @@ export default class NavBar extends Component {
           <nav className="nav-bar">
             <ul className="nav">
               <li className="nav-item">
-                Hello, {this.props.userName}
+                Hello, {this.state.userName}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/" onClick={this.props.clearUser}>Logout</Link>
