@@ -48,32 +48,6 @@ export default class SetlistList extends Component {
   //Handles all that dang ole rascally, rootin tootin mountin
 
   componentDidMount() {
-    //TODO Get this CDM under control
-    //Get all songs in setlist, create and array, and set array to value of state
-    // ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
-    //   .then(setlistArray => {
-    //     this.setState({
-    //       setlist: setlistArray,
-    //       loadingStatus: false
-    //     })
-    //   })
-
-    // //Get all instruments, create and array, and set array to value of state
-    // ApiManager.getAll("instruments")
-    //   .then(instrumentArray => {
-    //     this.setState({
-    //       instruments: instrumentArray,
-    //       loadingStatus: false
-    //     })
-
-    //   })
-    // //Gets user object and assigns instrument id to state
-    // ApiManager.get("users", loggedInUserId())
-    //   .then(userObject => {
-    //     this.setState({
-    //       instrumentId: userObject.instrumentId
-    //     })
-    //   })
 
     Promise.all([
       //Get all songs in setlist, create and array, and set array to value of state
@@ -90,17 +64,6 @@ export default class SetlistList extends Component {
           loadingStatus: false
         })
       })
-
-    
-
-    // Promise.all([
-    //   ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
-    //   ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`)])
-    //   .then(([response1, response2]) => {
-    //     console.log(response1, "is this a reponse 1")
-    //     console.log(response2, "is this a response2")
-    //   }
-    //   )
   }
 
 
