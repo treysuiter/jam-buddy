@@ -93,7 +93,6 @@ export default class SetlistList extends Component {
   }
 
   checkForSongInSetlist = (songObj) => {
-    console.log(songObj, "this is the song object in check for song in setlist")
     //ex fetch ttp://localhost:5002/setlists/?songId=1&userId=1
     return ApiManager.getAll("setlists", `songId=${songObj[0].id}&userId=${loggedInUserId()}`)
       .then(response => {

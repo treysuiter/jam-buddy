@@ -12,7 +12,7 @@ export default class Registration extends Component {
   }
 
   emailIsExisting = () => {
-    return ApiManager.getAll("users", `email_like=${this.state.email}`)
+    return ApiManager.getAll("users", `email=${this.state.email}`)
       .then(response => {
         if (response.length > 0) {
           return true
