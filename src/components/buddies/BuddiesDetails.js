@@ -66,7 +66,7 @@ export default class BuddiesDetail extends Component {
                 <img src={`https://robohash.org/${this.state.name}`} alt="Current User" />
               </picture>
               <h3>Name: {this.state.name}</h3>
-              <p>Instrument: {this.state.instrument}</p>
+              <p>Instrument: {this.state.detailsInstrument}</p>
               <h2>Setlist</h2>
               <div className="userSetlist">
                 {this.state.detailsSetlist.map(setlistSong =>
