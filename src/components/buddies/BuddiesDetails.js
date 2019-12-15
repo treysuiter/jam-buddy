@@ -77,7 +77,7 @@ export default class BuddiesDetail extends Component {
                     {...this.props}
                   />)}
               </div>
-              <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.push("/buddies")}>Back</button>
+              <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.goBack()}>Back</button>
               {this.state.isThisMyBuddy ? null : <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>}
               {this.state.isThisMyBuddy ? <button type="button" disabled={this.state.loadingStatus} onClick={this.handleDelete}>Remove Buddy</button> : null}
             </div>
