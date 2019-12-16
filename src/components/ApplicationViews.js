@@ -8,6 +8,7 @@ import MatchesList from "./matches/MatchesList";
 import UsersDetails from "./matches/UsersDetails"
 import BuddiesList from "./buddies/BuddiesList"
 import BuddiesDetail from "./buddies/BuddiesDetails";
+
 // import BuddiesDetails from "./buddies/BuddiesDetails"
 
 export default class ApplicationViews extends Component {

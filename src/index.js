@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import './index.css';
 // import App from './App';
 import JamBuddy from './components/JamBuddy';
+import 'typeface-roboto';
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

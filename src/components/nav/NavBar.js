@@ -1,20 +1,53 @@
 import React, { Component } from "react"
-import { Link } from "react-router-dom"
+import { withRouter } from "react-router-dom"
+// import { Link } from "react-router-dom"
+import { BottomNavigation } from '@material-ui/core'
+import { BottomNavigationAction } from '@material-ui/core/'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import SearchIcon from '@material-ui/icons/Search';
+import PeopleIcon from '@material-ui/icons/People';
+
+// import { withStyles } from '@material-ui/core/styles';
 
 //TODO Get name displaying on first render
 
-export default class NavBar extends Component {
+export class NavBar extends Component {
 
   render() {
 
     return (
       <>
-        <nav className="nav-bar">
-          <ul className="nav">
-            <li className="nav-item">
-              Hello, {"user name here"}
-            </li>
-            <li className="nav-item">
+        <BottomNavigation
+          // className="nav-bar"
+          showLabels
+          position="fixed"
+
+        >
+          {/* <ul className="nav"> */}
+          <BottomNavigationAction
+
+            label="User Name"
+            icon={<AccountCircleIcon />}
+          />
+          <BottomNavigationAction
+            label="Setlist"
+            onClick={() => this.props.history.push("/setlist")}
+            icon={<MusicNoteIcon />}
+          />
+
+          <BottomNavigationAction
+            label="Matches"
+            onClick={() => this.props.history.push("/matches")}
+            icon={<SearchIcon />}
+          />
+
+          <BottomNavigationAction
+            label="Buddies"
+            onClick={() => this.props.history.push("/buddies")}
+            icon={<PeopleIcon />}
+          />
+          {/* <li className="nav-item">
               <Link className="nav-link" to="/" onClick={this.props.clearUser}>Logout</Link>
             </li>
             <li className="nav-item">
@@ -25,10 +58,12 @@ export default class NavBar extends Component {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/buddies">Buddies</Link>
-            </li>
-          </ul>
-        </nav>
+            </li> */}
+          {/* </ul> */}
+        </BottomNavigation>
       </>
     )
   }
 }
+
+export default withRouter(NavBar)
