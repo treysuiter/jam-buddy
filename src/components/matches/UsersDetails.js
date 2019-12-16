@@ -55,8 +55,6 @@ export default class UsersDetail extends Component {
       .then(() => this.props.history.push("/matches"))
   }
 
-  //TODO Create add friend function
-
   render() {
 
     return (
