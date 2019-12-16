@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import ApiManager from '../../modules/ApiManager';
-import SetlistCard from '../matches/SetlistCard';
+import SetlistCard from './SetlistCard';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class BuddiesDetail extends Component {
+export default class UsersDetail extends Component {
 
   state = {
     name: "",
-    instrument: "",
+    detailsInstrument: "",
     detailsSetlist: [],
-    buddyId: "",
     loadingStatus: true,
     isThisMyBuddy: false
   }
@@ -20,19 +19,17 @@ export default class BuddiesDetail extends Component {
     Promise.all([
       ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
       ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`),
-      ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`),
       ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)])
-      .then(([user, currentSetlist, response, buddyResponse]) => {
-        this.setState({
-          name: user.name,
-          detailsInstrument: user.instrument.instrumentName,
-          setlist: user.setlist,
-          buddyId: buddyResponse[0].id,
-          loadingStatus: false,
-          detailsSetlist: currentSetlist,
-          isThisMyBuddy: response.length > 0 ? true : false
+        .then(([detailsUser, currentSetlist, response]) => {
+          this.setState({
+            name: detailsUser.name,
+            detailsInstrument: detailsUser.instrument.instrumentName,
+            setlist: detailsUser.setlist,
+            loadingStatus: false,
+            detailsSetlist: currentSetlist,
+            isThisMyBuddy: response.length > 0 ? true : false
+          })
         })
-      })
   }
 
   handleSave = () => {
@@ -44,20 +41,26 @@ export default class BuddiesDetail extends Component {
       // .then(() => this.setState({
       //   isThisMyBuddy: true
       // }))
-      .then(() => this.props.history.push("/buddies"))
+      .then(() => this.props.history.push("/matches"))
   }
 
-  handleDelete = () => {
-  
-    ApiManager.delete("buddies", `${this.state.buddyId}`)
+//TODO refactor this like in buddies details
 
-      .then(() => this.props.history.push("/buddies"))
+  handleDelete = () => {
+    ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
+      .then(response => {
+        ApiManager.delete("buddies", `${response[0].id}`)
+      })
+      // .then(() => this.setState({
+      //   isThisMyBuddy: false
+      // }))
+      .then(() => this.props.history.push("/matches"))
   }
 
   render() {
 
     return (
-      <div className="card" >
+      <div className="card">
         <div className="card-content">
           <picture>
             <img src={`https://robohash.org/${this.state.name}`} alt="Current User" />

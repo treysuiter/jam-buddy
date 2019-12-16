@@ -35,5 +35,24 @@ export default {
       },
       body: JSON.stringify(editedObj)
     }).then(data => data.json());
+  },
+  //! MAke this more modular
+  patch(endpoint, userId, editedObj) {
+    // make sure to pass in the ID in the 'editedObj' so you can access it in the fetch call
+    return fetch(`${baseUrl}/${endpoint}/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedObj)
+    }).then(data => data.json());
+  },
+  deezer(artist, song) {
+    return fetch(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/search?limit=1&q=artist:"${artist}" track:"${song}"`)
+      .then((result) => result.json());
   }
 };
+
+
+//fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/track/autocomplete?limit=1&q=eminem')
+//`https://api.deezer.com/search?q=artist:%22misfits%22%20track:%22skulls%22

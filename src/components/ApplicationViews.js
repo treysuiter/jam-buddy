@@ -1,13 +1,14 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import React, { Component } from "react";
 import Home from "./home/Home"
 import Login from "./auth/Login"
 import Registration from "./auth/Registration"
 import SetlistList from "./setlist/SetlistList";
 import MatchesList from "./matches/MatchesList";
-import MatchesDetails from "./matches/MatchesDetails"
+import UsersDetails from "./matches/UsersDetails"
 import BuddiesList from "./buddies/BuddiesList"
-import BuddiesDetails from "./buddies/BuddiesDetails"
+import BuddiesDetail from "./buddies/BuddiesDetails";
+// import BuddiesDetails from "./buddies/BuddiesDetails"
 
 export default class ApplicationViews extends Component {
 
@@ -39,8 +40,8 @@ export default class ApplicationViews extends Component {
           return <MatchesList {...props} />
         }}
         />
-        <Route exact path="/matches/:userId(\d+)" render={props => {
-          return <MatchesDetails userId={parseInt(props.match.params.userId)} {...props} />
+        <Route exact path="/userDetails/:matchId(\d+)" render={props => {
+          return <UsersDetails matchId={parseInt(props.match.params.matchId)} {...props} />
         }}
         />
 
@@ -48,8 +49,8 @@ export default class ApplicationViews extends Component {
           return <BuddiesList {...props} />
         }}
         />
-        <Route exact path="/buddies/:userId(\d+)" render={props => {
-          return <BuddiesDetails userId={parseInt(props.match.params.userId)} {...props} />
+        <Route exact path="/buddiesDetails/:matchId(\d+)" render={props => {
+          return <BuddiesDetail matchId={parseInt(props.match.params.matchId)} {...props} />
         }}
         />
       </>

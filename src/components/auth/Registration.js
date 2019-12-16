@@ -12,7 +12,7 @@ export default class Registration extends Component {
   }
 
   emailIsExisting = () => {
-    return ApiManager.getAll("users", `email_like=${this.state.email}`)
+    return ApiManager.getAll("users", `email=${this.state.email}`)
       .then(response => {
         if (response.length > 0) {
           return true
@@ -40,7 +40,9 @@ export default class Registration extends Component {
               email: this.state.email,
               password: this.state.passwordA,
               name: this.state.name,
-              zipcode: this.state.zipcode
+              zipcode: this.state.zipcode,
+              instrumentId: 1,
+              image: ""
             }
             this.props.setUser({
               email: this.state.email,
@@ -52,7 +54,9 @@ export default class Registration extends Component {
                   .then((user) => {
                     // console.log('user registration', user)
                     const userId = user[0].id
+                    const userName = user[0].name
                     localStorage.setItem("userId", parseInt(userId))
+                    localStorage.setItem("userName", userName)
                   })
               })
               .then(() => {
