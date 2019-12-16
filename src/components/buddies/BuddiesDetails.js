@@ -10,6 +10,7 @@ export default class BuddiesDetail extends Component {
     name: "",
     instrument: "",
     detailsSetlist: [],
+    buddyId: "",
     loadingStatus: true,
     isThisMyBuddy: false
   }
@@ -19,12 +20,14 @@ export default class BuddiesDetail extends Component {
     Promise.all([
       ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
       ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`),
+      ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`),
       ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)])
-      .then(([user, currentSetlist, response]) => {
+      .then(([user, currentSetlist, response, buddyResponse]) => {
         this.setState({
           name: user.name,
           detailsInstrument: user.instrument.instrumentName,
           setlist: user.setlist,
+          buddyId: buddyResponse[0].id,
           loadingStatus: false,
           detailsSetlist: currentSetlist,
           isThisMyBuddy: response.length > 0 ? true : false
@@ -45,13 +48,9 @@ export default class BuddiesDetail extends Component {
   }
 
   handleDelete = () => {
-    ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
-      .then(response => {
-        ApiManager.delete("buddies", `${response[0].id}`)
-      })
-      // .then(() => this.setState({
-      //   isThisMyBuddy: false
-      // }))
+  
+    ApiManager.delete("buddies", `${this.state.buddyId}`)
+
       .then(() => this.props.history.push("/buddies"))
   }
 

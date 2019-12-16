@@ -48,7 +48,7 @@ class JamBuddy extends Component {
       <>
         { user ?
         <NavBar user={user} clearUser={this.clearUser} />
-      : null}
+      : null }
         <ApplicationViews user={user} setUser={this.setUser} />
       </>
     );

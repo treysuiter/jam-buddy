@@ -17,6 +17,7 @@ export default class BuddiesList extends Component {
 
     ApiManager.getAll("buddies", `loggedInUser=${loggedInUserId()}&_expand=user`)
     .then(response => {
+      console.log(response, "api response")
       this.setState({
         buddies: response
       })
@@ -29,7 +30,7 @@ export default class BuddiesList extends Component {
   }
 
   render () {
-
+    console.log("render in buddies list ran")
     return (
       <>
       <div className="container-cards">
