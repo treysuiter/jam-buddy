@@ -12,7 +12,7 @@ export default class NavBar extends Component {
         <nav className="nav-bar">
           <ul className="nav">
             <li className="nav-item">
-              Hello, {this.props.testString}
+              Hello, {"user name here"}
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/" onClick={this.props.clearUser}>Logout</Link>
