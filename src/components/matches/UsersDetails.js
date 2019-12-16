@@ -44,6 +44,8 @@ export default class UsersDetail extends Component {
       .then(() => this.props.history.push("/matches"))
   }
 
+//TODO refactor this like in buddies details
+
   handleDelete = () => {
     ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
       .then(response => {
