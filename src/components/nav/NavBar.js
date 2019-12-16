@@ -3,30 +3,7 @@ import { Link } from "react-router-dom"
 
 //TODO Get name displaying on first render
 
-// function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
-
-
 export default class NavBar extends Component {
-
-  // state = {
-  //   userName: ""
-  // }
-
-  // loggedInUserName() { 
-  //   return localStorage.getItem("userName")
-  // }
-
-  // componentDidMount() {
-
-  //  this.loggedInUserName()
-  //     .then(response => {
-  //       console.log(response, "nav bar bname response")
-  //       this.setState({
-  //         userName: response
-  //       })
-  //     })
-
-  // }
 
   render() {
 
@@ -35,7 +12,7 @@ export default class NavBar extends Component {
         <nav className="nav-bar">
           <ul className="nav">
             <li className="nav-item">
-              Hello, {localStorage.getItem("userName")}
+              Hello, {this.props.testString}
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/" onClick={this.props.clearUser}>Logout</Link>
