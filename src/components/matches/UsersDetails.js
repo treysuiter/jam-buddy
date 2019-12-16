@@ -38,9 +38,9 @@ export default class UsersDetail extends Component {
       userId: this.props.matchId
     }
     ApiManager.post("buddies", newBuddy)
-      .then(() => this.setState({
-        isThisMyBuddy: true
-      }))
+      // .then(() => this.setState({
+      //   isThisMyBuddy: true
+      // }))
       .then(() => this.props.history.push("/matches"))
   }
 
@@ -49,9 +49,9 @@ export default class UsersDetail extends Component {
       .then(response => {
         ApiManager.delete("buddies", `${response[0].id}`)
       })
-      .then(() => this.setState({
-        isThisMyBuddy: false
-      }))
+      // .then(() => this.setState({
+      //   isThisMyBuddy: false
+      // }))
       .then(() => this.props.history.push("/matches"))
   }
 

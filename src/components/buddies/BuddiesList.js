@@ -13,6 +13,8 @@ export default class BuddiesList extends Component {
 
   componentDidMount () {
 
+    console.log("cdm in buddies list ran")
+
     ApiManager.getAll("buddies", `loggedInUser=${loggedInUserId()}&_expand=user`)
     .then(response => {
       this.setState({
@@ -20,6 +22,10 @@ export default class BuddiesList extends Component {
       })
     })
    
+  }
+
+  myConsoleLogTest () {
+    console.group(this.state)
   }
 
   render () {
