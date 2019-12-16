@@ -19,15 +19,15 @@ export class NavBar extends Component {
     return (
       <>
         <BottomNavigation
-          // className="nav-bar"
+          className="position-fixed"
           showLabels
           position="fixed"
 
         >
           {/* <ul className="nav"> */}
           <BottomNavigationAction
-
-            label="User Name"
+            onClick={this.props.clearUser}
+            label="Logout"
             icon={<AccountCircleIcon />}
           />
           <BottomNavigationAction

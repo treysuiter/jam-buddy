@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NavBar from "./nav/NavBar";
-import ApplicationViews from "./ApplicationViews";
+import ApplicationViews from "./ApplicationViews"
+import { withRouter } from "react-router-dom"
 // import "./Nutshell.css";
 // function loggedInUserName() { return (localStorage.getItem("userName")) }
 
@@ -35,6 +36,7 @@ class JamBuddy extends Component {
     localStorage.removeItem("userId")
     localStorage.removeItem("userName")
     this.setState({ user: this.isAuthenticated(), userName: "" })
+    this.props.history.push("/")
 
     // this.props.history.push("/login")
   }
@@ -48,18 +50,18 @@ class JamBuddy extends Component {
   }
 
   render() {
-    
+
     const { user, userName } = this.state
 
     return (
       <>
         <ApplicationViews user={user} setUser={this.setUser} />
-        {user ?
-          <NavBar user={user} testString={userName} clearUser={this.clearUser} />
-          : null}
+
+        { user ? <NavBar user={user} testString={userName} clearUser={this.clearUser} /> : null}
+
       </>
     );
   }
 }
 
-export default JamBuddy;
+export default withRouter(JamBuddy);

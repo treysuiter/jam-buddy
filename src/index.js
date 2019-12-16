@@ -5,10 +5,12 @@ import './index.css';
 // import App from './App';
 import JamBuddy from './components/JamBuddy';
 import 'typeface-roboto';
+import CssBaseline from '@material-ui/core/CssBaseline'
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Router>
+    <CssBaseline />
     <JamBuddy />
   </Router>
   , document.getElementById('root'));
