@@ -6,25 +6,49 @@ import { Input } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import { NativeSelect } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-const emptyString = ""
-
-const styles = {
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 400,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
   allCards: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent:'space-evenly',
+    justifyContent: 'space-evenly',
     backgroundColor: 'lightblue',
-    marginBottom: '66px'
+    marginBottom: '60px'
   },
-  // sectionContent: {
-  //   display: 'flex',
-  //   justifyContent:'center'
-  // }
-}
+  dropdown: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  addSongButton: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200,
+  },
+  pageText: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  }
+});
 
 class SetlistList extends Component {
 
@@ -93,14 +117,6 @@ class SetlistList extends Component {
 
   //Handles rerendering after data is added or deleted
 
-  clearInputField = () => {
-    console.log('please clear the fields')
-    this.setState({
-      artistName: emptyString,
-      songTitle: emptyString
-    })
-  }
-
   setlistRerender = () => {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
@@ -108,7 +124,6 @@ class SetlistList extends Component {
           setlist: setlistArray,
         })
       })
-      .then(()=> this.clearInputField())
   }
 
   //Checks for existing song in database
@@ -217,9 +232,10 @@ class SetlistList extends Component {
     return (
       <>
         <section className="sectionContent">
-          <FormControl className="form-top">
-            <h3>Current Instrument:</h3>
+          <FormControl>
+            <h3 className={classes.pageText}>Current Instrument:</h3>
             <NativeSelect
+            className={classes.dropdown}
               id="instrumentId"
               name="instrumentId"
               value={this.state.instrumentId}
@@ -229,39 +245,46 @@ class SetlistList extends Component {
                 </option>
               )}
             </NativeSelect>
-            
-            <h3>Add a song you know how to play to your setlist.</h3>
-            <Input type="text"
+          </FormControl>
+          <h3 className={classes.pageText}>Add a song you know how to play to your setlist.</h3>
+          <FormControl>
+            <TextField
               required
-              className="form-control"
+              className={classes.textField}
               onChange={this.handleFieldChange}
               id="artistName"
-              placeholder="Artist Name"
+              label="Artist Name"
+              margin="normal"
+              variant="outlined"
             /><br />
-            <Input type="text"
+          </FormControl>
+          <br />
+          <FormControl>
+            <TextField
               required
-              className="form-control"
+              className={classes.textField}
               onChange={this.handleFieldChange}
               id="songTitle"
-              placeholder="Song Title"
+              label="Song Title"
+              margin="normal"
+              variant="outlined"
             />
-            </FormControl>
-            <br />
-            <Button type="button" variant="contained" color="primary"  className="btn" onClick={this.constructNewSong}>Add Song</Button>
-            <h3>Your Setlist</h3>
-            <div className={classes.allCards}>
-              {this.state.setlist.map(songInSet =>
-                <SetlistCard
-                  key={songInSet.id}
-                  songTitle={songInSet.song.songTitle}
-                  artistName={songInSet.song.artistName}
-                  songInSet={songInSet}
-                  deleteSong={this.deleteSongFromSetlist}
-                  {...other}
-                />
-              )}
-            </div>
-          
+          </FormControl>
+          <br />
+          <Button type="button" variant="contained" color="primary" className={classes.addSongButton} onClick={this.constructNewSong}>Add Song</Button>
+          <h3 className={classes.pageText}>Your Setlist</h3>
+          <div className={classes.allCards}>
+            {this.state.setlist.map(songInSet =>
+              <SetlistCard
+                key={songInSet.id}
+                songTitle={songInSet.song.songTitle}
+                artistName={songInSet.song.artistName}
+                songInSet={songInSet}
+                deleteSong={this.deleteSongFromSetlist}
+                {...other}
+              />
+            )}
+          </div>
         </section>
       </>
     )

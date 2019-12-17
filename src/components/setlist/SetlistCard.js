@@ -10,13 +10,14 @@ const styles = {
   setlistCard: {
     display: 'flex',
     flexDirection: 'rows',
-    width: '90%',
+    width: 375,
     height: 'auto',
     border: '1px solid black',
-    margin: '5px',
+    margin: '10px',
     borderRadius: '5px',
     justifyContent: 'space-between',
-    boxShadow: '5px 5px 15px 5px #000000'
+    boxShadow: '5px 5px 15px 5px #000000',
+    alignSelf: 'center'
   },
   title: {
     fontSize: 14,
