@@ -32,8 +32,6 @@ export class NavBar extends Component {
     this.setState({ value });
   };
 
-  componentDidMount
-
 
   render() {
 

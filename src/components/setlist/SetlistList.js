@@ -94,8 +94,6 @@ class SetlistList extends Component {
 
   componentDidMount() {
 
-    console.log('CDM ran')
-
     Promise.all([
       //Get all songs in setlist, create and array, and set array to value of state
       ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`),
@@ -235,7 +233,7 @@ class SetlistList extends Component {
           <FormControl>
             <h3 className={classes.pageText}>Current Instrument:</h3>
             <NativeSelect
-            className={classes.dropdown}
+              className={classes.dropdown}
               id="instrumentId"
               name="instrumentId"
               value={this.state.instrumentId}
@@ -273,18 +271,18 @@ class SetlistList extends Component {
           <br />
           <Button type="button" variant="contained" color="primary" className={classes.addSongButton} onClick={this.constructNewSong}>Add Song</Button>
           <h3 className={classes.pageText}>Your Setlist</h3>
-          <div className={classes.allCards}>
-            {this.state.setlist.map(songInSet =>
-              <SetlistCard
-                key={songInSet.id}
-                songTitle={songInSet.song.songTitle}
-                artistName={songInSet.song.artistName}
-                songInSet={songInSet}
-                deleteSong={this.deleteSongFromSetlist}
-                {...other}
-              />
-            )}
-          </div>
+            <div className={classes.allCards}>
+              {this.state.setlist.map(songInSet =>
+                <SetlistCard
+                  key={songInSet.id}
+                  songTitle={songInSet.song.songTitle}
+                  artistName={songInSet.song.artistName}
+                  songInSet={songInSet}
+                  deleteSong={this.deleteSongFromSetlist}
+                  {...other}
+                />
+              )}
+            </div>
         </section>
       </>
     )

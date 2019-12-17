@@ -20,7 +20,7 @@ const styles = {
     alignSelf: 'center'
   },
   title: {
-    fontSize: 14,
+    fontSize: 18,
   },
   artist: {
     // marginBottom: 6,
