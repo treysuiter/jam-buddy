@@ -8,6 +8,8 @@ import 'typeface-roboto';
 import CssBaseline from '@material-ui/core/CssBaseline'
 // import * as serviceWorker from './serviceWorker';
 
+//! not real sure is cssbaseline is working or needed
+
 ReactDOM.render(
   <Router>
     <CssBaseline />

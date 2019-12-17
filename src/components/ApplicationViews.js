@@ -10,6 +10,7 @@ import BuddiesList from "./buddies/BuddiesList"
 import BuddiesDetail from "./buddies/BuddiesDetails";
 
 // import BuddiesDetails from "./buddies/BuddiesDetails"
+function loggedInUserName() { return (localStorage.getItem("userName")) }
 
 export default class ApplicationViews extends Component {
 
@@ -17,6 +18,7 @@ export default class ApplicationViews extends Component {
 
     return (
       <>
+        <div className="position-top-fixed">Hello, {loggedInUserName()} </div>
         <Route exact path="/" render={props => {
             return <Home {...props} />
           }}

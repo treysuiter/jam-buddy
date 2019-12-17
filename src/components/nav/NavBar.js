@@ -7,6 +7,16 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import SearchIcon from '@material-ui/icons/Search';
 import PeopleIcon from '@material-ui/icons/People';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = {
+  root: {
+    width: '100%',
+    position: 'fixed',
+    overflow: 'hidden',
+    bottom: 0
+  },
+};
 
 // import { withStyles } from '@material-ui/core/styles';
 
@@ -16,12 +26,14 @@ export class NavBar extends Component {
 
   render() {
 
+    const { classes } = this.props
+
     return (
       <>
         <BottomNavigation
-          className="position-fixed"
+          className={classes.root}
           showLabels
-          position="fixed"
+          // position="fixed"
 
         >
           {/* <ul className="nav"> */}
@@ -47,23 +59,11 @@ export class NavBar extends Component {
             onClick={() => this.props.history.push("/buddies")}
             icon={<PeopleIcon />}
           />
-          {/* <li className="nav-item">
-              <Link className="nav-link" to="/" onClick={this.props.clearUser}>Logout</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/setlist">Setlist</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/matches">Matches</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/buddies">Buddies</Link>
-            </li> */}
-          {/* </ul> */}
+
         </BottomNavigation>
       </>
     )
   }
 }
 
-export default withRouter(NavBar)
+export default withRouter(withStyles(styles)(NavBar))

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import SetlistCard from './SetlistCard'
+import { FormControl } from '@material-ui/core'
+import { Input } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import { NativeSelect } from '@material-ui/core'
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
@@ -74,7 +78,7 @@ export default class SetlistList extends Component {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
-          setlist: setlistArray
+          setlist: setlistArray,
         })
       })
   }
@@ -184,9 +188,9 @@ export default class SetlistList extends Component {
     return (
       <>
         <section className="section-content">
-          <form>
+          <FormControl>
             Current Instrument: <br />
-            <select
+            <NativeSelect
               id="instrumentId"
               name="instrumentId"
               value={this.state.instrumentId}
@@ -195,17 +199,17 @@ export default class SetlistList extends Component {
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
               )}
-            </select>
+            </NativeSelect>
             <br />
             Add a song you know how to play to your setlist.<br />
-            <input type="text"
+            <Input type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
               id="artistName"
               placeholder="Artist Name"
             /><br />
-            <input type="text"
+            <Input type="text"
               required
               className="form-control"
               onChange={this.handleFieldChange}
@@ -213,7 +217,7 @@ export default class SetlistList extends Component {
               placeholder="Song Title"
             />
             <br />
-            <button type="button" className="btn" onClick={this.constructNewSong}>Add Song</button>
+            <Button type="button" variant="contained" color="primary" href="#contained-buttons" className="btn" onClick={this.constructNewSong}>Add Song</Button>
             <h1>Your Setlist</h1>
             <div className="container-cards">
               {this.state.setlist.map(songInSet =>
@@ -227,7 +231,7 @@ export default class SetlistList extends Component {
                 />
               )}
             </div>
-          </form>
+          </FormControl>
         </section>
       </>
     )

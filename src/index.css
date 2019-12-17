@@ -1,13 +1,34 @@
 
-body {
+/* body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  -moz-osx-font-smoothing: grayscale;;
+} */
 
-.position-fixed {
+/* .position-bottom-fixed {
   width: 100%;
   position: fixed;
   bottom: 0
 }
+
+.position-top-fixed {
+  width: 100%;
+  position: sticky;
+  top: 0
+} */
+
+.section-content {
+  margin-bottom: 66px;
+}
+
+/* .container-cards {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-wrap: column;
+}
+
+.card {
+  width: 35%;
+} */
