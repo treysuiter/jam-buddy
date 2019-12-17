@@ -10,8 +10,10 @@ import { withStyles } from '@material-ui/core/styles';
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
+const emptyString = ""
+
 const styles = {
-  cards: {
+  allCards: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent:'space-evenly',
@@ -68,6 +70,8 @@ class SetlistList extends Component {
 
   componentDidMount() {
 
+    console.log('CDM ran')
+
     Promise.all([
       //Get all songs in setlist, create and array, and set array to value of state
       ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`),
@@ -89,6 +93,14 @@ class SetlistList extends Component {
 
   //Handles rerendering after data is added or deleted
 
+  clearInputField = () => {
+    console.log('please clear the fields')
+    this.setState({
+      artistName: emptyString,
+      songTitle: emptyString
+    })
+  }
+
   setlistRerender = () => {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
@@ -96,6 +108,7 @@ class SetlistList extends Component {
           setlist: setlistArray,
         })
       })
+      .then(()=> this.clearInputField())
   }
 
   //Checks for existing song in database
@@ -131,7 +144,6 @@ class SetlistList extends Component {
         this.checkForSongInSetlist(response)
           .then(bool => {
             if (!bool) {
-              console.log(response, "add song to set response")
               const newSetlistSong = {
                 songId: response[0].id,
                 userId: loggedInUserId()
@@ -200,7 +212,7 @@ class SetlistList extends Component {
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, ...other } = this.props;
 
     return (
       <>
@@ -237,7 +249,7 @@ class SetlistList extends Component {
             <br />
             <Button type="button" variant="contained" color="primary"  className="btn" onClick={this.constructNewSong}>Add Song</Button>
             <h3>Your Setlist</h3>
-            <div className={classes.cards}>
+            <div className={classes.allCards}>
               {this.state.setlist.map(songInSet =>
                 <SetlistCard
                   key={songInSet.id}
@@ -245,7 +257,7 @@ class SetlistList extends Component {
                   artistName={songInSet.song.artistName}
                   songInSet={songInSet}
                   deleteSong={this.deleteSongFromSetlist}
-                  {...this.props}
+                  {...other}
                 />
               )}
             </div>

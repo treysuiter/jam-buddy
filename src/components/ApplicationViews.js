@@ -10,7 +10,7 @@ import BuddiesList from "./buddies/BuddiesList"
 import BuddiesDetail from "./buddies/BuddiesDetails";
 
 // import BuddiesDetails from "./buddies/BuddiesDetails"
-function loggedInUserName() { return (localStorage.getItem("userName")) }
+// function loggedInUserName() { return (localStorage.getItem("userName")) }
 
 export default class ApplicationViews extends Component {
 

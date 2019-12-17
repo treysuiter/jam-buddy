@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
-  card: {
+  setlistCard: {
     display: 'flex',
     flexDirection: 'rows',
     width: '90%',
@@ -37,9 +37,9 @@ class SetlistCard extends Component {
     const { classes } = this.props;
   
     return (
-      <Card className={classes.card}>
+      <Card className={classes.setlistCard}>
         <CardContent>
-          <Typography className={classes.title} color="textPrimarys" gutterBottom>
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
             {this.props.songTitle}
           </Typography>
           <Typography className={classes.artist} color="textSecondary">
