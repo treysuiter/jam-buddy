@@ -24,24 +24,34 @@ const styles = {
 
 export class NavBar extends Component {
 
+  state = {
+    value: 0
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  componentDidMount
+
+
   render() {
 
-    const { classes } = this.props
+    const { classes } = this.props;
+    const { value } = this.state;
 
     return (
       <>
         <BottomNavigation
+          value={value}
           className={classes.root}
+          onChange={this.handleChange}
           showLabels
-          // position="fixed"
+        // position="fixed"
 
         >
           {/* <ul className="nav"> */}
-          <BottomNavigationAction
-            onClick={this.props.clearUser}
-            label="Logout"
-            icon={<AccountCircleIcon />}
-          />
+
           <BottomNavigationAction
             label="Setlist"
             onClick={() => this.props.history.push("/setlist")}
@@ -58,6 +68,12 @@ export class NavBar extends Component {
             label="Buddies"
             onClick={() => this.props.history.push("/buddies")}
             icon={<PeopleIcon />}
+          />
+
+          <BottomNavigationAction
+            onClick={this.props.clearUser}
+            label="Logout"
+            icon={<AccountCircleIcon />}
           />
 
         </BottomNavigation>

@@ -18,7 +18,7 @@ export default class ApplicationViews extends Component {
 
     return (
       <>
-        <div className="position-top-fixed">Hello, {loggedInUserName()} </div>
+        {/* <h4 className="user-name-top">Hello, {loggedInUserName()} </h4> */}
         <Route exact path="/" render={props => {
             return <Home {...props} />
           }}

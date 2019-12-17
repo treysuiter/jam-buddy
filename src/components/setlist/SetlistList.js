@@ -5,11 +5,26 @@ import { FormControl } from '@material-ui/core'
 import { Input } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import { NativeSelect } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles';
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class SetlistList extends Component {
+const styles = {
+  cards: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent:'space-evenly',
+    backgroundColor: 'lightblue',
+    marginBottom: '66px'
+  },
+  // sectionContent: {
+  //   display: 'flex',
+  //   justifyContent:'center'
+  // }
+}
+
+class SetlistList extends Component {
 
   state = {
     setlist: [],
@@ -185,11 +200,13 @@ export default class SetlistList extends Component {
 
   render() {
 
+    const { classes } = this.props;
+
     return (
       <>
-        <section className="section-content">
-          <FormControl>
-            Current Instrument: <br />
+        <section className="sectionContent">
+          <FormControl className="form-top">
+            <h3>Current Instrument:</h3>
             <NativeSelect
               id="instrumentId"
               name="instrumentId"
@@ -200,8 +217,8 @@ export default class SetlistList extends Component {
                 </option>
               )}
             </NativeSelect>
-            <br />
-            Add a song you know how to play to your setlist.<br />
+            
+            <h3>Add a song you know how to play to your setlist.</h3>
             <Input type="text"
               required
               className="form-control"
@@ -216,10 +233,11 @@ export default class SetlistList extends Component {
               id="songTitle"
               placeholder="Song Title"
             />
+            </FormControl>
             <br />
-            <Button type="button" variant="contained" color="primary" href="#contained-buttons" className="btn" onClick={this.constructNewSong}>Add Song</Button>
-            <h1>Your Setlist</h1>
-            <div className="container-cards">
+            <Button type="button" variant="contained" color="primary"  className="btn" onClick={this.constructNewSong}>Add Song</Button>
+            <h3>Your Setlist</h3>
+            <div className={classes.cards}>
               {this.state.setlist.map(songInSet =>
                 <SetlistCard
                   key={songInSet.id}
@@ -231,9 +249,11 @@ export default class SetlistList extends Component {
                 />
               )}
             </div>
-          </FormControl>
+          
         </section>
       </>
     )
   }
 }
+
+export default withStyles(styles)(SetlistList)
