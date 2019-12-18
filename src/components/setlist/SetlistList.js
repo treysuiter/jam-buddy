@@ -95,6 +95,8 @@ class SetlistList extends Component {
 
   componentDidMount() {
 
+    console.log("CMD Ran")
+
     Promise.all([
       //Get all songs in setlist, create and array, and set array to value of state
       ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`),
@@ -209,15 +211,18 @@ class SetlistList extends Component {
                         userId: loggedInUserId()
                       }
                       ApiManager.post("setlists", newSetlistSong)
-                        .then(() => this.setlistRerender())
+                        .then(() => {
+                          this.setlistRerender()})
                     })
+
                 } else {
+
                   window.alert("Song not found. Please try search again.")
                 }
               })
 
           } else {
-
+            
             this.addSongToSetlist()
           }
         })
