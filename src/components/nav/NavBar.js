@@ -25,8 +25,8 @@ const styles = {
 export class NavBar extends Component {
 
   state = {
-    value: parseInt(localStorage.getItem("navId")) !== null ? parseInt(localStorage.getItem("navId")) : 0,
-    name: ""
+    value: parseInt(localStorage.getItem("navId")) !== null ? parseInt(localStorage.getItem("navId")) : 0
+    
 
   }
 
@@ -38,12 +38,13 @@ export class NavBar extends Component {
   componentDidMount() {
     this.setState({
       value: 0,
-      name: this.props.userName
     })
   }
 
 
   render() {
+
+    console.log("this props user name", this.props.userName)
 
     const { classes } = this.props;
     const { value } = this.state;
@@ -57,7 +58,7 @@ export class NavBar extends Component {
           showLabels
         >
           <BottomNavigationAction
-            label={this.state.name}
+            label={this.props.userName}
           />
 
           <BottomNavigationAction

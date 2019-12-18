@@ -15,8 +15,6 @@ class JamBuddy extends Component {
   //check for logged in user in local storage
   isAuthenticated = () => localStorage.getItem("credentials") !== null
 
-  loggedInUserName = () => localStorage.getItem("userName")
-
   //add entered or unentered user info into localStorage and calls isAuthenticated
   setUser = (authObj) => {
 
@@ -45,8 +43,7 @@ class JamBuddy extends Component {
   //check for logged in user on rerender
   componentDidMount() {
     this.setState({
-      user: this.isAuthenticated(),
-      userName: this.loggedInUserName()
+      user: this.isAuthenticated()
     })
   }
 
@@ -54,13 +51,13 @@ class JamBuddy extends Component {
 
     //TODO clean up this user name code
 
-    const { user, userName } = this.state
+    const { user } = this.state
 
     return (
       <>
         <ApplicationViews user={user} setUser={this.setUser} />
 
-        { user ? <NavBar user={user} userName={userName} clearUser={this.clearUser} /> : null}
+        { user ? <NavBar user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser} /> : null}
 
       </>
     );

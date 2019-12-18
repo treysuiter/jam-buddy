@@ -79,10 +79,8 @@ class Registration extends Component {
                     const userName = user[0].name
                     localStorage.setItem("userId", parseInt(userId))
                     localStorage.setItem("userName", userName)
+                    this.props.history.push("/setlist")
                   })
-              })
-              .then(() => {
-                this.props.history.push("/setlist")
               })
           }
           else {
