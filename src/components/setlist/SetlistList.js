@@ -64,7 +64,6 @@ class SetlistList extends Component {
   }
 
   handleFieldChange = evt => {
-    console.log(evt.target.value, "evt.target.value")
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
