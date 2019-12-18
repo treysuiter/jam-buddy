@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import MatchesCard from '../matches/MatchesCard'
+import Select from '@material-ui/core/Select';
+import { withStyles } from '@material-ui/core/styles';
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }

@@ -12,14 +12,14 @@ import Select from '@material-ui/core/Select';
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-const styles = theme => ({
+const styles = {
   container: {
     display: 'flex',
     flexWrap: 'wrap',
   },
   textField: {
     marginLeft: '10px',
-    width: 400,
+    width: 370
   },
   dense: {
     marginTop: 19,
@@ -47,9 +47,9 @@ const styles = theme => ({
   },
   sectionContent: {
     height: '100%',
-    marginBottom: '60px'
-  }
-});
+    marginBottom: '56px'
+  },
+};
 
 class SetlistList extends Component {
 
@@ -272,7 +272,7 @@ class SetlistList extends Component {
             />
           </FormControl>
           <br />
-          <Button type="button" variant="contained" color="primary" className={classes.addSongButton} onClick={this.constructNewSong}>Add Song</Button>
+          <Button size="large" variant="contained" color="primary" className={classes.addSongButton} onClick={this.constructNewSong}>Add Song</Button>
           <h3 className={classes.pageText}>Your Setlist</h3>
           <div className={classes.allCards}>
             {this.state.setlist.map(songInSet =>
