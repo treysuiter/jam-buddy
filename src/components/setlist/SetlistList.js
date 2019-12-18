@@ -19,7 +19,7 @@ const styles = {
   },
   textField: {
     marginLeft: '10px',
-    width: 370
+    width: 250
   },
   dense: {
     marginTop: 19,
@@ -35,7 +35,7 @@ const styles = {
   },
   dropdown: {
     marginLeft: '10px',
-    width: 200,
+    width: 250,
     fontSize: 18
   },
   addSongButton: {
