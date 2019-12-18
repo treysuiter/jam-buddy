@@ -107,7 +107,7 @@ class SetlistList extends Component {
       ApiManager.get("users", loggedInUserId())])
       .then(([setlistArray, instrumentArray, userObject]) => {
         this.setState({
-          setlist: setlistArray,
+          setlist: setlistArray.reverse(),
           instruments: instrumentArray,
           instrumentId: userObject.instrumentId,
           loadingStatus: false
@@ -119,10 +119,13 @@ class SetlistList extends Component {
   //Handles rerendering after data is added or deleted
 
   setlistRerender = () => {
+    console.log("rerenererere ran")
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
-          setlist: setlistArray,
+          setlist: setlistArray.reverse(),
+          artistName: "test",
+          songTitle: "test"
         })
       })
   }
@@ -222,7 +225,7 @@ class SetlistList extends Component {
               })
 
           } else {
-            
+
             this.addSongToSetlist()
           }
         })
