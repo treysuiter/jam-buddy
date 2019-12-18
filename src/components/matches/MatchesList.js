@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class MatchesList extends Component {
+ export default class MatchesList extends Component {
 
   state = {
     songMatches: [],
     instruments: [],
-    instrumentId: "",
+    instrumentId: parseInt(localStorage.getItem("instrumentId")) !== null ? parseInt(localStorage.getItem("instrumentId")) : "",
     loadingStatus: true
   }
 
@@ -26,6 +26,7 @@ export default class MatchesList extends Component {
     this.setState({
       instrumentId: parseInt(evt.target.value),
     })
+    localStorage.setItem("instrumentId", parseInt(evt.target.value))
   }
 
   componentDidMount() {
@@ -38,6 +39,7 @@ export default class MatchesList extends Component {
           loadingStatus: false
         })
       })
+      .then(() => this.findMatches(this.state.instrumentId))
   }
 
   findMatches(instrumentFilter) {
@@ -123,7 +125,7 @@ export default class MatchesList extends Component {
     return (
       <>
         <section className="section-content">
-          Filter matches by instrument<br />
+          Please select instrument filter<br />
           <select
             id="instrumentId"
             name="instrumentId"
@@ -135,8 +137,7 @@ export default class MatchesList extends Component {
               </option>
             )}
           </select><br />
-          Find your matches!<br />
-          <button type="button" className="btn" onClick={() => this.findMatches(this.state.instrumentId)}>Find Matches</button>
+          <button type="button" className="btn" onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</button>
           <div className="container-cards">
             {this.state.songMatches.map(matchObj =>
               <MatchesCard

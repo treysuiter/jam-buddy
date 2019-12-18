@@ -25,11 +25,13 @@ const styles = {
 export class NavBar extends Component {
 
   state = {
-    value: 0
+    value: parseInt(localStorage.getItem("navId")) !== null ? parseInt(localStorage.getItem("navId")) : 0
+  
   }
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    this.setState({ value })
+    localStorage.setItem("navId", value)
   };
 
 

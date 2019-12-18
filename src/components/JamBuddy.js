@@ -35,6 +35,7 @@ class JamBuddy extends Component {
     localStorage.removeItem("credentials")
     localStorage.removeItem("userId")
     localStorage.removeItem("userName")
+    localStorage.removeItem("instrumentId")
     this.setState({ user: this.isAuthenticated(), userName: "" })
     this.props.history.push("/")
 
