@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import SetlistCard from './SetlistCard'
 import { FormControl } from '@material-ui/core'
-import { Input } from '@material-ui/core'
+// import { Input } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import { NativeSelect } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
+import Select from '@material-ui/core/Select';
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
@@ -38,6 +39,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
+    fontSize: 18
   },
   addSongButton: {
     marginLeft: theme.spacing.unit,
@@ -230,9 +232,11 @@ class SetlistList extends Component {
     return (
       <>
         <section className="sectionContent">
+          <h3 className={classes.pageText}>Current Instrument:</h3>
           <FormControl>
-            <h3 className={classes.pageText}>Current Instrument:</h3>
-            <NativeSelect
+            <Select
+              native
+              variant="outlined"
               className={classes.dropdown}
               id="instrumentId"
               name="instrumentId"
@@ -242,7 +246,7 @@ class SetlistList extends Component {
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
               )}
-            </NativeSelect>
+            </Select>
           </FormControl>
           <h3 className={classes.pageText}>Add a song you know how to play to your setlist.</h3>
           <FormControl>
@@ -271,18 +275,18 @@ class SetlistList extends Component {
           <br />
           <Button type="button" variant="contained" color="primary" className={classes.addSongButton} onClick={this.constructNewSong}>Add Song</Button>
           <h3 className={classes.pageText}>Your Setlist</h3>
-            <div className={classes.allCards}>
-              {this.state.setlist.map(songInSet =>
-                <SetlistCard
-                  key={songInSet.id}
-                  songTitle={songInSet.song.songTitle}
-                  artistName={songInSet.song.artistName}
-                  songInSet={songInSet}
-                  deleteSong={this.deleteSongFromSetlist}
-                  {...other}
-                />
-              )}
-            </div>
+          <div className={classes.allCards}>
+            {this.state.setlist.map(songInSet =>
+              <SetlistCard
+                key={songInSet.id}
+                songTitle={songInSet.song.songTitle}
+                artistName={songInSet.song.artistName}
+                songInSet={songInSet}
+                deleteSong={this.deleteSongFromSetlist}
+                {...other}
+              />
+            )}
+          </div>
         </section>
       </>
     )
