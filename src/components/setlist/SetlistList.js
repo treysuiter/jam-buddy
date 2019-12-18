@@ -95,8 +95,6 @@ class SetlistList extends Component {
 
   componentDidMount() {
 
-    console.log("CMD Ran")
-
     Promise.all([
       //Get all songs in setlist, create and array, and set array to value of state
       ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`),
@@ -215,7 +213,8 @@ class SetlistList extends Component {
                       }
                       ApiManager.post("setlists", newSetlistSong)
                         .then(() => {
-                          this.setlistRerender()})
+                          this.setlistRerender()
+                        })
                     })
 
                 } else {
@@ -238,6 +237,7 @@ class SetlistList extends Component {
 
     return (
       <>
+
         <section className={classes.sectionContent}>
           <h3 className={classes.pageText}>Current Instrument:</h3>
           <FormControl>
@@ -254,33 +254,36 @@ class SetlistList extends Component {
                 </option>
               )}
             </Select>
+
           </FormControl>
-          <h3 className={classes.pageText}>Add a song you know how to play to your setlist.</h3>
-          <FormControl>
-            <TextField
-              required
-              className={classes.textField}
-              onChange={this.handleFieldChange}
-              id="artistName"
-              label="Artist Name"
-              margin="normal"
-              variant="outlined"
-            />
-          </FormControl>
-          <br />
-          <FormControl>
-            <TextField
-              required
-              className={classes.textField}
-              onChange={this.handleFieldChange}
-              id="songTitle"
-              label="Song Title"
-              margin="normal"
-              variant="outlined"
-            />
-          </FormControl>
-          <br />
-          <Button size="large" variant="contained" color="primary" className={classes.addSongButton} onClick={this.constructNewSong}>Add Song</Button>
+          <form onSubmit={this.constructNewSong}>
+            <h3 className={classes.pageText}>Add a song you know how to play to your setlist.</h3>
+            <FormControl>
+              <TextField
+                required
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                id="artistName"
+                label="Artist Name"
+                margin="normal"
+                variant="outlined"
+              />
+            </FormControl>
+            <br />
+            <FormControl>
+              <TextField
+                required
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                id="songTitle"
+                label="Song Title"
+                margin="normal"
+                variant="outlined"
+              />
+            </FormControl>
+            <br />
+            <Button type="submit" value="Submit" size="large" variant="contained" color="primary" disabled={!isEnabled} className={classes.addSongButton}>Add Song</Button>
+          </form>
           <h3 className={classes.pageText}>Your Setlist</h3>
           <div className={classes.allCards}>
             {this.state.setlist.map(songInSet =>
