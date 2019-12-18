@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiManager from '../../modules/ApiManager';
-import SetlistCard from './SetlistCard';
+import SongCard from './SongCard';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
@@ -70,7 +70,7 @@ export default class UsersDetail extends Component {
           <h2>Setlist</h2>
           <div className="userSetlist">
             {this.state.detailsSetlist.map(setlistSong =>
-              <SetlistCard
+              <SongCard
                 key={setlistSong.id}
                 setlistSong={setlistSong}
                 songName={setlistSong.song.songTitle}

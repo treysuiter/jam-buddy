@@ -4,7 +4,7 @@ import SetlistCard from './SetlistCard'
 import { FormControl } from '@material-ui/core'
 // import { Input } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
-import { NativeSelect } from '@material-ui/core'
+// import { NativeSelect } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Select from '@material-ui/core/Select';
@@ -257,7 +257,7 @@ class SetlistList extends Component {
               label="Artist Name"
               margin="normal"
               variant="outlined"
-            /><br />
+            />
           </FormControl>
           <br />
           <FormControl>

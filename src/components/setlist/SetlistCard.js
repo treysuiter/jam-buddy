@@ -16,7 +16,7 @@ const styles = {
     margin: '10px',
     borderRadius: '5px',
     justifyContent: 'space-between',
-    boxShadow: '5px 5px 15px 5px #000000',
+    boxShadow: '9px 6px 3px -5px rgba(0,0,0,0.57)',
     alignSelf: 'center'
   },
   title: {

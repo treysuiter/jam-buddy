@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager';
 // import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+// import { withStyles } from '@material-ui/core/styles';
 // import Typography from '@material-ui/core/Typography';
 // import Modal from '@material-ui/core/Modal';
 // import Button from '@material-ui/core/Button';
@@ -83,7 +83,7 @@ export default class Login extends Component {
 
   render () {
 
-    const { classes } = this.props;
+    // const { classes } = this.props;
 
     return (
       // <div>

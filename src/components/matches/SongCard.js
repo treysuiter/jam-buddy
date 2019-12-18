@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class SetlistCard extends Component {
+export default class SongCard extends Component {
 
   render() {
  
