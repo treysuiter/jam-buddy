@@ -64,6 +64,7 @@ class SetlistList extends Component {
   }
 
   handleFieldChange = evt => {
+    console.log(evt.target.value, "evt.target.value")
     const stateToChange = {}
     stateToChange[evt.target.id] = evt.target.value
     this.setState(stateToChange)
@@ -117,13 +118,10 @@ class SetlistList extends Component {
   //Handles rerendering after data is added or deleted
 
   setlistRerender = () => {
-    console.log("rerenererere ran")
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
-          setlist: setlistArray.reverse(),
-          artistName: "test",
-          songTitle: "test"
+          setlist: setlistArray.reverse()
         })
       })
   }
@@ -229,6 +227,7 @@ class SetlistList extends Component {
           }
         })
     }
+    evt.target.reset()
   }
 
   render() {
@@ -282,7 +281,7 @@ class SetlistList extends Component {
               />
             </FormControl>
             <br />
-            <Button type="submit" value="Submit" size="large" variant="contained" color="primary" disabled={!isEnabled} className={classes.addSongButton}>Add Song</Button>
+            <Button type="submit" value="Submit" size="large" variant="contained" color="primary" className={classes.addSongButton}>Add Song</Button>
           </form>
           <h3 className={classes.pageText}>Your Setlist</h3>
           <div className={classes.allCards}>
