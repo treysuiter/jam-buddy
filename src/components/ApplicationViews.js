@@ -8,6 +8,7 @@ import MatchesList from "./matches/MatchesList";
 import UsersDetails from "./matches/UsersDetails"
 import BuddiesList from "./buddies/BuddiesList"
 import BuddiesDetail from "./buddies/BuddiesDetails";
+import LoginModal from "./auth/Login";
 
 // import BuddiesDetails from "./buddies/BuddiesDetails"
 // function loggedInUserName() { return (localStorage.getItem("userName")) }

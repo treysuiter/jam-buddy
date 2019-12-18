@@ -14,7 +14,7 @@ const styles = {
     width: '100%',
     position: 'fixed',
     overflow: 'hidden',
-    bottom: 0
+    bottom: 0,
   },
 };
 

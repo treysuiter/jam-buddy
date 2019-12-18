@@ -18,8 +18,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: '10px',
     width: 400,
   },
   dense: {
@@ -33,22 +32,22 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     backgroundColor: 'lightblue',
-    marginBottom: '60px'
   },
   dropdown: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: '10px',
     width: 200,
     fontSize: 18
   },
   addSongButton: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: '10px',
     width: 200,
   },
   pageText: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: '15px',
+  },
+  sectionContent: {
+    height: '100%',
+    marginBottom: '60px'
   }
 });
 
@@ -231,7 +230,7 @@ class SetlistList extends Component {
 
     return (
       <>
-        <section className="sectionContent">
+        <section className={classes.sectionContent}>
           <h3 className={classes.pageText}>Current Instrument:</h3>
           <FormControl>
             <Select
