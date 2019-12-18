@@ -8,6 +8,7 @@ export default class BuddiesDetail extends Component {
 
   state = {
     name: "",
+    email: "",
     instrument: "",
     detailsSetlist: [],
     buddyId: "",
@@ -18,13 +19,15 @@ export default class BuddiesDetail extends Component {
   componentDidMount() {
 
     Promise.all([
+      ApiManager.get("users", this.props.matchId),
       ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
       ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`),
       ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`),
       ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)])
-      .then(([user, currentSetlist, response, buddyResponse]) => {
+      .then(([email, user, currentSetlist, response, buddyResponse]) => {
         this.setState({
           name: user.name,
+          email: email.email,
           detailsInstrument: user.instrument.instrumentName,
           setlist: user.setlist,
           buddyId: buddyResponse[0].id,
@@ -63,6 +66,7 @@ export default class BuddiesDetail extends Component {
             <img src={`https://robohash.org/${this.state.name}`} alt="Current User" />
           </picture>
           <h3>Name: {this.state.name}</h3>
+          <h3>Email: {this.state.email}</h3>
           <p>Instrument: {this.state.detailsInstrument}</p>
           <h2>Setlist</h2>
           <div className="userSetlist">
