@@ -4,6 +4,7 @@ import { FormControl } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
+import { withRouter } from "react-router-dom"
 
 const styles = {
   sectionContent: {
@@ -104,80 +105,90 @@ class Registration extends Component {
       <div>
         <div className={classes.sectionContent}>
           <h3>Please enter your information</h3>
-              <form onSubmit={this.handleLogin}>
-                <FormControl>
-                  <TextField
-                  type="text" 
-                  label="email"
-                  id="email"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.textField}
-                  onChange={this.handleFieldChange} 
-                  required />
-                </FormControl>
+          <form onSubmit={this.handleLogin}>
+            <FormControl>
+              <TextField
+                type="text"
+                label="email"
+                id="email"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <FormControl>
-                  <TextField
-                  type="password" 
-                  label="password" 
-                  id="passwordA"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.textField}
-                  onChange={this.handleFieldChange}
-                  required />
-                </FormControl>
+            <FormControl>
+              <TextField
+                type="password"
+                label="password"
+                id="passwordA"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <FormControl>
-                  <TextField
-                  type="password" 
-                  label="confirm password" 
-                  id="passwordB"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.textField}
-                  onChange={this.handleFieldChange} 
-                  required />
-                </FormControl>
+            <FormControl>
+              <TextField
+                type="password"
+                label="confirm password"
+                id="passwordB"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <FormControl>
-                  <TextField
-                  type="text" 
-                  label="name" 
-                  id="name"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.textField}
-                  onChange={this.handleFieldChange} 
-                  required />
-                </FormControl>
+            <FormControl>
+              <TextField
+                type="text"
+                label="name"
+                id="name"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <FormControl>
-                  <TextField
-                  type="text" 
-                  label="zipcode" 
-                  id="zipcode"
-                  margin="normal"
-                  variant="outlined"
-                  className={classes.textField}
-                  onChange={this.handleFieldChange} 
-                  required />
-                </FormControl>
+            <FormControl>
+              <TextField
+                type="text"
+                label="zipcode"
+                id="zipcode"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <Button
-                variant="contained" 
-                type="submit" 
-                value="Submit" 
-                color="primary"
-                size="large"
-                className="btn" 
-                disabled={!isEnabled}>Submit</Button>
-              </form>
-            </div>
-          </div>
+            <Button
+              variant="contained"
+              type="submit"
+              value="Submit"
+              color="primary"
+              size="large"
+              className="btn"
+              disabled={!isEnabled}>Submit</Button>
+
+            <Button
+              variant="contained"
+
+              value="Cancel"
+              color="secondary"
+              size="large"
+              className="btn"
+              onClick={() => this.props.history.push('/')}
+            >Cancel</Button>
+          </form>
+        </div>
+      </div>
     )
   }
 }
 
-export default withStyles(styles)(Registration)
+export default withRouter(withStyles(styles)(Registration))
