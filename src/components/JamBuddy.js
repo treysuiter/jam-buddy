@@ -38,7 +38,6 @@ class JamBuddy extends Component {
     this.setState({ user: this.isAuthenticated(), userName: "" })
     this.props.history.push("/")
 
-    // this.props.history.push("/login")
   }
 
   //check for logged in user on rerender
@@ -50,6 +49,8 @@ class JamBuddy extends Component {
   }
 
   render() {
+
+    //TODO clean up this user name code
 
     const { user, userName } = this.state
 
