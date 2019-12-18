@@ -52,7 +52,3 @@ export default {
       .then((result) => result.json());
   }
 };
-
-
-//fetch('https://cors-anywhere.herokuapp.com/http://api.deezer.com/search/track/autocomplete?limit=1&q=eminem')
-//`https://api.deezer.com/search?q=artist:%22misfits%22%20track:%22skulls%22

@@ -34,6 +34,12 @@ export class NavBar extends Component {
     localStorage.setItem("navId", value)
   };
 
+  componentDidMount () {
+    this.setState({
+      value: 0
+    })
+  }
+
 
   render() {
 

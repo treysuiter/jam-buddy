@@ -20,7 +20,6 @@ const styles = {
     width: '100%'
   },
   logo: {
-    // flexDirection: 'row',
     height: '60%',
     display: 'flex',
     flexDirection: 'column',
