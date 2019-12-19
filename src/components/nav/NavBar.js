@@ -22,11 +22,11 @@ const styles = {
 
 //TODO Get name displaying on first render
 
-export class NavBar extends Component {
+class NavBar extends Component {
 
   state = {
     value: parseInt(localStorage.getItem("navId")) !== null ? parseInt(localStorage.getItem("navId")) : 0
-    
+
 
   }
 
@@ -44,8 +44,6 @@ export class NavBar extends Component {
 
   render() {
 
-    console.log("this props user name", this.props.userName)
-
     const { classes } = this.props;
     const { value } = this.state;
 
@@ -57,8 +55,9 @@ export class NavBar extends Component {
           onChange={this.handleChange}
           showLabels
         >
-          <BottomNavigationAction
-            label={this.props.userName}
+          <div>
+            {this.props.userName}
+          </div>
           />
 
           <BottomNavigationAction

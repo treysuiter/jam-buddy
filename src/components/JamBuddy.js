@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import NavBar from "./nav/NavBar";
 import ApplicationViews from "./ApplicationViews"
 import { withRouter } from "react-router-dom"
-// import "./Nutshell.css";
-// function loggedInUserName() { return (localStorage.getItem("userName")) }
+import SimpleMenu from "./nav/TopNav";
+
+
+
 
 class JamBuddy extends Component {
   state = {
@@ -55,9 +57,10 @@ class JamBuddy extends Component {
 
     return (
       <>
+        {user ? <SimpleMenu user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser}/> : null }
         <ApplicationViews user={user} setUser={this.setUser} />
 
-        { user ? <NavBar user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser} /> : null}
+        {/* {user ? <NavBar user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser} /> : null} */}
 
       </>
     );
