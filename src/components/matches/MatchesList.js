@@ -3,11 +3,51 @@ import ApiManager from '../../modules/ApiManager'
 import MatchesCard from '../matches/MatchesCard'
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
+import { FormControl, Button } from '@material-ui/core';
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
- export default class MatchesList extends Component {
+const styles = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: '10px',
+    width: 250
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  allCards: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'lightblue',
+  },
+  dropdown: {
+    marginLeft: '10px',
+    width: 250,
+    fontSize: 18
+  },
+  filterButton: {
+    marginLeft: '10px',
+    width: 200,
+  },
+  pageText: {
+    marginLeft: '15px',
+  },
+  sectionContent: {
+    height: '100%',
+    marginBottom: 56
+  },
+};
+
+class MatchesList extends Component {
 
   state = {
     songMatches: [],
@@ -118,26 +158,31 @@ function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
   render() {
 
-    // console.log(this.state)
-
-    // console.log(this.state.matches, "matches arrary ins state in render function")
+    const { classes } = this.props;
 
     return (
+
       <>
-        <section className="section-content">
-          Please select instrument filter<br />
-          <select
-            id="instrumentId"
-            name="instrumentId"
-            disabled={this.state.loadingStatus}
-            value={this.state.instrumentId}
-            onChange={this.handleDropdownChange}>
-            {this.state.instruments.map(instrument =>
-              <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
-              </option>
-            )}
-          </select><br />
-          <button type="button" className="btn" onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</button>
+        <section className={classes.sectionContent}>
+          <h3 className={classes.pageText}>Select instrument filter:</h3>
+          <FormControl>
+            <Select
+              native
+              variant="outlined"
+              className={classes.dropdown}
+              id="instrumentId"
+              name="instrumentId"
+              value={this.state.instrumentId}
+              onChange={this.handleDropdownChange}>
+              {this.state.instruments.map(instrument =>
+                <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
+                </option>
+              )}
+            </Select>
+          </FormControl>
+          
+          <Button type="button" value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton}onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
+
           <div className="container-cards">
             {this.state.songMatches.map(matchObj =>
               <MatchesCard
@@ -155,3 +200,5 @@ function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
     )
   }
 }
+
+export default withStyles(styles)(MatchesList)

@@ -26,9 +26,7 @@ const styles = {
 class NavBar extends Component {
 
   state = {
-    value: parseInt(localStorage.getItem("navId")) !== null ? parseInt(localStorage.getItem("navId")) : 0
-
-
+    value: 0
   }
 
   handleChange = (event, value) => {
@@ -38,7 +36,7 @@ class NavBar extends Component {
 
   componentDidMount() {
     this.setState({
-      value: 0,
+      value: parseInt(localStorage.getItem("navId")) !== null ? parseInt(localStorage.getItem("navId")) : 0
     })
   }
 
