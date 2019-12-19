@@ -36,6 +36,8 @@ const styles = {
   },
   filterButton: {
     marginLeft: '10px',
+    marginBottom: '10px',
+    marginTop: '10px',
     width: 200,
   },
   pageText: {
@@ -158,12 +160,13 @@ class MatchesList extends Component {
 
   render() {
 
-    const { classes } = this.props;
+    const { classes, ...other } = this.props;
 
     return (
 
       <>
         <section className={classes.sectionContent}>
+          <form>
           <h3 className={classes.pageText}>Select instrument filter:</h3>
           <FormControl>
             <Select
@@ -180,10 +183,10 @@ class MatchesList extends Component {
               )}
             </Select>
           </FormControl>
-          
-          <Button type="button" value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton}onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
 
-          <div className="container-cards">
+          <Button type="button" value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton}onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
+          </form>
+          <div className={classes.allCards}>
             {this.state.songMatches.map(matchObj =>
               <MatchesCard
                 key={matchObj.id}
@@ -192,7 +195,7 @@ class MatchesList extends Component {
                 matchName={matchObj.name}
                 songMatchIds={matchObj.matchIds}
                 setlist={matchObj.setlists}
-                {...this.props}
+                {...other}
               />)}
           </div>
         </section>

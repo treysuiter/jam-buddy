@@ -258,7 +258,6 @@ class SetlistList extends Component {
                 </option>
               )}
             </Select>
-
           </FormControl>
           <form onSubmit={this.constructNewSong}>
             <h3 className={classes.pageText}>Add a song you know how to play to your setlist.</h3>
