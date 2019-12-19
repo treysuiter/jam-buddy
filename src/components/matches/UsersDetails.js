@@ -27,12 +27,25 @@ export default class UsersDetail extends Component {
             name: detailsUser.name,
             email: email.email,
             detailsInstrument: detailsUser.instrument.instrumentName,
-            setlist: detailsUser.setlist,
             loadingStatus: false,
             detailsSetlist: currentSetlist,
             isThisMyBuddy: response.length > 0 ? true : false
           })
         })
+  }
+
+  isThisSongInMySetlist = (songId) => {
+    //ex fetch http://localhost:5002/setlists?userId=1&songId=3
+    ApiManager.getAll("setlists", `userId=${loggedInUserId()}&songId=${songId}`)
+    .then(response => {
+      console.log(response, "wha is this reponse from styling api fetch?")
+      if (response.length > 0) {
+        return true
+      } else {
+        return false
+      }
+    })
+
   }
 
   handleSave = () => {
@@ -76,6 +89,7 @@ export default class UsersDetail extends Component {
             {this.state.detailsSetlist.map(setlistSong =>
               <SongCard
                 key={setlistSong.id}
+                isThisSongInMySetlist={this.isThisSongInMySetlist(setlistSong.id)}
                 setlistSong={setlistSong}
                 songName={setlistSong.song.songTitle}
                 {...this.props}

@@ -130,11 +130,12 @@ class SetlistList extends Component {
 
   checkForSongInDatabase = () => {
     return ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
-      .then(response => {
-        if (response.length === 0) {
-          return false
-        } else {
+      .then(boolResponse => {
+        console.log(boolResponse, boolResponse.length > 1, "what is this response for check for song in db?")
+        if (response.length > 0) {
           return true
+        } else {
+          return false
         }
       }
       )
@@ -158,7 +159,7 @@ class SetlistList extends Component {
       .then(response => {
         this.checkForSongInSetlist(response)
           .then(bool => {
-            if (!bool) {
+            if (bool === false) {
               const newSetlistSong = {
                 songId: response[0].id,
                 userId: loggedInUserId()
@@ -194,7 +195,9 @@ class SetlistList extends Component {
       this.setState({ loadingStatus: true })
       this.checkForSongInDatabase()
         .then(bool => {
-          if (!bool) {
+          console.log(bool, "is this the bool when you add song to db?")
+          if (bool === false) {
+            console.log("song IS NOT in db")
             ApiManager.deezer(this.state.artistName, this.state.songTitle)
               .then(deezerResponse => {
                 if (deezerResponse.data.length > 0) {
@@ -222,7 +225,7 @@ class SetlistList extends Component {
               })
 
           } else {
-
+            console.log("song IS in db")
             this.addSongToSetlist()
           }
         })

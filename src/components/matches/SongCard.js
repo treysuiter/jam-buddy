@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 export default class SongCard extends Component {
 
   render() {
+
+    console.log(this.props.isThisSongInMySetlist, "what is this bool?")
  
     return (
       (
