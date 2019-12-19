@@ -60,7 +60,7 @@ class SetlistList extends Component {
     instrumentName: "",
     artistName: "",
     songTitle: "",
-    deezerId: ""
+    deezerId: "",
     loadingStatus: true
   }
 
@@ -131,8 +131,8 @@ class SetlistList extends Component {
 
   checkForSongInDatabase = (deezerId) => {
     return ApiManager.getAll("songs", `deezerId=${deezerId}`)
-      .then(boolResponse => {
-        console.log(boolResponse, boolResponse.length > 0, "what is this response for check for song in db?")
+      .then(response => {
+        console.log(deezerId, "dezer Id", this.state, "this sate", response, response.length > 0, "what is this response for check for song in db?")
         if (response.length > 0) {
           return true
         } else {
@@ -187,6 +187,7 @@ class SetlistList extends Component {
   constructNewSong = evt => {
 
     evt.preventDefault()
+    this.setState({ loadingStatus: true })
 
     if (this.state.artistName === "" || this.state.songTitle === "") {
       window.alert("Please input artist name and song title")
@@ -194,51 +195,58 @@ class SetlistList extends Component {
     } else {
 
       ApiManager.deezer(this.state.artistName, this.state.songTitle)
-      .then(deezerResponse => {
-        this.setState({
-        artistName: deezerResponse.data[0].artist.name,
-        songTitle: deezerResponse.data[0].title,
-        deezerId: deezerResponse.data[0].id
-      })})
+        .then(deezerResponse => {
+          this.setState({
+            artistName: deezerResponse.data[0].artist.name,
+            songTitle: deezerResponse.data[0].title,
+            deezerId: deezerResponse.data[0].id
+          })
+        })
+        .then(() => {
 
-      this.setState({ loadingStatus: true })
-      this.checkForSongInDatabase(this.state.deezerId)
-        .then(bool => {
-          console.log(bool, "is this the bool when you add song to db?")
-          if (bool === false) {
-            console.log("song IS NOT in db")
-            ApiManager.deezer(this.state.artistName, this.state.songTitle)
-              .then(deezerResponse => {
-                if (deezerResponse.data.length > 0) {
-                  const song = {
-                    songTitle: this.state.songTitle,
-                    artistName: this.state.artistName,
-                    deezerId: this.setState.deezerId
-                  }
-                  ApiManager.post("songs", song)
-                    .then(response => {
-                      const newSetlistSong = {
-                        songId: response.id,
-                        userId: loggedInUserId()
+          this.checkForSongInDatabase(this.state.deezerId)
+            .then(bool => {
+              console.log(bool, "check  for song in db bool")
+              if (!bool) {
+                console.log("song IS NOT in db")
+                ApiManager.deezer(this.state.artistName, this.state.songTitle)
+                  .then(deezerResponse => {
+                    if (deezerResponse.data.length > 0) {
+                      const song = {
+                        songTitle: this.state.songTitle,
+                        artistName: this.state.artistName,
+                        deezerId: this.state.deezerId
                       }
-                      ApiManager.post("setlists", newSetlistSong)
-                        .then(() => {
-                          this.setlistRerender()
+                      ApiManager.post("songs", song)
+                        .then(response => {
+                          const newSetlistSong = {
+                            songId: response.id,
+                            userId: loggedInUserId()
+                          }
+                          ApiManager.post("setlists", newSetlistSong)
+                            .then(() => {
+                              this.setlistRerender()
+                            })
                         })
-                    })
 
-                } else {
+                    } else {
 
-                  window.alert("Song not found. Please try search again.")
-                }
-              })
+                      window.alert("Song not found. Please try search again.")
+                    }
+                  })
 
-          } else {
-            console.log("song IS in db")
-            this.addSongToSetlist(this.state.deezerId)
-          }
+              } else {
+                console.log("song IS in db")
+                this.addSongToSetlist(this.state.deezerId)
+              }
+            })
         })
     }
+    this.setState({
+      artistName: "",
+      songTitle: "",
+      deezerId: ""
+    })
     evt.target.reset()
   }
 
