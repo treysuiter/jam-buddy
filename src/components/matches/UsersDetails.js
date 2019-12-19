@@ -35,19 +35,6 @@ export default class UsersDetail extends Component {
       })
   }
 
-  isThisSongInMySetlist = (songId) => {
-    //ex fetch http://localhost:5002/setlists?userId=1&songId=3
-    ApiManager.getAll("setlists", `userId=${loggedInUserId()}&songId=${songId}`)
-      .then(response => {
-        console.log(response, response.length > 0, "wha is this reponse")
-        if (response.length > 0) {
-          return true
-        } else {
-          return false
-        }
-      })
-  }
-
   handleSave = () => {
     const newBuddy = {
       loggedInUser: loggedInUserId(),
@@ -67,9 +54,6 @@ export default class UsersDetail extends Component {
       .then(response => {
         ApiManager.delete("buddies", `${response[0].id}`)
       })
-      // .then(() => this.setState({
-      //   isThisMyBuddy: false
-      // }))
       .then(() => this.props.history.push("/matches"))
   }
 
@@ -89,7 +73,6 @@ export default class UsersDetail extends Component {
             {this.state.detailsSetlist.map(setlistSong =>
               <SongCard
                 key={setlistSong.id}
-                // isSongInMySet={this.isThisSongInMySetlist(setlistSong.id)}
                 setlistSong={setlistSong}
                 songName={setlistSong.song.songTitle}
                 {...this.props}

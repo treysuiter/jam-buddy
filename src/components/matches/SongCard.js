@@ -16,7 +16,6 @@ export default class SongCard extends Component {
 
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&songId=${this.props.setlistSong.id}`)
       .then(response => {
-        console.log(response, response.length > 0, "wha is this reponse")
         if (response.length > 0) {
           this.setState({
             isSongInMySet: true
@@ -27,11 +26,9 @@ export default class SongCard extends Component {
 
   render() {
 
-    console.log(this.state.isSongInMySet, "what is this bool?")
-
     return (
       <div className="card">
-        <h3> {this.state.isSongInMySet ?  <h1>{this.props.songName} </h1> : this.props.songName}</h3>
+        <h3> {this.state.isSongInMySet ?  <h1>{this.props.songName}</h1> : this.props.songName}</h3>
       </div>
     )
   }
