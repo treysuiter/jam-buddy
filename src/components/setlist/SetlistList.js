@@ -47,7 +47,7 @@ const styles = {
   },
   sectionContent: {
     height: '100%',
-    marginBottom: '56px'
+    marginTop: '16px'
   },
 };
 

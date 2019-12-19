@@ -46,6 +46,7 @@ class NavBar extends Component {
 
     const { classes } = this.props;
     const { value } = this.state;
+    const firstName = this.props.userName.split(' ');
 
     return (
       <>
@@ -53,12 +54,8 @@ class NavBar extends Component {
           value={value}
           className={classes.root}
           onChange={this.handleChange}
-          showLabels
-        >
-          <div>
-            {this.props.userName}
-          </div>
-          />
+          showLabels>
+
 
           <BottomNavigationAction
             label="Setlist"
@@ -80,7 +77,7 @@ class NavBar extends Component {
 
           <BottomNavigationAction
             onClick={this.props.clearUser}
-            label="Logout"
+            label={`Logout ${firstName[0]}`}
             icon={<AccountCircleIcon />}
           />
 
