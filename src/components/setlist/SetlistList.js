@@ -47,7 +47,7 @@ const styles = {
   },
   sectionContent: {
     height: '100%',
-    marginTop: '16px'
+    marginBottom: 56
   },
 };
 
@@ -102,7 +102,8 @@ class SetlistList extends Component {
       ApiManager.getAll("instruments"),
       //Gets user object and assigns instrument id to state
       //TODO This fetch call is causing an error
-      ApiManager.get("users", loggedInUserId())])
+      ApiManager.get("users", loggedInUserId())
+    ])
       .then(([setlistArray, instrumentArray, userObject]) => {
         this.setState({
           setlist: setlistArray.reverse(),

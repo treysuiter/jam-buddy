@@ -15,6 +15,7 @@ const styles = {
     position: 'fixed',
     overflow: 'hidden',
     bottom: 0,
+    color: 'black'
   },
 };
 
@@ -41,12 +42,11 @@ class NavBar extends Component {
     })
   }
 
-
   render() {
 
     const { classes } = this.props;
     const { value } = this.state;
-    const firstName = this.props.userName.split(' ');
+    
 
     return (
       <>
@@ -77,7 +77,7 @@ class NavBar extends Component {
 
           <BottomNavigationAction
             onClick={this.props.clearUser}
-            label={`Logout ${firstName[0]}`}
+            label={`Logout ${this.props.userName}`}
             icon={<AccountCircleIcon />}
           />
 

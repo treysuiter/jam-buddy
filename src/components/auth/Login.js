@@ -54,9 +54,9 @@ class Login extends Component {
             userId: user[0].id
           });
           const userId = user[0].id
-          const userName = user[0].name
+          const userName = user[0].name.split(" ")
           localStorage.setItem("userId", parseInt(userId))
-          localStorage.setItem("userName", userName)
+          localStorage.setItem("userName", userName[0])
           this.props.history.push('/setlist');
         } else {
           window.alert("Email and/or password not valid. Please try again")
