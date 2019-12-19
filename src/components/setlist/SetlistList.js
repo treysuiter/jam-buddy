@@ -129,8 +129,8 @@ class SetlistList extends Component {
 
   //Checks for existing song in database
 
-  checkForSongInDatabase = (artistName, songTitle) => {
-    return ApiManager.getAll("songs", `artistName=${artistName}&songTitle=${songTitle}`)
+  checkForSongInDatabase = (deezerId) => {
+    return ApiManager.getAll("songs", `deezerId=${deezerId}`)
       .then(boolResponse => {
         console.log(boolResponse, boolResponse.length > 0, "what is this response for check for song in db?")
         if (response.length > 0) {
@@ -155,8 +155,8 @@ class SetlistList extends Component {
       )
   }
 
-  addSongToSetlist(artistName, songTitle) {
-    ApiManager.getAll("songs", `artistName=${artistName}&songTitle=${songTitle}`)
+  addSongToSetlist(deezerId) {
+    ApiManager.getAll("songs", `deezerId=${deezerId}`)
       .then(response => {
         this.checkForSongInSetlist(response)
           .then(bool => {
@@ -202,7 +202,7 @@ class SetlistList extends Component {
       })})
 
       this.setState({ loadingStatus: true })
-      this.checkForSongInDatabase(this.state.artistName, this.state.songTitle)
+      this.checkForSongInDatabase(this.state.deezerId)
         .then(bool => {
           console.log(bool, "is this the bool when you add song to db?")
           if (bool === false) {
@@ -235,7 +235,7 @@ class SetlistList extends Component {
 
           } else {
             console.log("song IS in db")
-            this.addSongToSetlist(this.state.artistName, this.state.songTitle)
+            this.addSongToSetlist(this.state.deezerId)
           }
         })
     }
