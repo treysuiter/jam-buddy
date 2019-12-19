@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -41,10 +40,23 @@ class MatchesCard extends Component {
     return (
       <Card className={classes.matchesCard}>
         <CardContent>
-          <h3>{this.props.matchName}</h3>
+
+          {/* <h3>{this.props.matchName}</h3> */}
+
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
+            {this.props.matchName}
+          </Typography>
+
         </CardContent>
         <CardContent>
-          <h4>Setlist Matches: {this.props.songMatchTotal}</h4>
+
+          {/* <h4>Setlist Matches: {this.props.songMatchTotal}</h4> */}
+
+          <Typography label="Match Total:" className={classes.artist} color="textSecondary">
+          {`Match Total: ${this.props.songMatchTotal}`}
+          </Typography>
+
+
         </CardContent>
         <CardActions>
 

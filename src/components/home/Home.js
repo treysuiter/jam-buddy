@@ -57,9 +57,9 @@ class Home extends Component {
       })
       .then(() => {
         let orderedArray = allSongs
-        console.log(allSongs, 'all song arry before sort')
+        // console.log(allSongs, 'all song arry before sort')
         orderedArray.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
-        console.log(orderedArray, 'all song arry after sort')
+        // console.log(orderedArray, 'all song arry after sort')
         this.setState({
           mostPopularSongArray: orderedArray
         })
@@ -68,7 +68,7 @@ class Home extends Component {
 
   render() {
 
-    console.log(this.state.mostPopularSongArray[0], "is this a name")
+    // console.log(this.state.mostPopularSongArray[0], "is this a name")
 
     const { classes } = this.props;
 

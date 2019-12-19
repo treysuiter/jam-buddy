@@ -10,12 +10,9 @@ export default class SongCard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.songName, 'song name')
-    console.log(this.props.setlistSong.id, "song id")
 
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&songId=${this.props.setlistSong.songId}`)
       .then(response => {
-        console.log(response, "this si the response from match style fetch")
         if (response.length > 0) {
           this.setState({
             isSongInMySet: true
@@ -25,8 +22,6 @@ export default class SongCard extends Component {
   }
 
   render() {
-
-    console.log(this.state.isSongInMySet, "match bool")
 
     return (
       <div className="card">
