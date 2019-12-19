@@ -38,7 +38,7 @@ export default class UsersDetail extends Component {
     //ex fetch http://localhost:5002/setlists?userId=1&songId=3
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&songId=${songId}`)
     .then(response => {
-      console.log(response, "wha is this reponse from styling api fetch?")
+      console.log(response, response.length > 0, "wha is this reponse from styling api fetch?")
       if (response.length > 0) {
         return true
       } else {

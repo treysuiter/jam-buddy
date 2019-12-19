@@ -195,7 +195,6 @@ class SetlistList extends Component {
 
       ApiManager.deezer(this.state.artistName, this.state.songTitle)
         .then(deezerResponse => {
-          console.log(deezerResponse, "deezer response")
           if (deezerResponse.data.length === 0) {
             window.alert("Song not found. Please try search again.")
           } else {
