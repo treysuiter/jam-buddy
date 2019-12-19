@@ -22,30 +22,30 @@ export default class UsersDetail extends Component {
       ApiManager.get("users", this.props.matchId, "_embed=setlists&_expand=instrument"),
       ApiManager.getAll("setlists", `userId=${this.props.matchId}&_expand=song`),
       ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)])
-        .then(([email, detailsUser, currentSetlist, response]) => {
-          this.setState({
-            name: detailsUser.name,
-            email: email.email,
-            detailsInstrument: detailsUser.instrument.instrumentName,
-            loadingStatus: false,
-            detailsSetlist: currentSetlist,
-            isThisMyBuddy: response.length > 0 ? true : false
-          })
+      .then(([email, detailsUser, currentSetlist, response]) => {
+        this.setState({
+          name: detailsUser.name,
+          email: email.email,
+          detailsInstrument: detailsUser.instrument.instrumentName,
+          loadingStatus: false,
+          detailsSetlist: currentSetlist,
+          isThisSongInMySetlist: false,
+          isThisMyBuddy: response.length > 0 ? true : false
         })
+      })
   }
 
   isThisSongInMySetlist = (songId) => {
     //ex fetch http://localhost:5002/setlists?userId=1&songId=3
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&songId=${songId}`)
-    .then(response => {
-      console.log(response, response.length > 0, "wha is this reponse from styling api fetch?")
-      if (response.length > 0) {
-        return true
-      } else {
-        return false
-      }
-    })
-
+      .then(response => {
+        console.log(response, response.length > 0, "wha is this reponse")
+        if (response.length > 0) {
+          return true
+        } else {
+          return false
+        }
+      })
   }
 
   handleSave = () => {
@@ -60,7 +60,7 @@ export default class UsersDetail extends Component {
       .then(() => this.props.history.push("/matches"))
   }
 
-//TODO refactor this like in buddies details
+  //TODO refactor this like in buddies details
 
   handleDelete = () => {
     ApiManager.getAll("buddies", `userId=${this.props.matchId}&loggedInUser=${loggedInUserId()}`)
@@ -89,11 +89,12 @@ export default class UsersDetail extends Component {
             {this.state.detailsSetlist.map(setlistSong =>
               <SongCard
                 key={setlistSong.id}
-                isThisSongInMySetlist={this.isThisSongInMySetlist(setlistSong.id)}
+                // isSongInMySet={this.isThisSongInMySetlist(setlistSong.id)}
                 setlistSong={setlistSong}
                 songName={setlistSong.song.songTitle}
                 {...this.props}
-              />)}
+              />
+            )}
           </div>
           <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.goBack()}>Back</button>
           {this.state.isThisMyBuddy ? null : <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>}
