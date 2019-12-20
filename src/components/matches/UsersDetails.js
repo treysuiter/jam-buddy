@@ -1,10 +1,39 @@
 import React, { Component } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import SongCard from './SongCard';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class UsersDetail extends Component {
+const styles = {
+  userCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 375,
+    height: 'auto',
+    border: '1px solid black',
+    marginLeft: '10px',
+    marginTop: '10px',
+    borderRadius: '5px',
+    justifyContent: 'space-between',
+    boxShadow: '9px 6px 3px -5px rgba(0,0,0,0.57)',
+    alignSelf: 'center',
+    bottomMargin: 56
+  },
+  title: {
+    fontSize: 18,
+  },
+  artist: {
+    // marginBottom: 6,
+  },
+};
+
+class UsersDetail extends Component {
 
   state = {
     name: "",
@@ -59,31 +88,55 @@ export default class UsersDetail extends Component {
 
   render() {
 
+    const { classes } = this.props;
+
     return (
-      <div className="card">
-        <div className="card-content">
+      <Card className={classes.userCard}>
+        <CardContent>
           <picture>
             <img src={`https://robohash.org/${this.state.name}`} alt="Current User" />
           </picture>
-          <h3>Name: {this.state.name}</h3>
-          <h3>Email: {this.state.email}</h3>
-          <p>Instrument: {this.state.detailsInstrument}</p>
-          <h2>Setlist</h2>
-          <div className="userSetlist">
-            {this.state.detailsSetlist.map(setlistSong =>
-              <SongCard
-                key={setlistSong.id}
-                setlistSong={setlistSong}
-                songName={setlistSong.song.songTitle}
-                {...this.props}
-              />
-            )}
-          </div>
-          <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.goBack()}>Back</button>
+
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
+            {this.state.name}
+          </Typography>
+
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {this.state.email}
+          </Typography>
+
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {this.state.detailsInstrument}
+          </Typography>
+          <hr />
+
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
+            Setlist
+          </Typography>
+
+          {this.state.detailsSetlist.map(setlistSong =>
+            <SongCard
+              key={setlistSong.id}
+              setlistSong={setlistSong}
+              songName={setlistSong.song.songTitle}
+              {...this.props}
+            />
+          )}
+        </CardContent>
+        <CardActions>
+
+          <Button size="medium" disabled={this.state.loadingStatus} lassName="" color="primary" onClick={() => this.props.history.goBack()}>Back
+          </Button>
+
+
+            //TODO you are here
           {this.state.isThisMyBuddy ? null : <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>}
+
           {this.state.isThisMyBuddy ? <button type="button" disabled={this.state.loadingStatus} onClick={this.handleDelete}>Remove Buddy</button> : null}
-        </div>
-      </div>
+        </CardActions>
+      </Card>
     );
   }
 }
+
+export default withStyles(styles)(UsersDetail)

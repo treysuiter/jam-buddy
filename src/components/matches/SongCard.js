@@ -25,7 +25,7 @@ export default class SongCard extends Component {
 
     return (
       <div className="card">
-        <h3> {this.state.isSongInMySet ? <h1>{this.props.songName}</h1> : this.props.songName}</h3>
+        <h3> {this.state.isSongInMySet ? <i>{this.props.songName}</i> : this.props.songName}</h3>
       </div>
     )
   }

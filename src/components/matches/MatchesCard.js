@@ -47,8 +47,8 @@ class MatchesCard extends Component {
             {this.props.matchName}
           </Typography>
 
-        </CardContent>
-        <CardContent>
+        
+        
 
           {/* <h4>Setlist Matches: {this.props.songMatchTotal}</h4> */}
 
