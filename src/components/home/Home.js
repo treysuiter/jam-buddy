@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom"
 import ApiManager from '../../modules/ApiManager';
-// import LoginModal from '../auth/Login';
 
 const styles = {
   singleButton: {
@@ -31,20 +30,19 @@ const styles = {
   }
 }
 
-
-
 class Home extends Component {
 
   state = {
-    mostPopularSongArray: []
+    topSong: null
   }
 
   componentDidMount() {
 
-    const allSongs = []
     ApiManager.getAll("songs")
       .then(allSongsResponse => {
+        let allSongs = []
         allSongsResponse.forEach(song => {
+          
           ApiManager.getAll("setlists", `songId=${song.id}`)
             .then(setlistResponse => {
               let songObj = {
@@ -52,24 +50,24 @@ class Home extends Component {
                 total: setlistResponse.length
               }
               allSongs.push(songObj)
+              allSongs.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
             })
         })
+        return allSongs
       })
-      .then(() => {
-        let orderedArray = allSongs
-        // console.log(allSongs, 'all song arry before sort')
-        orderedArray.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
-        // console.log(orderedArray, 'all song arry after sort')
+      .then(response => {
         this.setState({
-          mostPopularSongArray: orderedArray
+          topSong: response
         })
       })
   }
 
   render() {
 
-    // console.log(this.state.mostPopularSongArray[0], "is this a name")
+    if (this.state.topSong !== null) {
+      console.log(this.state.topSong, "state top song after if")}
 
+    
     const { classes } = this.props;
 
     return (
@@ -77,7 +75,7 @@ class Home extends Component {
         <picture className={classes.logo}>
           <img src={require('../images/JamBuddyLogo.png')} alt="Jam Buddy Logo" />
         </picture>
-        <div>Most Popular Song on JamBuddy:{this.state.mostPopularSongArray[0]}</div>
+        <div>Most Popular Song on JamBuddy: SONG HERE</div>
         <div className={classes.bothButtons}>
           <Button type="button" variant="contained" color="primary" className={classes.singleButton} onClick={() => { this.props.history.push("/registration") }}>Registration</Button><br />
 

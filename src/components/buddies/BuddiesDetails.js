@@ -1,10 +1,42 @@
 import React, { Component } from 'react';
 import ApiManager from '../../modules/ApiManager';
 import SongCard from '../matches/SongCard';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class BuddiesDetail extends Component {
+const styles = {
+  buddyCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: 375,
+    height: 'auto',
+    border: '1px solid black',
+    marginLeft: '10px',
+    marginTop: '10px',
+    borderRadius: '5px',
+    justifyContent: 'space-between',
+    boxShadow: '9px 6px 3px -5px rgba(0,0,0,0.57)',
+    alignSelf: 'center',
+    backgroundColor: 'lightblue'
+  },
+  title: {
+    fontSize: 18,
+  },
+  artist: {
+    // marginBottom: 6,
+  },
+  sectionContent: {
+    marginBottom: 60
+  }
+};
+
+class BuddiesDetail extends Component {
 
   state = {
     name: "",
@@ -59,30 +91,59 @@ export default class BuddiesDetail extends Component {
 
   render() {
 
+    const { classes } = this.props;
+
     return (
-      <div className="card" >
-        <div className="card-content">
+    <section className={classes.sectionContent}>
+      <Card className={classes.buddyCard}>
+        <CardContent>
           <picture>
             <img src={`https://robohash.org/${this.state.name}`} alt="Current User" />
           </picture>
-          <h3>Name: {this.state.name}</h3>
-          <h3>Email: {this.state.email}</h3>
-          <p>Instrument: {this.state.detailsInstrument}</p>
-          <h2>Setlist</h2>
-          <div className="userSetlist">
-            {this.state.detailsSetlist.map(setlistSong =>
-              <SongCard
-                key={setlistSong.id}
-                setlistSong={setlistSong}
-                songName={setlistSong.song.songTitle}
-                {...this.props}
-              />)}
-          </div>
-          <button type="button" disabled={this.state.loadingStatus} onClick={() => this.props.history.goBack()}>Back</button>
-          {this.state.isThisMyBuddy ? null : <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>}
-          {this.state.isThisMyBuddy ? <button type="button" disabled={this.state.loadingStatus} onClick={this.handleDelete}>Remove Buddy</button> : null}
-        </div>
-      </div>
+
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
+            {this.state.name}
+          </Typography>
+
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {this.state.email}
+          </Typography>
+
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {this.state.detailsInstrument}
+          </Typography>
+          <hr />
+
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
+            Setlist
+          </Typography>
+
+          {this.state.detailsSetlist.map(setlistSong =>
+            <SongCard
+              key={setlistSong.id}
+              setlistSong={setlistSong}
+              songName={setlistSong.song.songTitle}
+              {...this.props}
+            />
+          )}
+        </CardContent>
+        <CardActions className={classes.setlist}>
+
+          <Button size="medium" disabled={this.state.loadingStatus} className="" color="primary" onClick={() => this.props.history.goBack()}>Back
+          </Button>
+
+          {this.state.isThisMyBuddy ? null :  <Button size="medium" disabled={this.state.loadingStatus} className="" color="primary" onClick={this.handleSave}>Add Buddy
+          </Button>}
+
+          {this.state.isThisMyBuddy ?<Button size="medium" disabled={this.state.loadingStatus} className="" color="secondary" onClick={this.handleDelete}>Delete Buddy
+          </Button> : null}
+
+        </CardActions>
+      </Card>
+      </section>
     );
   }
 }
+
+
+export default withStyles(styles)(BuddiesDetail)
