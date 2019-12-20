@@ -23,7 +23,7 @@ const styles = {
     justifyContent: 'space-between',
     boxShadow: '9px 6px 3px -5px rgba(0,0,0,0.57)',
     alignSelf: 'center',
-    bottomMargin: 56
+    backgroundColor: 'lightblue'
   },
   title: {
     fontSize: 18,
@@ -31,6 +31,9 @@ const styles = {
   artist: {
     // marginBottom: 6,
   },
+  sectionContent: {
+    marginBottom: 60
+  }
 };
 
 class UsersDetail extends Component {
@@ -91,6 +94,7 @@ class UsersDetail extends Component {
     const { classes } = this.props;
 
     return (
+      <section className={classes.sectionContent}>
       <Card className={classes.userCard}>
         <CardContent>
           <picture>
@@ -123,18 +127,20 @@ class UsersDetail extends Component {
             />
           )}
         </CardContent>
-        <CardActions>
+        <CardActions className={classes.setlist}>
 
-          <Button size="medium" disabled={this.state.loadingStatus} lassName="" color="primary" onClick={() => this.props.history.goBack()}>Back
+          <Button size="medium" disabled={this.state.loadingStatus} className="" color="primary" onClick={() => this.props.history.goBack()}>Back
           </Button>
 
+          {this.state.isThisMyBuddy ? null :  <Button size="medium" disabled={this.state.loadingStatus} className="" color="primary" onClick={this.handleSave}>Add Buddy
+          </Button>}
 
-            //TODO you are here
-          {this.state.isThisMyBuddy ? null : <button type="button" disabled={this.state.loadingStatus} onClick={this.handleSave}>Add Buddy</button>}
+          {this.state.isThisMyBuddy ?<Button size="medium" disabled={this.state.loadingStatus} className="" color="secondary" onClick={this.handleDelete}>Delete Buddy
+          </Button> : null}
 
-          {this.state.isThisMyBuddy ? <button type="button" disabled={this.state.loadingStatus} onClick={this.handleDelete}>Remove Buddy</button> : null}
         </CardActions>
       </Card>
+      </section>
     );
   }
 }

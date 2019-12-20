@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ApiManager from '../../modules/ApiManager';
+import Typography from '@material-ui/core/Typography';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
@@ -24,9 +25,11 @@ export default class SongCard extends Component {
   render() {
 
     return (
-      <div className="card">
-        <h3> {this.state.isSongInMySet ? <i>{this.props.songName}</i> : this.props.songName}</h3>
-      </div>
+
+      <Typography className="" color="textSecondary">
+        {this.state.isSongInMySet ? <i>{this.props.songName}</i> : this.props.songName}
+      </Typography>
+
     )
   }
 }
