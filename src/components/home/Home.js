@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from "react-router-dom"
 import ApiManager from '../../modules/ApiManager';
+import { Typography } from '@material-ui/core';
 
 const styles = {
   singleButton: {
@@ -33,7 +34,7 @@ const styles = {
 class Home extends Component {
 
   state = {
-    topSong: null
+    topSong: ""
   }
 
   componentDidMount() {
@@ -41,33 +42,33 @@ class Home extends Component {
     ApiManager.getAll("songs")
       .then(allSongsResponse => {
         let allSongs = []
+        let topSong = ""
         allSongsResponse.forEach(song => {
-          
+
           ApiManager.getAll("setlists", `songId=${song.id}`)
             .then(setlistResponse => {
               let songObj = {
+                id: song.id,
                 name: song.songTitle,
                 total: setlistResponse.length
               }
               allSongs.push(songObj)
               allSongs.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
+              topSong = allSongs[0].name
+              this.setState({
+                topSong: topSong
+              })
             })
-        })
-        return allSongs
-      })
-      .then(response => {
-        this.setState({
-          topSong: response
         })
       })
   }
 
   render() {
 
-    if (this.state.topSong !== null) {
-      console.log(this.state.topSong, "state top song after if")}
 
-    
+
+
+
     const { classes } = this.props;
 
     return (
@@ -75,11 +76,12 @@ class Home extends Component {
         <picture className={classes.logo}>
           <img src={require('../images/JamBuddyLogo.png')} alt="Jam Buddy Logo" />
         </picture>
-        <div>Most Popular Song on JamBuddy: SONG HERE</div>
+        <Typography className={classes.title} color="textPrimary" gutterBottom>
+          <br /><center>Current Most Known Song: <br /> <b>{this.state.topSong}</b></center>
+        </Typography>
         <div className={classes.bothButtons}>
+
           <Button type="button" variant="contained" color="primary" className={classes.singleButton} onClick={() => { this.props.history.push("/registration") }}>Registration</Button><br />
-
-
           <Button type="button" variant="contained" color="secondary" className={classes.singleButton} onClick={() => { this.props.history.push("/login") }}>Login</Button>
         </div>
       </>
