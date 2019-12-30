@@ -28,13 +28,17 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%'
+  },
+  topSong: {
+    textAlign: 'center'
   }
 }
 
 class Home extends Component {
 
   state = {
-    topSong: ""
+    topSong: "",
+    topSongArtist: ""
   }
 
   componentDidMount() {
@@ -43,6 +47,7 @@ class Home extends Component {
       .then(allSongsResponse => {
         let allSongs = []
         let topSong = ""
+        let topSongArtist = ""
         allSongsResponse.forEach(song => {
 
           ApiManager.getAll("setlists", `songId=${song.id}`)
@@ -50,13 +55,16 @@ class Home extends Component {
               let songObj = {
                 id: song.id,
                 name: song.songTitle,
+                artist: song.artistName,
                 total: setlistResponse.length
               }
               allSongs.push(songObj)
               allSongs.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
               topSong = allSongs[0].name
+              topSongArtist = allSongs[0].artist
               this.setState({
-                topSong: topSong
+                topSong: topSong,
+                topSongArtist: topSongArtist
               })
             })
         })
@@ -76,8 +84,8 @@ class Home extends Component {
         <picture className={classes.logo}>
           <img src={require('../images/JamBuddyLogo.png')} alt="Jam Buddy Logo" />
         </picture>
-        <Typography className={classes.title} color="textPrimary" gutterBottom>
-          <br /><center>Current Most Known Song: <br /> <b>{this.state.topSong}</b></center>
+        <Typography className={classes.topSong} color="textPrimary" gutterBottom>
+          <br />Current Most Known Song: <br /> <b>{this.state.topSong}</b><br />{this.state.topSongArtist}
         </Typography>
         <div className={classes.bothButtons}>
 
