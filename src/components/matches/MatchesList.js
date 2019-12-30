@@ -197,7 +197,7 @@ class MatchesList extends Component {
                 className={classes.dropdown}
                 id="instrumentId"
                 name="instrumentId"
-                value={this.state.instrumentId}
+                value={isNaN(this.state.instrumentId) ? 1 : this.state.instrumentId}
                 onChange={this.handleDropdownChange}>
                 {this.state.instruments.map(instrument =>
                   <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
