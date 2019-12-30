@@ -47,10 +47,12 @@ class Home extends Component {
 
     ApiManager.getAll("songs")
       .then(allSongsResponse => {
-        let allSongs = []
-        let topSong = ""
-        let topSongArtist = ""
+        
+        const allSongs = []
+      
         allSongsResponse.forEach(song => {
+
+          console.log(allSongs, "should be mutiple allsong")
 
           ApiManager.getAll("setlists", `songId=${song.id}`)
             .then(setlistResponse => {
@@ -62,11 +64,9 @@ class Home extends Component {
               }
               allSongs.push(songObj)
               allSongs.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
-              topSong = allSongs[0].name
-              topSongArtist = allSongs[0].artist
               this.setState({
-                topSong: topSong,
-                topSongArtist: topSongArtist
+                topSong: allSongs[0].name,
+                topSongArtist: allSongs[0].artist
               })
             })
         })
