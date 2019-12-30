@@ -19,10 +19,6 @@ const styles = {
   },
 };
 
-// import { withStyles } from '@material-ui/core/styles';
-
-//TODO Get name displaying on first render
-
 class NavBar extends Component {
 
   state = {
@@ -49,7 +45,7 @@ class NavBar extends Component {
     return (
       <>
         <BottomNavigation
-          value={value}
+          value={value ? value : 0}
           className={classes.root}
           onChange={this.handleChange}
           showLabels>
