@@ -168,7 +168,10 @@ class SetlistList extends Component {
                 userId: loggedInUserId()
               }
               ApiManager.post("setlists", newSetlistSong)
-                .then(() => this.setlistRerender())
+                .then(() => {
+                  this.setlistRerender()
+                  this.setState({ loadingStatus: false })
+                })
             } else {
               window.alert("This song is already in your setlist")
             }
@@ -287,7 +290,7 @@ class SetlistList extends Component {
               />
             </FormControl>
             <br />
-            <Button type="submit" value="Submit" size="large" variant="contained" color="primary" className={classes.addSongButton}>Add Song</Button>
+            <Button type="submit" value="Submit" size="large" disabled={this.state.loadingStatus} variant="contained" color="primary" className={classes.addSongButton}>Add Song</Button>
           </form>
           <h3 className={classes.pageText}>Your Setlist</h3>
           <div className={classes.allCards}>
