@@ -1,16 +1,60 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import MatchesCard from '../matches/MatchesCard'
+import Select from '@material-ui/core/Select';
+import { withStyles } from '@material-ui/core/styles';
+import { FormControl, Button } from '@material-ui/core';
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class MatchesList extends Component {
+const styles = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: '10px',
+    width: 250
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  allCards: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'lightblue',
+  },
+  dropdown: {
+    marginLeft: '10px',
+    width: 250,
+    fontSize: 18
+  },
+  filterButton: {
+    marginLeft: '10px',
+    marginBottom: '10px',
+    marginTop: '10px',
+    width: 200,
+  },
+  pageText: {
+    marginLeft: '15px',
+  },
+  sectionContent: {
+    height: '100%',
+    marginBottom: 56
+  },
+};
+
+class MatchesList extends Component {
 
   state = {
     songMatches: [],
     instruments: [],
-    instrumentId: "",
+    instrumentId: parseInt(localStorage.getItem("instrumentId")) !== null ? parseInt(localStorage.getItem("instrumentId")) : "",
     loadingStatus: true
   }
 
@@ -24,6 +68,7 @@ export default class MatchesList extends Component {
     this.setState({
       instrumentId: parseInt(evt.target.value),
     })
+    localStorage.setItem("instrumentId", parseInt(evt.target.value))
   }
 
   componentDidMount() {
@@ -36,6 +81,7 @@ export default class MatchesList extends Component {
           loadingStatus: false
         })
       })
+      .then(() => this.findMatches(this.state.instrumentId))
   }
 
   findMatches(instrumentFilter) {
@@ -114,28 +160,33 @@ export default class MatchesList extends Component {
 
   render() {
 
-    // console.log(this.state)
-
-    // console.log(this.state.matches, "matches arrary ins state in render function")
+    const { classes, ...other } = this.props;
 
     return (
+
       <>
-        <section className="section-content">
-          Filter matches by instrument<br />
-          <select
-            id="instrumentId"
-            name="instrumentId"
-            disabled={this.state.loadingStatus}
-            value={this.state.instrumentId}
-            onChange={this.handleDropdownChange}>
-            {this.state.instruments.map(instrument =>
-              <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
-              </option>
-            )}
-          </select><br />
-          Find your matches!<br />
-          <button type="button" className="btn" onClick={() => this.findMatches(this.state.instrumentId)}>Find Matches</button>
-          <div className="container-cards">
+        <section className={classes.sectionContent}>
+          <form>
+          <h3 className={classes.pageText}>Select instrument filter:</h3>
+          <FormControl>
+            <Select
+              native
+              variant="outlined"
+              className={classes.dropdown}
+              id="instrumentId"
+              name="instrumentId"
+              value={this.state.instrumentId}
+              onChange={this.handleDropdownChange}>
+              {this.state.instruments.map(instrument =>
+                <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
+                </option>
+              )}
+            </Select>
+          </FormControl>
+
+          <Button type="button" value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton}onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
+          </form>
+          <div className={classes.allCards}>
             {this.state.songMatches.map(matchObj =>
               <MatchesCard
                 key={matchObj.id}
@@ -144,7 +195,7 @@ export default class MatchesList extends Component {
                 matchName={matchObj.name}
                 songMatchIds={matchObj.matchIds}
                 setlist={matchObj.setlists}
-                {...this.props}
+                {...other}
               />)}
           </div>
         </section>
@@ -152,3 +203,5 @@ export default class MatchesList extends Component {
     )
   }
 }
+
+export default withStyles(styles)(MatchesList)

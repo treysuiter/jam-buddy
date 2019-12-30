@@ -1,14 +1,60 @@
 import React, { Component } from 'react';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
-export default class SetlistCard extends Component {
+const styles = {
+  setlistCard: {
+    display: 'flex',
+    flexDirection: 'rows',
+    width: 375,
+    height: 'auto',
+    border: '1px solid black',
+    margin: '10px',
+    borderRadius: '5px',
+    justifyContent: 'space-between',
+    boxShadow: '9px 6px 3px -5px rgba(0,0,0,0.57)',
+    alignSelf: 'center'
+  },
+  title: {
+    fontSize: 18,
+  },
+  artist: {
+    // marginBottom: 6,
+  },
+  deleteButton: {
+  //  alignSelf: 'flex-end'
+  }
+};
+
+class SetlistCard extends Component {
+
 
   render() {
+
+    const { classes } = this.props;
+  
     return (
-      <div className="card">
-        <h3>{this.props.songTitle}</h3>
-        <h4>by: {this.props.artistName}</h4>
-        <button type="button" className="btn" onClick={() => this.props.deleteSong(this.props.songInSet.id)}>Delete</button>
-      </div>
+      <Card className={classes.setlistCard}>
+        <CardContent>
+          <Typography className={classes.title} color="textPrimary" gutterBottom>
+            {this.props.songTitle}
+          </Typography>
+          <Typography className={classes.artist} color="textSecondary">
+          {this.props.artistName}
+          </Typography>
+        </CardContent>
+        <CardActions>
+        <Button size="medium" className="deleteButton" color="secondary" onClick={() => this.props.deleteSong(this.props.songInSet.id)}>Delete
+        </Button>
+        </CardActions>
+        
+      </Card>
     )
   }
 }
+
+export default withStyles(styles)(SetlistCard)

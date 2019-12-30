@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import NavBar from "./nav/NavBar";
-import ApplicationViews from "./ApplicationViews";
-// import "./Nutshell.css";
-// function loggedInUserName() { return (localStorage.getItem("userName")) }
+import ApplicationViews from "./ApplicationViews"
+import { withRouter } from "react-router-dom"
+// import SimpleMenu from "./nav/TopNav";
+import TopNav from "./nav/TopNav";
+
+
+
 
 class JamBuddy extends Component {
   state = {
@@ -13,8 +17,6 @@ class JamBuddy extends Component {
 
   //check for logged in user in local storage
   isAuthenticated = () => localStorage.getItem("credentials") !== null
-
-  loggedInUserName = () => localStorage.getItem("userName")
 
   //add entered or unentered user info into localStorage and calls isAuthenticated
   setUser = (authObj) => {
@@ -34,30 +36,36 @@ class JamBuddy extends Component {
     localStorage.removeItem("credentials")
     localStorage.removeItem("userId")
     localStorage.removeItem("userName")
+    localStorage.removeItem("instrumentId")
+    localStorage.removeItem("navId")
     this.setState({ user: this.isAuthenticated(), userName: "" })
+    this.props.history.push("/")
 
-    // this.props.history.push("/login")
   }
 
   //check for logged in user on rerender
   componentDidMount() {
     this.setState({
-      user: this.isAuthenticated(),
-      userName: this.loggedInUserName()
+      user: this.isAuthenticated()
     })
   }
 
   render() {
-    const { user, userName } = this.state
+
+    //TODO clean up this user name code
+
+    const { user } = this.state
+
     return (
       <>
-        { user ?
-        <NavBar user={user} testString={userName} clearUser={this.clearUser} />
-      : null }
+        {/* {user ? <TopNav user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser}/> : null } */}
         <ApplicationViews user={user} setUser={this.setUser} />
+
+        {user ? <NavBar user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser} /> : null}
+
       </>
     );
   }
 }
 
-export default JamBuddy;
+export default withRouter(JamBuddy);

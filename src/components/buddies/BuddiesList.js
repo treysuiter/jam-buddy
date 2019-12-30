@@ -1,45 +1,94 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager';
 import BuddiesCard from './BuddiesCard';
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class BuddiesList extends Component {
+const styles = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: '10px',
+    width: 250
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  allCards: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'lightblue',
+  },
+  dropdown: {
+    marginLeft: '10px',
+    width: 250,
+    fontSize: 18
+  },
+  addSongButton: {
+    marginLeft: '10px',
+    width: 200,
+  },
+  pageText: {
+    marginLeft: '15px',
+  },
+  sectionContent: {
+    height: '100%',
+    marginBottom: 56
+  },
+};
+
+class BuddiesList extends Component {
 
   state = {
     buddies: [],
     loadingStatus: true
   }
 
-  componentDidMount () {
+  componentDidMount() {
 
     ApiManager.getAll("buddies", `loggedInUser=${loggedInUserId()}&_expand=user`)
-    .then(response => {
-      this.setState({
-        buddies: response
+      .then(response => {
+        this.setState({
+          buddies: response
+        })
       })
-    })
-   
+
   }
 
-  myConsoleLogTest () {
+  myConsoleLogTest() {
     console.group(this.state)
   }
 
-  render () {
+  render() {
+
+    const { classes, ...other } = this.props;
 
     return (
       <>
-      <div className="container-cards">
+        <div className={classes.sectionContent}>
+        <h3 className={classes.pageText}>Buddies</h3>
+          <div className={classes.allCards}>
             {this.state.buddies.map(matchObj =>
               <BuddiesCard
                 key={matchObj.id}
                 matchObj={matchObj}
                 buddyName={matchObj.user.name}
-                {...this.props}
+                {...other}
               />)}
           </div>
+        </div>
       </>
     )
   }
 }
+
+export default withStyles(styles)(BuddiesList)

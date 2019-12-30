@@ -8,7 +8,10 @@ import MatchesList from "./matches/MatchesList";
 import UsersDetails from "./matches/UsersDetails"
 import BuddiesList from "./buddies/BuddiesList"
 import BuddiesDetail from "./buddies/BuddiesDetails";
+// import LoginModal from "./auth/Login";
+
 // import BuddiesDetails from "./buddies/BuddiesDetails"
+// function loggedInUserName() { return (localStorage.getItem("userName")) }
 
 export default class ApplicationViews extends Component {
 
@@ -16,6 +19,7 @@ export default class ApplicationViews extends Component {
 
     return (
       <>
+        {/* <h4 className="user-name-top">Hello, {loggedInUserName()} </h4> */}
         <Route exact path="/" render={props => {
             return <Home {...props} />
           }}

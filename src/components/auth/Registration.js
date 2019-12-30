@@ -1,7 +1,29 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager';
+import { FormControl } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
+import { withRouter } from "react-router-dom"
 
-export default class Registration extends Component {
+const styles = {
+  sectionContent: {
+    marginLeft: '10px',
+    display: 'flex',
+    width: 300,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+    // width: '100%',
+    // height: '100%',
+    position: 'fixed'
+  },
+  textField: {
+    width: 300
+  }
+}
+
+class Registration extends Component {
 
   state = {
     email: "",
@@ -54,13 +76,12 @@ export default class Registration extends Component {
                   .then((user) => {
                     // console.log('user registration', user)
                     const userId = user[0].id
-                    const userName = user[0].name
+                    const userName = user[0].name.split(" ")
                     localStorage.setItem("userId", parseInt(userId))
-                    localStorage.setItem("userName", userName)
+                    localStorage.setItem("userName", userName[0])
+                    localStorage.setItem("userNamenavId", 0)
+                    this.props.history.push("/setlist")
                   })
-              })
-              .then(() => {
-                this.props.history.push("/setlist")
               })
           }
           else {
@@ -75,33 +96,98 @@ export default class Registration extends Component {
 
   render() {
 
+    const { classes } = this.props;
     const { email, passwordA, passwordB } = this.state;
     const isEnabled = email.length > 0 && passwordA.length > 0 && passwordB.length > 0 && passwordA === passwordB;
 
     return (
       <div>
-        <div className="">
-          <h4>Please enter your information</h4>
-          <div className="card">
-            <div className="card-content">
-              <form onSubmit={this.handleLogin}>
+        <div className={classes.sectionContent}>
+          <h3>Please enter your information</h3>
+          <form onSubmit={this.handleLogin}>
+            <FormControl>
+              <TextField
+                type="text"
+                label="email"
+                id="email"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <input type="text" placeholder="Email" id="email" onChange={this.handleFieldChange} required></input> <br />
+            <FormControl>
+              <TextField
+                type="password"
+                label="password"
+                id="passwordA"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <input type="password" placeholder="Password" id="passwordA" onChange={this.handleFieldChange} required></input><br />
+            <FormControl>
+              <TextField
+                type="password"
+                label="confirm password"
+                id="passwordB"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <input type="password" placeholder="Confirm Password" id="passwordB" onChange={this.handleFieldChange} required></input><br />
+            <FormControl>
+              <TextField
+                type="text"
+                label="name"
+                id="name"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <input type="text" placeholder="Name" id="name" onChange={this.handleFieldChange} required></input> <br />
+            <FormControl>
+              <TextField
+                type="text"
+                label="zipcode"
+                id="zipcode"
+                margin="normal"
+                variant="outlined"
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                required />
+            </FormControl>
 
-                <input type="text" placeholder="Zipcode" id="zipcode" onChange={this.handleFieldChange} required></input> <br />
+            <Button
+              variant="contained"
+              type="submit"
+              value="Submit"
+              color="primary"
+              size="large"
+              className="btn"
+              disabled={!isEnabled}>Submit</Button>
 
-                <button type="submit" value="Submit" className="btn btn-primary" disabled={!isEnabled}>Submit</button>
-              </form>
-            </div>
-          </div>
+            <Button
+              variant="contained"
+
+              value="Cancel"
+              color="secondary"
+              size="large"
+              className="btn"
+              onClick={() => this.props.history.push('/')}
+            >Cancel</Button>
+          </form>
         </div>
-      </div >
+      </div>
     )
   }
 }
+
+export default withRouter(withStyles(styles)(Registration))

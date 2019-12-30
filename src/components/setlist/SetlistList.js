@@ -1,11 +1,57 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager'
 import SetlistCard from './SetlistCard'
+import { FormControl } from '@material-ui/core'
+// import { Input } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+// import { NativeSelect } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
+import Select from '@material-ui/core/Select';
 
 // defines function to get current logged in user from local storage
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
-export default class SetlistList extends Component {
+const styles = {
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: '10px',
+    width: 250
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+  allCards: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    backgroundColor: 'lightblue',
+  },
+  dropdown: {
+    marginLeft: '10px',
+    width: 250,
+    fontSize: 18
+  },
+  addSongButton: {
+    marginLeft: '10px',
+    width: 200,
+  },
+  pageText: {
+    marginLeft: '15px',
+  },
+  sectionContent: {
+    height: '100%',
+    marginBottom: 56
+  },
+};
+
+class SetlistList extends Component {
 
   state = {
     setlist: [],
@@ -14,6 +60,7 @@ export default class SetlistList extends Component {
     instrumentName: "",
     artistName: "",
     songTitle: "",
+    deezerId: "",
     loadingStatus: true
   }
 
@@ -56,10 +103,11 @@ export default class SetlistList extends Component {
       ApiManager.getAll("instruments"),
       //Gets user object and assigns instrument id to state
       //TODO This fetch call is causing an error
-      ApiManager.get("users", loggedInUserId())])
+      ApiManager.get("users", loggedInUserId())
+    ])
       .then(([setlistArray, instrumentArray, userObject]) => {
         this.setState({
-          setlist: setlistArray,
+          setlist: setlistArray.reverse(),
           instruments: instrumentArray,
           instrumentId: userObject.instrumentId,
           loadingStatus: false
@@ -74,20 +122,20 @@ export default class SetlistList extends Component {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
-          setlist: setlistArray
+          setlist: setlistArray.reverse()
         })
       })
   }
 
   //Checks for existing song in database
 
-  checkForSongInDatabase = () => {
-    return ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+  checkForSongInDatabase = (deezerId) => {
+    return ApiManager.getAll("songs", `deezerId=${deezerId}`)
       .then(response => {
-        if (response.length === 0) {
-          return false
-        } else {
+        if (response.length > 0) {
           return true
+        } else {
+          return false
         }
       }
       )
@@ -106,13 +154,12 @@ export default class SetlistList extends Component {
       )
   }
 
-  addSongToSetlist() {
-    ApiManager.getAll("songs", `artistName=${this.state.artistName}&songTitle=${this.state.songTitle}`)
+  addSongToSetlist(deezerId) {
+    ApiManager.getAll("songs", `deezerId=${deezerId}`)
       .then(response => {
         this.checkForSongInSetlist(response)
           .then(bool => {
-            if (!bool) {
-              console.log(response, "add song to set response")
+            if (bool === false) {
               const newSetlistSong = {
                 songId: response[0].id,
                 userId: loggedInUserId()
@@ -139,23 +186,31 @@ export default class SetlistList extends Component {
   constructNewSong = evt => {
 
     evt.preventDefault()
+    this.setState({ loadingStatus: true })
 
     if (this.state.artistName === "" || this.state.songTitle === "") {
       window.alert("Please input artist name and song title")
 
     } else {
 
-      this.setState({ loadingStatus: true })
-      this.checkForSongInDatabase()
-        .then(bool => {
-          if (!bool) {
-            ApiManager.deezer(this.state.artistName, this.state.songTitle)
-              .then(deezerResponse => {
-                if (deezerResponse.data.length > 0) {
+      ApiManager.deezer(this.state.artistName, this.state.songTitle)
+        .then(deezerResponse => {
+          if (deezerResponse.data.length === 0) {
+            window.alert("Song not found. Please try search again.")
+          } else {
+            this.setState({
+              artistName: deezerResponse.data[0].artist.name,
+              songTitle: deezerResponse.data[0].title,
+              deezerId: deezerResponse.data[0].id
+            })
+
+            this.checkForSongInDatabase(this.state.deezerId)
+              .then(bool => {
+                if (!bool) {
                   const song = {
-                    songTitle: deezerResponse.data[0].title,
-                    artistName: deezerResponse.data[0].artist.name,
-                    deezerId: deezerResponse.data[0].id
+                    songTitle: this.state.songTitle,
+                    artistName: this.state.artistName,
+                    deezerId: this.state.deezerId
                   }
                   ApiManager.post("songs", song)
                     .then(response => {
@@ -164,29 +219,36 @@ export default class SetlistList extends Component {
                         userId: loggedInUserId()
                       }
                       ApiManager.post("setlists", newSetlistSong)
-                        .then(() => this.setlistRerender())
+                        .then(() => {
+                          this.setlistRerender()
+                        })
                     })
                 } else {
-                  window.alert("Song not found. Please try search again.")
+                  this.addSongToSetlist(this.state.deezerId)
                 }
               })
-
-          } else {
-
-            this.addSongToSetlist()
           }
-        })
-    }
+        }
+        )
+    } evt.target.reset()
   }
+
+  // evt.target.reset()
 
   render() {
 
+    const { classes, ...other } = this.props;
+
     return (
       <>
-        <section className="section-content">
-          <form>
-            Current Instrument: <br />
-            <select
+
+        <section className={classes.sectionContent}>
+          <h3 className={classes.pageText}>Current Instrument:</h3>
+          <FormControl>
+            <Select
+              native
+              variant="outlined"
+              className={classes.dropdown}
               id="instrumentId"
               name="instrumentId"
               value={this.state.instrumentId}
@@ -195,41 +257,53 @@ export default class SetlistList extends Component {
                 <option key={instrument.id} value={instrument.id}>{instrument.instrumentName}
                 </option>
               )}
-            </select>
+            </Select>
+          </FormControl>
+          <form onSubmit={this.constructNewSong}>
+            <h3 className={classes.pageText}>Add a song you know how to play to your setlist.</h3>
+            <FormControl>
+              <TextField
+                required
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                id="artistName"
+                label="Artist Name"
+                margin="normal"
+                variant="outlined"
+              />
+            </FormControl>
             <br />
-            Add a song you know how to play to your setlist.<br />
-            <input type="text"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="artistName"
-              placeholder="Artist Name"
-            /><br />
-            <input type="text"
-              required
-              className="form-control"
-              onChange={this.handleFieldChange}
-              id="songTitle"
-              placeholder="Song Title"
-            />
+            <FormControl>
+              <TextField
+                required
+                className={classes.textField}
+                onChange={this.handleFieldChange}
+                id="songTitle"
+                label="Song Title"
+                margin="normal"
+                variant="outlined"
+              />
+            </FormControl>
             <br />
-            <button type="button" className="btn" onClick={this.constructNewSong}>Add Song</button>
-            <h1>Your Setlist</h1>
-            <div className="container-cards">
-              {this.state.setlist.map(songInSet =>
-                <SetlistCard
-                  key={songInSet.id}
-                  songTitle={songInSet.song.songTitle}
-                  artistName={songInSet.song.artistName}
-                  songInSet={songInSet}
-                  deleteSong={this.deleteSongFromSetlist}
-                  {...this.props}
-                />
-              )}
-            </div>
+            <Button type="submit" value="Submit" size="large" variant="contained" color="primary" className={classes.addSongButton}>Add Song</Button>
           </form>
+          <h3 className={classes.pageText}>Your Setlist</h3>
+          <div className={classes.allCards}>
+            {this.state.setlist.map(songInSet =>
+              <SetlistCard
+                key={songInSet.id}
+                songTitle={songInSet.song.songTitle}
+                artistName={songInSet.song.artistName}
+                songInSet={songInSet}
+                deleteSong={this.deleteSongFromSetlist}
+                {...other}
+              />
+            )}
+          </div>
         </section>
       </>
     )
   }
 }
+
+export default withStyles(styles)(SetlistList)
