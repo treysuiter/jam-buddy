@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom"
 // import { Link } from "react-router-dom"
 import { BottomNavigation } from '@material-ui/core'
 import { BottomNavigationAction } from '@material-ui/core/'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import SearchIcon from '@material-ui/icons/Search';
 import PeopleIcon from '@material-ui/icons/People';
