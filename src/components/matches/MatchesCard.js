@@ -5,6 +5,9 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import ApiManager from '../../modules/ApiManager';
+
+function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 
 const styles = {
   matchesCard: {
@@ -33,6 +36,19 @@ const styles = {
 
 class MatchesCard extends Component {
 
+  state = {
+    isThisMyBuddy: false
+  }
+
+  componentDidMount() {
+    ApiManager.getAll("buddies", `userId=${this.props.matchObj.id}&loggedInUser=${loggedInUserId()}`)
+    .then(response => {
+      this.setState({
+        isThisMyBuddy: response.length > 0 ? true : false
+      })
+    })
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -40,33 +56,17 @@ class MatchesCard extends Component {
     return (
       <Card className={classes.matchesCard}>
         <CardContent>
-
-          {/* <h3>{this.props.matchName}</h3> */}
-
           <Typography className={classes.title} color="textPrimary" gutterBottom>
-            {this.props.matchName}
+            {this.state.isThisMyBuddy ? <>{this.props.matchName} <i>(buddy)</i></> : this.props.matchName}
           </Typography>
-
-        
-        
-
-          {/* <h4>Setlist Matches: {this.props.songMatchTotal}</h4> */}
-
           <Typography label="Match Total:" className={classes.artist} color="textSecondary">
-          {`Match Total: ${this.props.songMatchTotal}`}
+            {`Match Total: ${this.props.songMatchTotal}`}
           </Typography>
-
-
         </CardContent>
         <CardActions>
-
-          {/* <Link to={`/userDetails/${this.props.matchObj.id}`}><button>Details</button></Link> */}
-
           <Button size="medium" className="detailsButton" color="primary" onClick={() => this.props.history.push(`/userDetails/${this.props.matchObj.id}`)}>Details
         </Button>
-
         </CardActions>
-
       </Card>
     )
   }

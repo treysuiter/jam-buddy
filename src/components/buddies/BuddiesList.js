@@ -50,6 +50,7 @@ class BuddiesList extends Component {
 
   state = {
     buddies: [],
+    noBuddyMessage: "",
     loadingStatus: true
   }
 
@@ -58,14 +59,11 @@ class BuddiesList extends Component {
     ApiManager.getAll("buddies", `loggedInUser=${loggedInUserId()}&_expand=user`)
       .then(response => {
         this.setState({
-          buddies: response
+          buddies: response,
+          noBuddyMessage: response.length === 0 ? "You currently have no buddies" : ""
         })
       })
 
-  }
-
-  myConsoleLogTest() {
-    console.group(this.state)
   }
 
   render() {
@@ -85,6 +83,7 @@ class BuddiesList extends Component {
                 {...other}
               />)}
           </div>
+          <h3 className={classes.pageText}>{this.state.noBuddyMessage}</h3>
         </div>
       </>
     )

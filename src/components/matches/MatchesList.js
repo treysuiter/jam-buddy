@@ -106,8 +106,11 @@ class MatchesList extends Component {
 
   findMatches(instrumentFilter) {
 
+    this.setState({ loadingStatus: true })
+    
     //Creates an array of matches users with each entry containing an object that contains their name,
     //number of matches, all matching song ids and instrument name.
+
     const matchesArray = []
     let mySetlistArray = []
     let otherUsersSetlistArray = []
@@ -175,7 +178,8 @@ class MatchesList extends Component {
         // sorts matchesArray by total property value of each object descending
         orderedArray.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
         this.setState({
-          songMatches: orderedArray
+          songMatches: orderedArray,
+          loadingStatus: false
         })
       })
   }
@@ -205,7 +209,7 @@ class MatchesList extends Component {
                 )}
               </Select>
             </FormControl>
-            <Button type="button" value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton} onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
+            <Button type="button" disabled={this.state.loadingStatus} value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton} onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
           </form>
           <div className={classes.allCards}>
             {this.state.songMatches.map(matchObj =>

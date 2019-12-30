@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom"
 // import { Link } from "react-router-dom"
 import { BottomNavigation } from '@material-ui/core'
 import { BottomNavigationAction } from '@material-ui/core/'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import SearchIcon from '@material-ui/icons/Search';
 import PeopleIcon from '@material-ui/icons/People';
@@ -15,7 +15,6 @@ const styles = {
     position: 'fixed',
     overflow: 'hidden',
     bottom: 0,
-    color: 'black'
   },
 };
 
@@ -40,7 +39,7 @@ class NavBar extends Component {
 
     const { classes } = this.props;
     const { value } = this.state;
-    
+
 
     return (
       <>
@@ -72,7 +71,7 @@ class NavBar extends Component {
           <BottomNavigationAction
             onClick={this.props.clearUser}
             label={`Logout ${this.props.userName}`}
-            icon={<AccountCircleIcon />}
+          // icon={<AccountCircleIcon />}
           />
 
         </BottomNavigation>
