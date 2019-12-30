@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ApiManager from '../../modules/ApiManager';
 import BuddiesCard from './BuddiesCard';
-import { Button } from '@material-ui/core';
+// import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 
 function loggedInUserId() { return parseInt(localStorage.getItem("userId")) }
 

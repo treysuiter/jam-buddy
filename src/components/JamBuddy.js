@@ -3,7 +3,7 @@ import NavBar from "./nav/NavBar";
 import ApplicationViews from "./ApplicationViews"
 import { withRouter } from "react-router-dom"
 // import SimpleMenu from "./nav/TopNav";
-import TopNav from "./nav/TopNav";
+// import TopNav from "./nav/TopNav";
 
 
 
@@ -52,15 +52,11 @@ class JamBuddy extends Component {
 
   render() {
 
-    //TODO clean up this user name code
-
     const { user } = this.state
 
     return (
       <>
-        {/* {user ? <TopNav user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser}/> : null } */}
         <ApplicationViews user={user} setUser={this.setUser} />
-
         {user ? <NavBar user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser} /> : null}
 
       </>
