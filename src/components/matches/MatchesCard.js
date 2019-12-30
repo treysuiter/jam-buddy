@@ -40,33 +40,17 @@ class MatchesCard extends Component {
     return (
       <Card className={classes.matchesCard}>
         <CardContent>
-
-          {/* <h3>{this.props.matchName}</h3> */}
-
           <Typography className={classes.title} color="textPrimary" gutterBottom>
             {this.props.matchName}
           </Typography>
-
-        
-        
-
-          {/* <h4>Setlist Matches: {this.props.songMatchTotal}</h4> */}
-
           <Typography label="Match Total:" className={classes.artist} color="textSecondary">
-          {`Match Total: ${this.props.songMatchTotal}`}
+            {`Match Total: ${this.props.songMatchTotal}`}
           </Typography>
-
-
         </CardContent>
         <CardActions>
-
-          {/* <Link to={`/userDetails/${this.props.matchObj.id}`}><button>Details</button></Link> */}
-
           <Button size="medium" className="detailsButton" color="primary" onClick={() => this.props.history.push(`/userDetails/${this.props.matchObj.id}`)}>Details
         </Button>
-
         </CardActions>
-
       </Card>
     )
   }
