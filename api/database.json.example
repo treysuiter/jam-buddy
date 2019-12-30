@@ -1,68 +1,295 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Jimmy Jam Guitar Fingers",
       "email": "jim@email.com",
       "password": "123",
+      "name": "Jim",
+      "zipcode": "111111",
       "instrumentId": 2,
-      "zipcode": "37115",
-      "image": "jim-image-url"
+      "image": "",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Fred Flippy Drummer",
-      "email": "fred@email.com",
+      "email": "jeff@email.com",
       "password": "123",
-      "instrumentId": 2,
-      "zipcode": "37216",
-      "image": "fred-image-url"
-    },
-    {
-      "id": 3,
-      "name": "Bob Bass DuPree",
-      "email": "bob@email.com",
-      "password": "123",
+      "name": "Jeff",
+      "zipcode": "222222",
       "instrumentId": 3,
-      "zipcode": "37218",
-      "image": "bob-image-url"
+      "image": "",
+      "id": 2
+    },
+    {
+      "email": "kevin@email.com",
+      "password": "123",
+      "name": "Kevin",
+      "zipcode": "333333",
+      "instrumentId": 2,
+      "image": "",
+      "id": 3
+    },
+    {
+      "email": "guy@guy.com",
+      "password": "123",
+      "name": "Guy",
+      "zipcode": "37027",
+      "instrumentId": 4,
+      "image": "",
+      "id": 4
+    },
+    {
+      "email": "eric@email.com",
+      "password": "123",
+      "name": "Eric",
+      "zipcode": "444444",
+      "instrumentId": 3,
+      "image": "",
+      "id": 5
+    },
+    {
+      "email": "jessica@email.com",
+      "password": "123",
+      "name": "Jessica",
+      "zipcode": "777777",
+      "instrumentId": 3,
+      "image": "",
+      "id": 6
+    },
+    {
+      "email": "erin@email.com",
+      "password": "123",
+      "name": "Erin",
+      "zipcode": "37115",
+      "instrumentId": 4,
+      "image": "",
+      "id": 7
+    },
+    {
+      "email": "matt@emai.com",
+      "password": "123123",
+      "name": "matt",
+      "zipcode": "12345",
+      "instrumentId": 2,
+      "image": "",
+      "id": 8
+    },
+    {
+      "email": "rebecca@email.com",
+      "password": "123",
+      "name": "Rebecca",
+      "zipcode": "555555",
+      "instrumentId": 2,
+      "image": "",
+      "id": 9
     }
   ],
   "songs": [
     {
-      "id": 1,
-      "songTitle": "Freebird",
-      "artistName": "Lynyrd Skynyrd",
-      "deezerId": ""
+      "songTitle": "Rusty Cage",
+      "artistName": "Soundgarden",
+      "deezerId": 136340400,
+      "id": 1
     },
     {
-      "id": 2,
-      "songTitle": "Hotel California",
-      "artistName": "The Eagles",
-      "deezerId": ""
+      "songTitle": "Alleys Of Your Mind",
+      "artistName": "Cybotron",
+      "deezerId": 4111557,
+      "id": 2
     },
     {
-      "id": 3,
-      "songTitle": "Stairway to Heaven",
+      "songTitle": "Aja",
+      "artistName": "Steely Dan",
+      "deezerId": 2947668,
+      "id": 3
+    },
+    {
+      "songTitle": "One (Remastered)",
+      "artistName": "Metallica",
+      "deezerId": 545483122,
+      "id": 4
+    },
+    {
+      "songTitle": "Enter Sandman",
+      "artistName": "Metallica",
+      "deezerId": 136408134,
+      "id": 5
+    },
+    {
+      "songTitle": "Lithium",
+      "artistName": "Nirvana",
+      "deezerId": 529900491,
+      "id": 6
+    },
+    {
+      "songTitle": "Slow Jamz (feat. Kanye West & Jamie Foxx)",
+      "artistName": "Twista",
+      "deezerId": 661912,
+      "id": 7
+    },
+    {
+      "songTitle": "Tom Sawyer",
+      "artistName": "Rush",
+      "deezerId": 10303625,
+      "id": 8
+    },
+    {
+      "songTitle": "Maggot Brain",
+      "artistName": "Funkadelic",
+      "deezerId": 375506201,
+      "id": 9
+    },
+    {
+      "songTitle": "Lonely Woman",
+      "artistName": "Ornette Coleman",
+      "deezerId": 671852,
+      "id": 10
+    },
+    {
+      "songTitle": "The Mollusk",
+      "artistName": "Ween",
+      "deezerId": 6615038,
+      "id": 11
+    },
+    {
+      "songTitle": "Hammer Smashed Face",
+      "artistName": "Cannibal Corpse",
+      "deezerId": 70877831,
+      "id": 12
+    },
+    {
+      "songTitle": "Over the Hills and Far Away (2012 Remaster)",
       "artistName": "Led Zeppelin",
-      "deezerId": ""
+      "deezerId": 88003135,
+      "id": 13
+    },
+    {
+      "songTitle": "Tales Of Brave Ulysses",
+      "artistName": "Cream",
+      "deezerId": 2265593,
+      "id": 14
+    },
+    {
+      "songTitle": "Spanish Castle Magic",
+      "artistName": "Jimi Hendrix",
+      "deezerId": 4952830,
+      "id": 15
+    },
+    {
+      "songTitle": "Rebel Girl",
+      "artistName": "Bikini Kill",
+      "deezerId": 30508181,
+      "id": 16
+    },
+    {
+      "songTitle": "Darklands",
+      "artistName": "The Jesus and Mary Chain",
+      "deezerId": 764001,
+      "id": 17
+    },
+    {
+      "songTitle": "Trouble Man",
+      "artistName": "Marvin Gaye",
+      "deezerId": 2531220,
+      "id": 18
+    },
+    {
+      "songTitle": "Born to Run",
+      "artistName": "Bruce Springsteen",
+      "deezerId": 132635408,
+      "id": 19
+    },
+    {
+      "songTitle": "Green Glass",
+      "artistName": "Jawbox",
+      "deezerId": 10903726,
+      "id": 20
+    },
+    {
+      "songTitle": "Smells Like Teen Spirit",
+      "artistName": "Nirvana",
+      "deezerId": 529900471,
+      "id": 21
+    },
+    {
+      "songTitle": "2112: Overture / The Temples Of Syrinx / Discovery / Presentation / Oracle / Soliloquy / Grand Finale",
+      "artistName": "Rush",
+      "deezerId": 62759882,
+      "id": 22
+    },
+    {
+      "songTitle": "Black Magic Woman",
+      "artistName": "Santana",
+      "deezerId": 857962,
+      "id": 23
+    },
+    {
+      "songTitle": "Better Man",
+      "artistName": "Pearl Jam",
+      "deezerId": 15586416,
+      "id": 24
+    },
+    {
+      "songTitle": "Space Truckin'",
+      "artistName": "Deep Purple",
+      "deezerId": 14619517,
+      "id": 25
+    },
+    {
+      "songTitle": "The Chipmunk Song (Christmas Don't Be Late)",
+      "artistName": "The Chipmunks",
+      "deezerId": 3252348,
+      "id": 26
     }
   ],
   "buddies": [
     {
-      "id": 2,
+      "loggedInUser": 4,
       "userId": 1,
-      "loggedInUser": 2
+      "id": 1
+    },
+    {
+      "loggedInUser": 2,
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "loggedInUser": 5,
+      "userId": 4,
+      "id": 3
+    },
+    {
+      "loggedInUser": 3,
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "loggedInUser": 3,
+      "userId": 4,
+      "id": 5
+    },
+    {
+      "loggedInUser": 7,
+      "userId": 2,
+      "id": 7
     },
     {
       "loggedInUser": 1,
-      "userId": 2,
-      "id": 3
+      "userId": 6,
+      "id": 8
+    },
+    {
+      "loggedInUser": 1,
+      "userId": 7,
+      "id": 9
     },
     {
       "loggedInUser": 1,
       "userId": 3,
-      "id": 4
+      "id": 10
+    },
+    {
+      "loggedInUser": 1,
+      "userId": 5,
+      "id": 11
     }
   ],
   "instruments": [
@@ -85,29 +312,229 @@
   ],
   "setlists": [
     {
-      "id": 4,
-      "songId": 3,
-      "userId": 2
-    },
-    {
-      "id": 5,
-      "songId": 1,
-      "userId": 3
-    },
-    {
-      "id": 6,
-      "songId": 3,
-      "userId": 3
-    },
-    {
-      "songId": 1,
+      "songId": 2,
       "userId": 1,
-      "id": 7
+      "id": 2
+    },
+    {
+      "songId": 3,
+      "userId": 1,
+      "id": 3
     },
     {
       "songId": 2,
-      "userId": 1,
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "songId": 4,
+      "userId": 2,
+      "id": 6
+    },
+    {
+      "songId": 5,
+      "userId": 4,
+      "id": 7
+    },
+    {
+      "songId": 6,
+      "userId": 4,
       "id": 8
+    },
+    {
+      "songId": 3,
+      "userId": 4,
+      "id": 9
+    },
+    {
+      "songId": 8,
+      "userId": 1,
+      "id": 11
+    },
+    {
+      "songId": 9,
+      "userId": 1,
+      "id": 12
+    },
+    {
+      "songId": 10,
+      "userId": 1,
+      "id": 13
+    },
+    {
+      "songId": 11,
+      "userId": 1,
+      "id": 14
+    },
+    {
+      "songId": 12,
+      "userId": 1,
+      "id": 15
+    },
+    {
+      "songId": 13,
+      "userId": 1,
+      "id": 16
+    },
+    {
+      "songId": 14,
+      "userId": 1,
+      "id": 17
+    },
+    {
+      "songId": 15,
+      "userId": 1,
+      "id": 18
+    },
+    {
+      "songId": 16,
+      "userId": 1,
+      "id": 19
+    },
+    {
+      "songId": 17,
+      "userId": 1,
+      "id": 20
+    },
+    {
+      "songId": 11,
+      "userId": 2,
+      "id": 21
+    },
+    {
+      "songId": 9,
+      "userId": 2,
+      "id": 22
+    },
+    {
+      "songId": 16,
+      "userId": 2,
+      "id": 23
+    },
+    {
+      "songId": 15,
+      "userId": 5,
+      "id": 24
+    },
+    {
+      "songId": 1,
+      "userId": 5,
+      "id": 25
+    },
+    {
+      "songId": 6,
+      "userId": 5,
+      "id": 26
+    },
+    {
+      "songId": 10,
+      "userId": 5,
+      "id": 27
+    },
+    {
+      "songId": 18,
+      "userId": 5,
+      "id": 28
+    },
+    {
+      "songId": 14,
+      "userId": 5,
+      "id": 29
+    },
+    {
+      "songId": 16,
+      "userId": 3,
+      "id": 30
+    },
+    {
+      "songId": 17,
+      "userId": 3,
+      "id": 31
+    },
+    {
+      "songId": 6,
+      "userId": 3,
+      "id": 32
+    },
+    {
+      "songId": 11,
+      "userId": 3,
+      "id": 33
+    },
+    {
+      "songId": 20,
+      "userId": 6,
+      "id": 35
+    },
+    {
+      "songId": 14,
+      "userId": 6,
+      "id": 36
+    },
+    {
+      "songId": 15,
+      "userId": 6,
+      "id": 37
+    },
+    {
+      "songId": 19,
+      "userId": 6,
+      "id": 38
+    },
+    {
+      "songId": 21,
+      "userId": 7,
+      "id": 39
+    },
+    {
+      "songId": 14,
+      "userId": 7,
+      "id": 40
+    },
+    {
+      "songId": 16,
+      "userId": 7,
+      "id": 41
+    },
+    {
+      "songId": 22,
+      "userId": 7,
+      "id": 42
+    },
+    {
+      "songId": 23,
+      "userId": 7,
+      "id": 43
+    },
+    {
+      "songId": 24,
+      "userId": 8,
+      "id": 44
+    },
+    {
+      "songId": 6,
+      "userId": 8,
+      "id": 45
+    },
+    {
+      "songId": 13,
+      "userId": 8,
+      "id": 46
+    },
+    {
+      "songId": 8,
+      "userId": 8,
+      "id": 47
+    },
+    {
+      "songId": 25,
+      "userId": 3,
+      "id": 48
+    },
+    {
+      "songId": 26,
+      "userId": 9,
+      "id": 49
     }
   ]
 }
