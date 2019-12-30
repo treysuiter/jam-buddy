@@ -172,7 +172,7 @@ class MatchesList extends Component {
           return moreThanZeroMatches
         })
 
-
+        // sorts matchesArray by total property value of each object descending
         orderedArray.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
         this.setState({
           songMatches: orderedArray
