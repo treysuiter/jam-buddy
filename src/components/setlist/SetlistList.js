@@ -204,6 +204,7 @@ class SetlistList extends Component {
         .then(deezerResponse => {
           if (deezerResponse.data.length === 0) {
             window.alert("Song not found. Please try search again.")
+            this.setState({ loadingStatus: false })
           } else {
             this.setState({
               artistName: deezerResponse.data[0].artist.name,
