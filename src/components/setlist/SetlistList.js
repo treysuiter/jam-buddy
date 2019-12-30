@@ -87,7 +87,8 @@ class SetlistList extends Component {
       .then(() => ApiManager.get("users", loggedInUserId(), "_expand=instrument")
         .then(userObject => {
           this.setState({
-            instrumentName: userObject.instrument.instrumentName
+            instrumentName: userObject.instrument.instrumentName,
+            loadingStatus: false
           })
         }))
   }
@@ -121,7 +122,8 @@ class SetlistList extends Component {
     ApiManager.getAll("setlists", `userId=${loggedInUserId()}&_expand=song`)
       .then(setlistArray => {
         this.setState({
-          setlist: setlistArray.reverse()
+          setlist: setlistArray.reverse(),
+          loadingStatus: false
         })
       })
   }
@@ -170,7 +172,6 @@ class SetlistList extends Component {
               ApiManager.post("setlists", newSetlistSong)
                 .then(() => {
                   this.setlistRerender()
-                  this.setState({ loadingStatus: false })
                 })
             } else {
               window.alert("This song is already in your setlist")
