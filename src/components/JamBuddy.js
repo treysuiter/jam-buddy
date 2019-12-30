@@ -52,15 +52,11 @@ class JamBuddy extends Component {
 
   render() {
 
-    //TODO clean up this user name code
-
     const { user } = this.state
 
     return (
       <>
-        {/* {user ? <TopNav user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser}/> : null } */}
         <ApplicationViews user={user} setUser={this.setUser} />
-
         {user ? <NavBar user={user} userName={localStorage.getItem("userName")} clearUser={this.clearUser} /> : null}
 
       </>

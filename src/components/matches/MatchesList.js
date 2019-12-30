@@ -64,6 +64,8 @@ class MatchesList extends Component {
     this.setState(stateToChange)
   }
 
+  //Handles when instrument filter drop down is changed
+
   handleDropdownChange = evt => {
     this.setState({
       instrumentId: parseInt(evt.target.value),
@@ -83,6 +85,23 @@ class MatchesList extends Component {
       })
       .then(() => this.findMatches(this.state.instrumentId))
   }
+
+ /* 
+
+This is the magic matching function! 
+ 
+It initializes three arrays: 
+One for logged in user's setlist, one for all other user's setlists, and one for matched users;
+It will loop through each user in the otherUsersSetlistArray, create a match object containing the current user's information to be pushed 
+to the matchesArray, loop through each song in the current otherUser's setlist, and test to see if each song is match in the 
+currently logged in user's setlist; If a match is found, the current match object us updated by incrementing the total 
+matches by one and the matched song id is pushed to an array property on the match object (note: no functionality is currently
+implemented with the matchIds property on the match object); After matching is complete, the matchesArray is returned with only objects that have
+a total value of greater than one and instrumentId of the same value as the filter by instrument drop down currently selected
+which is passed as an argument. The returned matches Array is also ordered to by the total property on each match obj from greatest 
+to least so that the returned matchesArray displays users with  the most matches first.
+
+*/
 
   findMatches(instrumentFilter) {
 

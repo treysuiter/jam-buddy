@@ -43,6 +43,8 @@ class Home extends Component {
 
   componentDidMount() {
 
+    //loops through all known songs and sets state to the most popular song title and artist name
+
     ApiManager.getAll("songs")
       .then(allSongsResponse => {
         let allSongs = []

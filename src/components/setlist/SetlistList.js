@@ -141,6 +141,8 @@ class SetlistList extends Component {
       )
   }
 
+  //Checks for song already added to setlist
+
   checkForSongInSetlist = (songObj) => {
     //ex fetch ttp://localhost:5002/setlists/?songId=1&userId=1
     return ApiManager.getAll("setlists", `songId=${songObj[0].id}&userId=${loggedInUserId()}`)
@@ -153,6 +155,8 @@ class SetlistList extends Component {
       }
       )
   }
+
+  //Adds song to user's setlist
 
   addSongToSetlist(deezerId) {
     ApiManager.getAll("songs", `deezerId=${deezerId}`)
@@ -172,6 +176,7 @@ class SetlistList extends Component {
           })
       })
   }
+
   //Delete song from setlist
 
   deleteSongFromSetlist = id => {
@@ -180,8 +185,8 @@ class SetlistList extends Component {
 
   }
 
-  // Handles action after Add Song button is clicked; checks for filled out song title and artist name fields; 
-  // checks for songs already in database and adds song to database if not present; adds song to setlist
+  // Handles action after Add Song button is clicked; checks for filled out song title and artist name fields; queries Deezer API for song title, artist name, and deezer id,
+  // checks for songs already in database and adds song to database if not present; adds song to setlist if not in setlist already
 
   constructNewSong = evt => {
 
@@ -232,8 +237,6 @@ class SetlistList extends Component {
         )
     } evt.target.reset()
   }
-
-  // evt.target.reset()
 
   render() {
 
