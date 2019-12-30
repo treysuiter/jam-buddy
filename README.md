@@ -22,6 +22,7 @@ JamBuddy is application that allows musicians to be matched with other musicians
 ## Using the App
 
 1. In the browser, navigate to `localhost:3000`
+1. Open your Developer Tools and toggle your device toolbar to on as JamBuddy is intended for mobile use.
 1. If you have never used JamBuddy before, `Register` a new account
 1. If you are a returning user, `Login` with your account information
 1. Add songs you know how to play to your `setlist`. 
