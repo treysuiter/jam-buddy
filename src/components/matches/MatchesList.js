@@ -54,7 +54,7 @@ class MatchesList extends Component {
   state = {
     songMatches: [],
     instruments: [],
-    instrumentId: parseInt(localStorage.getItem("instrumentId")) !== null ? parseInt(localStorage.getItem("instrumentId")) : "",
+    instrumentId: parseInt(localStorage.getItem("instrumentId")) !== null ? parseInt(localStorage.getItem("instrumentId")) : 1,
     loadingStatus: true
   }
 
