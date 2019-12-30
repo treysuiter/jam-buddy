@@ -205,7 +205,6 @@ class MatchesList extends Component {
                 )}
               </Select>
             </FormControl>
-
             <Button type="button" value="Filter Matches" size="large" variant="contained" color="primary" className={classes.filterButton} onClick={() => this.findMatches(this.state.instrumentId)}>Filter Matches</Button>
           </form>
           <div className={classes.allCards}>
