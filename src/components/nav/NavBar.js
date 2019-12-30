@@ -40,7 +40,7 @@ class NavBar extends Component {
 
     const { classes } = this.props;
     const { value } = this.state;
-    
+
 
     return (
       <>
@@ -72,7 +72,7 @@ class NavBar extends Component {
           <BottomNavigationAction
             onClick={this.props.clearUser}
             label={`Logout ${this.props.userName}`}
-            icon={<AccountCircleIcon />}
+          // icon={<AccountCircleIcon />}
           />
 
         </BottomNavigation>
