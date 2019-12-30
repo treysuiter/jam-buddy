@@ -102,7 +102,6 @@ class SetlistList extends Component {
       //Get all instruments, create and array, and set array to value of state
       ApiManager.getAll("instruments"),
       //Gets user object and assigns instrument id to state
-      //TODO This fetch call is causing an error
       ApiManager.get("users", loggedInUserId())
     ])
       .then(([setlistArray, instrumentArray, userObject]) => {
