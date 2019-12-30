@@ -15,7 +15,6 @@ const styles = {
     position: 'fixed',
     overflow: 'hidden',
     bottom: 0,
-    color: 'black'
   },
 };
 
