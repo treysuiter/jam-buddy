@@ -43,17 +43,14 @@ class Home extends Component {
 
   componentDidMount() {
 
+    const allSongs = []
+    let index = 0
+
     //loops through all known songs and sets state to the most popular song title and artist name
 
     ApiManager.getAll("songs")
       .then(allSongsResponse => {
-        
-        const allSongs = []
-      
         allSongsResponse.forEach(song => {
-
-          console.log(allSongs, "should be mutiple allsong")
-
           ApiManager.getAll("setlists", `songId=${song.id}`)
             .then(setlistResponse => {
               let songObj = {
@@ -64,10 +61,13 @@ class Home extends Component {
               }
               allSongs.push(songObj)
               allSongs.sort((a, b) => (a.total < b.total) ? 1 : ((b.total < a.total) ? -1 : 0))
-              this.setState({
-                topSong: allSongs[0].name,
-                topSongArtist: allSongs[0].artist
-              })
+              index++
+              if (index === allSongsResponse.length - 1) {
+                this.setState({
+                  topSong: allSongs[0].name,
+                  topSongArtist: allSongs[0].artist
+                })
+              }
             })
         })
       })
