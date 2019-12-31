@@ -1,4 +1,5 @@
-# JamBuddy: Find your buddy. And Jam.
+# JamBuddy 
+# Find your buddy. And jam.
 
 ## What is JamBuddy?
 
