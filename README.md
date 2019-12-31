@@ -1,6 +1,8 @@
 # JamBuddy 
 # Find your buddy. And jam.
 
+![jam buddy demo](./JamBuddyDemo.gif)
+
 ## What is JamBuddy?
 
 JamBuddy is application that allows musicians to be matched with other musicians based on what songs they know how to play.
@@ -32,7 +34,7 @@ JamBuddy is application that allows musicians to be matched with other musicians
 
 
 ## ERD
-![nutshell features](./JamBuddyERD.png)
+![jam buddy features](./JamBuddyERD.png)
 
 ---
 &copy;2019 - Trey Suiter
