@@ -1,5 +1,5 @@
 # JamBuddy 
-# Find your buddy. And jam.
+## Find your buddy. And jam.
 
 ![jam buddy demo](./JamBuddyDemo.gif)
 
