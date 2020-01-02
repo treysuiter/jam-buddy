@@ -175,6 +175,7 @@ class SetlistList extends Component {
                 })
             } else {
               window.alert("This song is already in your setlist")
+              this.setState({ loadingStatus: false })
             }
           })
       })
