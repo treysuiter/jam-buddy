@@ -5,7 +5,7 @@ Find your buddy. And jam.
 
 ## What is JamBuddy?
 
-JamBuddy is application that allows musicians to be matched with other musicians based on what songs they know how to play.
+JamBuddy is an application that allows musicians to be matched with other musicians based on what songs they know how to play.
 
 ## Setup: Follow these steps exactly
 
