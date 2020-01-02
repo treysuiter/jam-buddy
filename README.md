@@ -12,9 +12,7 @@ JamBuddy is application that allows musicians to be matched with other musicians
 1. Clone this repository
 1. `cd` into the directory it creates
 1. In the `api` directory, create a copy of the `database.json.example` and remove the .example extension.
-1. Run `npm install` and wait for all dependencies to be installed
-1. Run `npm install @material-ui/core` to install Material UI dependencies.
-1. Run `npm install @material-ui/icons` to install Material UI icon dependencies.
+1. Run `npm install` and wait for all dependencies to be installed.
 1. Run `npm start` to verify that installation was successful.
 
 ## Running Your Server
