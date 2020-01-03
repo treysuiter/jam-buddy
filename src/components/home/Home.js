@@ -83,7 +83,7 @@ class Home extends Component {
           <img src={require('../images/JamBuddyLogo.png')} alt="Jam Buddy Logo" />
         </picture>
         <Typography className={classes.topSong} color="textPrimary" gutterBottom>
-          <br />Current top JamBuddy jam: <br /> <b>{this.state.topSong}</b><br />{this.state.topSongArtist}
+          <br />Current Top JamBuddy Jam: <br /> <b>{this.state.topSong}</b><br />{this.state.topSongArtist}
         </Typography>
         <div className={classes.bothButtons}>
 
